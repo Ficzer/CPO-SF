@@ -24,9 +24,9 @@ public class Generator
         return signal;
     }
 
-    public Signal GuasianNoise(Double amplitude, Double startingTime, Double durationTime, int sampling)
+    public Signal GaussianNoise(Double amplitude, Double startingTime, Double durationTime, int sampling)
     {
-        Signal signal = new Signal("GuasianNoise");
+        Signal signal = new Signal("GaussianNoise");
 
         signal.setAmplitude(amplitude);
         signal.setStartingTime(startingTime);
