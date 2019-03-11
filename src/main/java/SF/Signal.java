@@ -2,9 +2,8 @@ package SF;
 
 
 import lombok.Data;
-import lombok.Getter;
-import lombok.Setter;
 
+import java.util.ArrayList;
 import java.util.List;
 
 @Data
@@ -22,6 +21,8 @@ public class Signal
     public Signal(String name)
     {
         this.name = name;
+        this.values = new ArrayList<Double>();
+        this.imaginaryValues = new ArrayList<Double>();
     }
 
     public Signal(String name, Double amplitude, Double period, Double startingTime, Double durationTime, Double fulfillment)
@@ -32,8 +33,8 @@ public class Signal
         this.startingTime = startingTime;
         this.durationTime = durationTime;
         this.fulfillment = fulfillment;
+        this.values = new ArrayList<Double>();
+        this.imaginaryValues = new ArrayList<Double>();
     }
-
-    //TODO: Signal class for discreet signal
 
 }
