@@ -2,6 +2,7 @@ package SF;
 
 import java.util.Map;
 import java.util.Random;
+import java.util.TreeMap;
 
 public class Generator
 {
@@ -55,14 +56,14 @@ public class Generator
         signal.setPeriod(period);
 
         Double value;
-        System.out.println(durationTime/(double)sampling);
 
         for(Double i=startingTime; i<durationTime+startingTime; i+=durationTime/(double)sampling)
         {
             value = amplitude * Math.sin(2*Math.PI/period*(i-startingTime));
-            System.out.println(value);
             signal.getValues().put(i, value);
         }
+
+
 
         return signal;
     }
@@ -105,8 +106,67 @@ public class Generator
         signal.setPeriod(period);
         signal.setFulfillment(fullfilment);
 
-        Double value;
+        Double value, tempIterator = 0.0;
+        int k = 0;
 
-        return null;
+        for(Double i=startingTime; i<durationTime+startingTime; i+=durationTime/(double)sampling)
+        {
+            if(tempIterator>period)
+            {
+                k++;
+                tempIterator = 0.0;
+            }
+
+            if(i > k*period + startingTime && i < fullfilment*period + k*period + startingTime)
+            {
+                value = amplitude;
+            }
+            else
+            {
+                value = 0.0;
+            }
+            System.out.println(value);
+            signal.getValues().put(i, value);
+            tempIterator+=durationTime/(double)sampling;
+        }
+
+        return signal;
+    }
+
+    public Signal RectangularSimetrical(Double amplitude, Double startingTime, Double durationTime, Double period, Double fullfilment, int sampling)
+    {
+        Signal signal = new Signal("Rectangular");
+
+        signal.setAmplitude(amplitude);
+        signal.setStartingTime(startingTime);
+        signal.setDurationTime(durationTime);
+        signal.setPeriod(period);
+        signal.setFulfillment(fullfilment);
+
+        Double value, tempIterator = 0.0;
+        int k = 0;
+
+        for(Double i=startingTime; i<durationTime+startingTime; i+=durationTime/(double)sampling)
+        {
+            if(tempIterator>period)
+            {
+                k++;
+                tempIterator = 0.0;
+            }
+
+            if(i > k*period + startingTime && i < fullfilment*period + k*period + startingTime)
+            {
+                value = amplitude;
+            }
+            else
+            {
+                value = -amplitude;
+            }
+            System.out.println(value);
+            signal.getValues().put(i, value);
+            tempIterator+=durationTime/(double)sampling;
+        }
+
+        return signal;
     }
 }
