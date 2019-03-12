@@ -11,7 +11,7 @@ public class App
         System.out.println(generator.Sinusoidal(1.0, 0.0, 20.0, 10.0, 100));
 
         // Create Chart
-        HashMap<Double, Double> values = generator.Sinusoidal(1.0, 0.0, 20.0, 10.0, 100).getValues();
+        HashMap<Double, Double> values = generator.Triangular(1.0, 0.0, 20.0, 10.0, 0.1, 500).getValues();
         double[] xs = new double[values.size()];
         double[] list = new double[values.size()];
 
