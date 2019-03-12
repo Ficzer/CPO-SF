@@ -167,6 +167,8 @@ public class Generator
             tempIterator+=durationTime/(double)sampling;
         }
 
+
+
         return signal;
     }
 }

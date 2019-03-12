@@ -11,19 +11,19 @@ public class App
         System.out.println(generator.Sinusoidal(1.0, 0.0, 20.0, 10.0, 100));
 
         // Create Chart
-        HashMap<Double, Double> values = generator.Rectangular(1.0, 0.0, 40.0, 10.0, 0.5,  300).getValues();
+        HashMap<Double, Double> values = generator.Sinusoidal(1.0, 0.0, 20.0, 10.0, 100).getValues();
         double[] xs = new double[values.size()];
         double[] list = new double[values.size()];
 
-        // As i see it we have to sort hash map by key because it's not sortet idk why xd, i tried but i could not do it
+        TreeMap<Double, Double> map = new TreeMap<Double, Double>(values);
 
         int i=0;
-        for (Map.Entry<Double,Double> entry: values.entrySet())
+        for (Map.Entry<Double,Double> entry: map.entrySet())
         {
             xs[i] = entry.getKey();
             list[i] = entry.getValue();
             i++;
-        } // TODO fix god damn ploter xd, in hashmap key is time and value is value
+        }
 
         Draw draw = new Draw();
         draw.draw(xs, list);
