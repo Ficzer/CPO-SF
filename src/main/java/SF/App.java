@@ -1,23 +1,29 @@
 package SF;
 
-import java.util.List;
+import java.util.HashMap;
+import java.util.Iterator;
+import java.util.Map;
+
 
 public class App
 {
-
     public static void main(String[] args) {
         System.out.println("XDD");
         Generator generator = new Generator();
-        System.out.println(generator.ErectedSinusoidal(1.0, 0.0, 10.0, 2.0, 100));
+        System.out.println(generator.Sinusoidal(1.0, 0.0, 10.0, 10.0, 100));
 
         // Create Chart
-        List<Double> values = generator.Sinusoidal(5.0, 0.0, 10.0, 3.0, 100).getValues();
+        HashMap<Double, Double> values = generator.ErectedSinusoidalTwoParts(1.0, 0.0, 30.0,10.0, 500).getValues();
         double[] xs = new double[values.size()];
         double[] list = new double[values.size()];
-        for(int i = 0; i<list.length; i++){
-            list[i] = values.get(i);
-            xs[i] = i;
-        }
+
+        int i=0;
+        for (Map.Entry<Double,Double> entry: values.entrySet())
+        {
+            xs[i] = entry.getKey();
+            list[i] = entry.getValue();
+            i++;
+        } // TODO fix god damn ploter xd
 
         Draw draw = new Draw();
         draw.draw(xs, list);

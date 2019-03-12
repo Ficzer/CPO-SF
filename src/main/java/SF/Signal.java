@@ -3,8 +3,7 @@ package SF;
 
 import lombok.Data;
 
-import java.util.ArrayList;
-import java.util.List;
+import java.util.HashMap;
 
 @Data
 public class Signal
@@ -15,14 +14,14 @@ public class Signal
     private Double startingTime;
     private Double durationTime;
     private Double fulfillment;
-    private List<Double> values;
-    private List<Double> imaginaryValues;
+    private HashMap<Double, Double> values;
+    private HashMap<Double, Double> imaginaryValues;
 
     public Signal(String name)
     {
         this.name = name;
-        this.values = new ArrayList<Double>();
-        this.imaginaryValues = new ArrayList<Double>();
+        this.values = new HashMap<Double, Double>();
+        this.imaginaryValues = new HashMap<Double, Double>();
     }
 
     public Signal(String name, Double amplitude, Double period, Double startingTime, Double durationTime, Double fulfillment)
@@ -33,8 +32,8 @@ public class Signal
         this.startingTime = startingTime;
         this.durationTime = durationTime;
         this.fulfillment = fulfillment;
-        this.values = new ArrayList<Double>();
-        this.imaginaryValues = new ArrayList<Double>();
+        this.values = new HashMap<Double, Double>();
+        this.imaginaryValues = new HashMap<Double, Double>();
     }
 
 }

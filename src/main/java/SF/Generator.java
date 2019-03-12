@@ -1,5 +1,6 @@
 package SF;
 
+import java.util.Map;
 import java.util.Random;
 
 public class Generator
@@ -15,10 +16,10 @@ public class Generator
         Random rng = new Random();
         Double value;
 
-        for(int i=0; i<sampling; i++)
+        for(Double i=startingTime; i<durationTime+startingTime; i+=durationTime/(double)sampling)
         {
             value = (rng.nextDouble() - 0.5) * amplitude;
-            signal.getValues().add(value);
+            signal.getValues().put(i, value);
         }
 
         return signal;
@@ -35,10 +36,10 @@ public class Generator
         Random rng = new Random();
         Double value;
 
-        for(int i=0; i<sampling; i++)
+        for(Double i=startingTime; i<durationTime+startingTime; i+=durationTime/(double)sampling)
         {
             value = (rng.nextGaussian() - 0.5) * amplitude;
-            signal.getValues().add(value);
+            signal.getValues().put(i, value);
         }
 
         return signal;
@@ -54,11 +55,13 @@ public class Generator
         signal.setPeriod(period);
 
         Double value;
+        System.out.println(durationTime/(double)sampling);
 
-        for(int i=0; i<sampling; i++)
+        for(Double i=startingTime; i<durationTime+startingTime; i+=durationTime/(double)sampling)
         {
-            value = amplitude * Math.sin(2*Math.PI*period*(double)i/(double)sampling-startingTime);
-            signal.getValues().add(value);
+            value = amplitude * Math.sin(2*Math.PI/period*(i-startingTime));
+            System.out.println(value);
+            signal.getValues().put(i, value);
         }
 
         return signal;
@@ -68,11 +71,11 @@ public class Generator
     {
         Signal signal = this.Sinusoidal(amplitude, startingTime, durationTime, period, sampling);
 
-        for(int i=0; i<signal.getValues().size(); i++)
+        for (Map.Entry<Double,Double> entry: signal.getValues().entrySet())
         {
-            if(signal.getValues().get(i) < 0)
+            if(entry.getValue() < 0)
             {
-                signal.getValues().set(i, 0.0);
+                entry.setValue(0.0);
             }
         }
         return signal;
@@ -82,13 +85,28 @@ public class Generator
     {
         Signal signal = this.Sinusoidal(amplitude, startingTime, durationTime, period, sampling);
 
-        for(int i=0; i<signal.getValues().size(); i++)
+        for (Map.Entry<Double,Double> entry: signal.getValues().entrySet())
         {
-            if(signal.getValues().get(i) < 0)
+            if(entry.getValue() < 0)
             {
-                signal.getValues().set(i, Math.abs(signal.getValues().get(i)));
+                entry.setValue(Math.abs(entry.getValue()));
             }
         }
         return signal;
+    }
+
+    public Signal Rectangular(Double amplitude, Double startingTime, Double durationTime, Double period, Double fullfilment, int sampling)
+    {
+        Signal signal = new Signal("Rectangular");
+
+        signal.setAmplitude(amplitude);
+        signal.setStartingTime(startingTime);
+        signal.setDurationTime(durationTime);
+        signal.setPeriod(period);
+        signal.setFulfillment(fullfilment);
+
+        Double value;
+
+        return null;
     }
 }
