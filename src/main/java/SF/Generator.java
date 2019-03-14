@@ -230,4 +230,40 @@ public class Generator
 
         return signal;
     }
+
+    public Signal UnitJump(Double amplitude, Double startingTime, Double durationTime, int sampling)
+    {
+        Signal signal = new Signal("Triangular");
+
+        signal.setAmplitude(amplitude);
+        signal.setStartingTime(startingTime);
+        signal.setDurationTime(durationTime);
+        signal.setSampling(sampling);
+
+        Double value = 0.0;
+        Double ts = durationTime - startingTime / 2.0;
+
+        for(Double i=startingTime; i<durationTime+startingTime; i+=durationTime/(double)sampling)
+        {
+            if(i < ts)
+            {
+                value = 0.0;
+            }
+            else if(i == ts)
+            {
+                value = amplitude/2.0;
+            }
+            else if(i > ts)
+            {
+                value = amplitude;
+            }
+
+            signal.getValues().put(i, value);
+
+        }
+
+        signal.setValues(new TreeMap<Double, Double>(signal.getValues()));
+
+        return signal;
+    }
 }
