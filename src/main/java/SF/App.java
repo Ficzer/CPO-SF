@@ -10,8 +10,19 @@ public class App
     {
 
         Generator generator = new Generator();
+        Signal signalOne = generator.Sinusoidal(1.0, 0.0, 10.0, 3.0, 300);
+        Signal signalTwo = generator.ErectedSinusoidal(1.5, 0.0, 10.0, 1.0, 300);
+        Signal result = null;
+
+        CalculationHelper calculationHelper = new CalculationHelper();
+
+        try {
+            result = calculationHelper.subtractSignals(signalOne, signalTwo);
+        } catch (WrongSamplingException e) {
+            e.printStackTrace();
+        }
         // Create Chart
-        Map<Double, Double> values = generator.Triangular(1.0, 0.0, 20.0, 10.0, 0.1, 500).getValues();
+        Map<Double, Double> values = result.getValues();
         double[] xs = new double[values.size()];
         double[] list = new double[values.size()];
 
@@ -26,21 +37,7 @@ public class App
         Draw draw = new Draw();
         draw.draw(xs, list);
 
-        XMLConverter xmlConverter = new XMLConverter();
 
-        Signal signal = generator.Sinusoidal(1.0, 0.0, 20.0, 10.0, 100);
-        try {
-            xmlConverter.Serialize("testSin.xml", signal);
-        } catch (IOException e) {
-            e.printStackTrace();
-        }
-
-        try {
-            Signal signal2 = xmlConverter.Deserialize("testSin.xml");
-            System.out.println(signal2);
-        } catch (IOException e) {
-            e.printStackTrace();
-        }
 
         // WindowApp.main(args);
 

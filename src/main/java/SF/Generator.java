@@ -13,6 +13,7 @@ public class Generator
         signal.setAmplitude(amplitude);
         signal.setStartingTime(startingTime);
         signal.setDurationTime(durationTime);
+        signal.setSampling(sampling);
 
         Random rng = new Random();
         Double value;
@@ -35,6 +36,7 @@ public class Generator
         signal.setAmplitude(amplitude);
         signal.setStartingTime(startingTime);
         signal.setDurationTime(durationTime);
+        signal.setSampling(sampling);
 
         Random rng = new Random();
         Double value;
@@ -58,6 +60,7 @@ public class Generator
         signal.setStartingTime(startingTime);
         signal.setDurationTime(durationTime);
         signal.setPeriod(period);
+        signal.setSampling(sampling);
 
         Double value;
 
@@ -95,6 +98,8 @@ public class Generator
     {
         Signal signal = this.Sinusoidal(amplitude, startingTime, durationTime, period, sampling);
 
+        signal.setName("ErectedSinusoidalTwoParts");
+
         for (Map.Entry<Double,Double> entry: signal.getValues().entrySet())
         {
             if(entry.getValue() < 0)
@@ -117,6 +122,7 @@ public class Generator
         signal.setDurationTime(durationTime);
         signal.setPeriod(period);
         signal.setFulfillment(fullfilment);
+        signal.setSampling(sampling);
 
         Double value, tempIterator = 0.0;
         int k = 0;
@@ -156,6 +162,7 @@ public class Generator
         signal.setDurationTime(durationTime);
         signal.setPeriod(period);
         signal.setFulfillment(fullfilment);
+        signal.setSampling(sampling);
 
         Double value, tempIterator = 0.0;
         int k = 0;
@@ -194,6 +201,7 @@ public class Generator
         signal.setDurationTime(durationTime);
         signal.setPeriod(period);
         signal.setFulfillment(fullfilment);
+        signal.setSampling(sampling);
 
         Double value, tempIterator = 0.0;
         int k = 0;
