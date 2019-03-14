@@ -23,6 +23,8 @@ public class Generator
             signal.getValues().put(i, value);
         }
 
+        signal.setValues(new TreeMap<Double, Double>(signal.getValues()));
+
         return signal;
     }
 
@@ -42,6 +44,8 @@ public class Generator
             value = (rng.nextGaussian() - 0.5) * amplitude;
             signal.getValues().put(i, value);
         }
+
+        signal.setValues(new TreeMap<Double, Double>(signal.getValues()));
 
         return signal;
     }
@@ -63,7 +67,7 @@ public class Generator
             signal.getValues().put(i, value);
         }
 
-
+        signal.setValues(new TreeMap<Double, Double>(signal.getValues()));
 
         return signal;
     }
@@ -72,6 +76,8 @@ public class Generator
     {
         Signal signal = this.Sinusoidal(amplitude, startingTime, durationTime, period, sampling);
 
+        signal.setName("ErectedSinusoidal");
+
         for (Map.Entry<Double,Double> entry: signal.getValues().entrySet())
         {
             if(entry.getValue() < 0)
@@ -79,6 +85,9 @@ public class Generator
                 entry.setValue(0.0);
             }
         }
+
+        signal.setValues(new TreeMap<Double, Double>(signal.getValues()));
+
         return signal;
     }
 
@@ -93,6 +102,9 @@ public class Generator
                 entry.setValue(Math.abs(entry.getValue()));
             }
         }
+
+        signal.setValues(new TreeMap<Double, Double>(signal.getValues()));
+
         return signal;
     }
 
@@ -130,6 +142,8 @@ public class Generator
             tempIterator+=durationTime/(double)sampling;
         }
 
+        signal.setValues(new TreeMap<Double, Double>(signal.getValues()));
+
         return signal;
     }
 
@@ -166,6 +180,8 @@ public class Generator
             tempIterator+=durationTime/(double)sampling;
         }
 
+        signal.setValues(new TreeMap<Double, Double>(signal.getValues()));
+
         return signal;
     }
 
@@ -201,6 +217,8 @@ public class Generator
             signal.getValues().put(i, value);
             tempIterator+=durationTime/(double)sampling;
         }
+
+        signal.setValues(new TreeMap<Double, Double>(signal.getValues()));
 
         return signal;
     }

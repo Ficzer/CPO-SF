@@ -4,6 +4,7 @@ package SF;
 import lombok.Data;
 
 import java.util.HashMap;
+import java.util.Map;
 
 @Data
 public class Signal
@@ -14,8 +15,13 @@ public class Signal
     private Double startingTime;
     private Double durationTime;
     private Double fulfillment;
-    private HashMap<Double, Double> values;
-    private HashMap<Double, Double> imaginaryValues;
+    private Map<Double, Double> values;
+    private Map<Double, Double> imaginaryValues;
+
+    public Signal()
+    {
+
+    }
 
     public Signal(String name)
     {
