@@ -27,10 +27,10 @@ public class WindowApp extends Application {
         saveButton.setText("Save to XML");
 
         ChoiceBox<String> signalChoice = new ChoiceBox<>();
-        signalChoice.getItems().addAll("Noice", "Gausian Noise", "Sinusoida", "Erected Sidusoida"
+        signalChoice.getItems().addAll("Noise", "Gausian Noise", "Sinusoida", "Erected Sidusoida"
                 , "Two Said Erected Sinusoida", "Rectangle signal", "Simetrical Rectangular signal"
                 , "Trangular signal", "Unit Jump");
-        signalChoice.setValue("Noice");
+        signalChoice.setValue("Noise");
 
         TextField amplitudeField = new TextField();
         TextField startingTimeField = new TextField();

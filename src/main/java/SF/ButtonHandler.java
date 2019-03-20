@@ -25,7 +25,7 @@ public class ButtonHandler
 
 
         switch (choiceValue) {
-            case "Noice":
+            case "Noise":
                 signal = generator.UniformNoise(amplitude, startingTime, durationTime, sampling);
                 Draw(signal);
                 break;
@@ -66,7 +66,7 @@ public class ButtonHandler
                 break;
 
             case "Unit Jump":
-                signal = generator.Triangular(amplitude, startingTime, durationTime, period, fullfilment, sampling);
+                signal = generator.UnitJump(amplitude, startingTime, durationTime, sampling);
                 Draw(signal);
                 break;
         }
@@ -91,7 +91,7 @@ public class ButtonHandler
 
 
         switch (choiceValue) {
-            case "Noice":
+            case "Noise":
                 signal = generator.UniformNoise(amplitude, startingTime, durationTime, sampling);
                 Save(signal);
                 break;
@@ -132,7 +132,7 @@ public class ButtonHandler
                 break;
 
             case "Unit Jump":
-                signal = generator.Triangular(amplitude, startingTime, durationTime, period, fullfilment, sampling);
+                signal = generator.UnitJump(amplitude, startingTime, durationTime, sampling);
                 Save(signal);
                 break;
         }
