@@ -82,7 +82,7 @@ public class ButtonHandler
 
     public void handleSave(ChoiceBox<String> signalChoice, TextField amplitudeField, TextField startingTimeField,
                            TextField durationTimeField, TextField periodField, TextField fullfilmentField,
-                           TextField samplingField) throws Exception
+                           TextField samplingField, TextField nameField) throws Exception
     {
 
         String choiceValue = signalChoice.getValue();
@@ -100,46 +100,55 @@ public class ButtonHandler
         switch (choiceValue) {
             case "Noise":
                 signal = generator.UniformNoise(amplitude, startingTime, durationTime, sampling);
+                signal.setName(nameField.getText());
                 Save(signal);
                 break;
 
             case "Gausian Noise":
                 signal = generator.GaussianNoise(amplitude, startingTime, durationTime, sampling);
+                signal.setName(nameField.getText());
                 Save(signal);
                 break;
 
             case "Sinusoida":
                 signal = generator.Sinusoidal(amplitude, startingTime, durationTime, period, sampling);
+                signal.setName(nameField.getText());
                 Save(signal);
                 break;
 
             case "Erected Sidusoida":
                 signal = generator.ErectedSinusoidal(amplitude, startingTime, durationTime, period, sampling);
+                signal.setName(nameField.getText());
                 Save(signal);
                 break;
 
             case "Two Said Erected Sinusoida":
                 signal = generator.ErectedSinusoidalTwoParts(amplitude, startingTime, durationTime, period, sampling);
+                signal.setName(nameField.getText());
                 Save(signal);
                 break;
 
             case "Rectangle signal":
                 signal = generator.Rectangular(amplitude, startingTime, durationTime, period, fullfilment, sampling);
+                signal.setName(nameField.getText());
                 Save(signal);
                 break;
 
             case "Simetrical Rectangular signal":
                 signal = generator.RectangularSimetrical(amplitude, startingTime, durationTime, period, fullfilment, sampling);
+                signal.setName(nameField.getText());
                 Save(signal);
                 break;
 
             case "Trangular signal":
                 signal = generator.Triangular(amplitude, startingTime, durationTime, period, fullfilment, sampling);
+                signal.setName(nameField.getText());
                 Save(signal);
                 break;
 
             case "Unit Jump":
                 signal = generator.UnitJump(amplitude, startingTime, durationTime, sampling);
+                signal.setName(nameField.getText());
                 Save(signal);
                 break;
         }
@@ -212,7 +221,7 @@ public class ButtonHandler
 
     }
 
-    private void Draw(Signal signal)
+    public void Draw(Signal signal)
     {
         Map<Double, Double> values;
         double[] xs, ys;
@@ -240,15 +249,15 @@ public class ButtonHandler
 
     }
 
-    private void Save(Signal signal)
+    public void Save(Signal signal)
     {
         XMLConverter xmlConverter = new XMLConverter();
 
         try
         {
-            xmlConverter.Serialize(signal.getName() + ".xml", signal);
+            xmlConverter.Serialize("./signals/" + signal.getName() + ".xml", signal);
 
-            FileOutputStream file = new FileOutputStream(signal.getName() + ".bin");
+            FileOutputStream file = new FileOutputStream("./signals/" + signal.getName() + ".bin");
             ObjectOutputStream out = new ObjectOutputStream(file);
 
             out.writeObject(signal);
@@ -341,7 +350,7 @@ public class ButtonHandler
                 };
     }
 
-    private String generateData(Signal signal)
+    public String generateData(Signal signal)
     {
         CalculationHelper calculationHelper = new CalculationHelper();
         String result = new String();

@@ -46,12 +46,14 @@ public class WindowApp extends Application {
                 , "Trangular signal", "Unit Jump");
         signalChoice.setValue("Noise");
 
+        TextField nameField = new TextField();
         TextField amplitudeField = new TextField("1");
         TextField startingTimeField = new TextField("0");
         TextField durationTimeField = new TextField("10");
         TextField periodField = new TextField("5");
         TextField FillFactorField = new TextField("0.5");
         TextField samplingField = new TextField("300");
+        nameField.setPromptText("Name");
         amplitudeField.setPromptText("Amplitude");
         startingTimeField.setPromptText("Starting time");
         durationTimeField.setPromptText("Duration time");
@@ -59,6 +61,7 @@ public class WindowApp extends Application {
         FillFactorField.setPromptText("Fill factor");
         samplingField.setPromptText("Sampling");
 
+        Label nameLabel = new Label("Name");
         Label amplitudeLabel = new Label("Amplitude");
         Label startingTimeLabel = new Label("Starting time");
         Label durationTimeLabel = new Label("Duration time");
@@ -70,6 +73,7 @@ public class WindowApp extends Application {
 
 
         ButtonHandler buttonHandler = new ButtonHandler();
+        AdvancedOptionsWindow advancedOptionsWindow = new AdvancedOptionsWindow();
 
 
         drawButton.setOnAction(e -> {
@@ -89,7 +93,7 @@ public class WindowApp extends Application {
             try
             {
                 buttonHandler.handleSave(signalChoice, amplitudeField, startingTimeField, durationTimeField
-                        , periodField, FillFactorField, samplingField);
+                        , periodField, FillFactorField, samplingField, nameField);
             }
             catch (Exception e1)
             {
@@ -111,7 +115,7 @@ public class WindowApp extends Application {
             }
         });
 
-        advancedOptionsButton.setOnAction(e -> {});
+        advancedOptionsButton.setOnAction(e -> {advancedOptionsWindow.display();});
 
 
 
@@ -131,19 +135,22 @@ public class WindowApp extends Application {
         GridPane.setConstraints(periodField, 3,3);
         GridPane.setConstraints(FillFactorField, 3,4);
         GridPane.setConstraints(samplingField, 3,5);
+        GridPane.setConstraints(nameField, 3,6);
         GridPane.setConstraints(amplitudeLabel, 2,0);
         GridPane.setConstraints(startingTimeLabel, 2,1);
         GridPane.setConstraints(durationTimeLabel, 2,2);
         GridPane.setConstraints(periodLabel, 2,3);
         GridPane.setConstraints(FillFactorLabel, 2,4);
         GridPane.setConstraints(SamplingLabel, 2,5);
+        GridPane.setConstraints(nameLabel, 2,6);
 
 
         grid.getChildren().addAll(signalChoice, drawButton, saveButton, showDataButton, amplitudeField, startingTimeField, durationTimeField,
                                     periodField, FillFactorField, samplingField, amplitudeLabel, startingTimeLabel,
-                                    durationTimeLabel, periodLabel, FillFactorLabel, SamplingLabel, advancedOptionsButton);
+                                    durationTimeLabel, periodLabel, FillFactorLabel, SamplingLabel, advancedOptionsButton,
+                                    nameField, nameLabel);
 
-        primaryStage.setScene(new Scene(grid, 400, 300));
+        primaryStage.setScene(new Scene(grid, 500, 300));
         primaryStage.show();
     }
 

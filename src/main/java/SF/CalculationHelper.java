@@ -1,6 +1,7 @@
 package SF;
 
 import java.util.ArrayList;
+import java.util.Collections;
 import java.util.List;
 import java.util.Map;
 
@@ -113,13 +114,15 @@ public class CalculationHelper
         }
 
         Signal resultSignal = new Signal();
-        resultSignal.setName(signalOne.getName() + " + " + signalTwo.getName());
+        resultSignal.setName(signalOne.getName() + "+" + signalTwo.getName());
         resultSignal.setSampling(signalTwo.getSampling());
         resultSignal.setValues(signalTwo.getValues());
         resultSignal.setFulfillment(signalTwo.getFulfillment());
         resultSignal.setPeriod(signalTwo.getPeriod());
         resultSignal.setStartingTime(signalTwo.getStartingTime());
         resultSignal.setDurationTime(signalTwo.getDurationTime());
+
+        resultSignal.setAmplitude(calculateAmplitude(resultSignal));
 
         return resultSignal;
     }
@@ -146,13 +149,15 @@ public class CalculationHelper
         }
 
         Signal resultSignal = new Signal();
-        resultSignal.setName(signalOne.getName() + " + " + signalTwo.getName());
+        resultSignal.setName(signalOne.getName() + "-" + signalTwo.getName());
         resultSignal.setSampling(signalTwo.getSampling());
         resultSignal.setValues(signalTwo.getValues());
         resultSignal.setFulfillment(signalTwo.getFulfillment());
         resultSignal.setPeriod(signalTwo.getPeriod());
         resultSignal.setStartingTime(signalTwo.getStartingTime());
         resultSignal.setDurationTime(signalTwo.getDurationTime());
+
+        resultSignal.setAmplitude(calculateAmplitude(resultSignal));
 
         return resultSignal;
     }
@@ -179,13 +184,15 @@ public class CalculationHelper
         }
 
         Signal resultSignal = new Signal();
-        resultSignal.setName(signalOne.getName() + " + " + signalTwo.getName());
+        resultSignal.setName(signalOne.getName() + "*" + signalTwo.getName());
         resultSignal.setSampling(signalTwo.getSampling());
         resultSignal.setValues(signalTwo.getValues());
         resultSignal.setFulfillment(signalTwo.getFulfillment());
         resultSignal.setPeriod(signalTwo.getPeriod());
         resultSignal.setStartingTime(signalTwo.getStartingTime());
         resultSignal.setDurationTime(signalTwo.getDurationTime());
+
+        resultSignal.setAmplitude(calculateAmplitude(resultSignal));
 
         return resultSignal;
     }
@@ -212,7 +219,7 @@ public class CalculationHelper
         }
 
         Signal resultSignal = new Signal();
-        resultSignal.setName(signalOne.getName() + " + " + signalTwo.getName());
+        resultSignal.setName(signalOne.getName() + "/" + signalTwo.getName());
         resultSignal.setSampling(signalTwo.getSampling());
         resultSignal.setValues(signalTwo.getValues());
         resultSignal.setFulfillment(signalTwo.getFulfillment());
@@ -220,6 +227,30 @@ public class CalculationHelper
         resultSignal.setStartingTime(signalTwo.getStartingTime());
         resultSignal.setDurationTime(signalTwo.getDurationTime());
 
+        resultSignal.setAmplitude(calculateAmplitude(resultSignal));
+
         return resultSignal;
+    }
+
+    private Double calculateAmplitude(Signal signal)
+    {
+        Double max = Collections.max(signal.getValues().values());
+        Double min = Math.abs(Collections.min(signal.getValues().values()));
+
+        if(max>min)
+        {
+            max *= 1000;
+            max = (double)Math.round(max);
+            max /= 1000;
+            return max;
+        }
+        else
+        {
+            min *= 1000;
+            min = (double)Math.round(min);
+            min /= 1000;
+            return min;
+        }
+
     }
 }
