@@ -77,6 +77,7 @@ public class WindowApp extends Application {
             catch (Exception e1)
             {
                 AlertBox.display("Wrong Format", "Format of given data is wrong or text fields are empty");
+                e1.printStackTrace();
             }
         });
         saveButton.setOnAction(e -> {
@@ -88,6 +89,7 @@ public class WindowApp extends Application {
             catch (Exception e1)
             {
                 AlertBox.display("Wrong Format", "Format of given data is wrong or text fields are empty");
+                e1.printStackTrace();
             }
         });
 

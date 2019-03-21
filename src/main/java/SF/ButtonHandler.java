@@ -2,14 +2,14 @@ package SF;
 
 import javafx.scene.control.ChoiceBox;
 import javafx.scene.control.TextField;
-import org.knowm.xchart.QuickChart;
-import org.knowm.xchart.SwingWrapper;
-import org.knowm.xchart.XYChart;
+import org.knowm.xchart.*;
 
 import javax.swing.*;
 import java.io.FileOutputStream;
 import java.io.IOException;
 import java.io.ObjectOutputStream;
+import java.lang.reflect.Array;
+import java.util.Arrays;
 import java.util.Map;
 
 public class ButtonHandler
@@ -163,9 +163,15 @@ public class ButtonHandler
             ys[i] = entry.getValue();
             i++;
         }
-
         XYChart chart = QuickChart.getChart(signal.getName(), "X", "Y", "y(x)", xs, ys);
         new SwingWrapper(chart).displayChart().setDefaultCloseOperation(WindowConstants.HIDE_ON_CLOSE);
+
+        CategoryChart histogram = new CategoryChartBuilder().width(1600).height(800).title("Histogram").xAxisTitle("X").yAxisTitle("Y").build();
+
+        Integer [] counter = countHistogram(ys, signal.getAmplitude());
+        histogram.addSeries("test", Arrays.asList(countXAxis(signal.getAmplitude())), Arrays.asList(counter));
+        new SwingWrapper<CategoryChart>(histogram).displayChart().setDefaultCloseOperation(WindowConstants.HIDE_ON_CLOSE);
+
     }
 
     private void Save(Signal signal)
@@ -188,6 +194,85 @@ public class ButtonHandler
         {
             e.printStackTrace();
         }
+    }
+
+    private Integer[] countHistogram(double [] ys, double amplitude)
+    {
+        Integer[] result = new Integer[20];
+        for(int i=0;i<result.length;i++)
+            result[i] = 0;
+        boolean isNegative = false;
+
+        for(int i=0; i<ys.length; i++)
+        {
+            if(ys[i] >= -amplitude && ys[i] < -9*amplitude/10.0)
+                result[0]++;
+            if(ys[i] >= -9*amplitude/10.0 && ys[i] < -8*amplitude/10.0)
+                result[1]++;
+            if(ys[i] >= -8*amplitude/10.0 && ys[i] < -7*amplitude/10.0)
+                result[2]++;
+            if(ys[i] >= -7*amplitude/10.0 && ys[i] < -6*amplitude/10.0)
+                result[3]++;
+            if(ys[i] >= -6*amplitude/10.0 && ys[i] < -5*amplitude/10.0)
+                result[4]++;
+            if(ys[i] >= -5*amplitude/10.0 && ys[i] < -4*amplitude/10.0)
+                result[5]++;
+            if(ys[i] >= -4*amplitude/10.0 && ys[i] < -3*amplitude/10.0)
+                result[6]++;
+            if(ys[i] >= -3*amplitude/10.0 && ys[i] < -2*amplitude/10.0)
+                result[7]++;
+            if(ys[i] >= -2*amplitude/10.0 && ys[i] < -1*amplitude/10.0)
+                result[8]++;
+            if(ys[i] >= -1*amplitude/10.0 && ys[i] < 0*amplitude/10.0)
+                result[9]++;
+            if(ys[i] >= 0.0 && ys[i] < amplitude/10.0)
+                result[10]++;
+            if(ys[i] >= amplitude/10.0 && ys[i] < 2*amplitude/10.0)
+                result[11]++;
+            if(ys[i] >= 2*amplitude/10.0 && ys[i] < 3*amplitude/10.0)
+                result[12]++;
+            if(ys[i] >= 3*amplitude/10.0 && ys[i] < 4*amplitude/10.0)
+                result[13]++;
+            if(ys[i] >= 4*amplitude/10.0 && ys[i] < 5*amplitude/10.0)
+                result[14]++;
+            if(ys[i] >= 5*amplitude/10.0 && ys[i] < 6*amplitude/10.0)
+                result[15]++;
+            if(ys[i] >= 6*amplitude/10.0 && ys[i] < 7*amplitude/10.0)
+                result[16]++;
+            if(ys[i] >= 7*amplitude/10.0 && ys[i] < 8*amplitude/10.0)
+                result[17]++;
+            if(ys[i] >= 8*amplitude/10.0 && ys[i] < 9*amplitude/10.0)
+                result[18]++;
+            if(ys[i] >= 9*amplitude/10.0 && ys[i] <= 10*amplitude/10.0)
+                result[19]++;
+            }
+
+        return result;
+    }
+
+    private String[] countXAxis(double amplitude)
+    {
+        return new String[] {String.valueOf(-amplitude) + " - " + String.valueOf(-0.9*amplitude),
+                String.valueOf(-0.9*amplitude) + " - " + String.valueOf(-0.8*amplitude),
+                String.valueOf(-0.8*amplitude) + " - " + String.valueOf(-0.7*amplitude),
+                String.valueOf(-0.7*amplitude) + " - " + String.valueOf(-0.6*amplitude),
+                String.valueOf(-0.6*amplitude) + " - " + String.valueOf(-0.5*amplitude),
+                String.valueOf(-0.5*amplitude) + " - " + String.valueOf(-0.4*amplitude),
+                String.valueOf(-0.4*amplitude) + " - " + String.valueOf(-0.3*amplitude),
+                String.valueOf(-0.3*amplitude) + " - " + String.valueOf(-0.2*amplitude),
+                String.valueOf(-0.2*amplitude) + " - " + String.valueOf(-0.1*amplitude),
+                String.valueOf(-0.1*amplitude) + " - " + String.valueOf(-0.0*amplitude),
+                String.valueOf(-0.0*amplitude) + " - " + String.valueOf(0.1*amplitude),
+                String.valueOf(0.1*amplitude) + " - " + String.valueOf(0.2*amplitude),
+                String.valueOf(0.2*amplitude) + " - " + String.valueOf(0.3*amplitude),
+                String.valueOf(0.3*amplitude) + " - " + String.valueOf(0.4*amplitude),
+                String.valueOf(0.4*amplitude) + " - " + String.valueOf(0.5*amplitude),
+                String.valueOf(0.5*amplitude) + " - " + String.valueOf(0.6*amplitude),
+                String.valueOf(0.6*amplitude) + " - " + String.valueOf(0.7*amplitude),
+                String.valueOf(0.7*amplitude) + " - " + String.valueOf(0.8*amplitude),
+                String.valueOf(0.8*amplitude) + " - " + String.valueOf(0.9*amplitude),
+                String.valueOf(0.9*amplitude) + " - " + String.valueOf(amplitude),
+                };
     }
 
 

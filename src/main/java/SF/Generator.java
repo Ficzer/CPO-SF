@@ -20,7 +20,7 @@ public class Generator
 
         for(Double i=startingTime; i<durationTime+startingTime; i+=durationTime/(double)sampling)
         {
-            value = (rng.nextDouble() - 0.5) * amplitude;
+            value = 2 * (rng.nextDouble() - 0.5) * amplitude;
             signal.getValues().put(i, value);
         }
 
@@ -43,7 +43,7 @@ public class Generator
 
         for(Double i=startingTime; i<durationTime+startingTime; i+=durationTime/(double)sampling)
         {
-            value = (rng.nextGaussian() - 0.5) * amplitude;
+            value = rng.nextGaussian() * amplitude * 0.4;
             signal.getValues().put(i, value);
         }
 
