@@ -2,15 +2,22 @@ package SF;
 
 import javafx.scene.control.ChoiceBox;
 import javafx.scene.control.TextField;
+import org.knowm.xchart.QuickChart;
+import org.knowm.xchart.SwingWrapper;
+import org.knowm.xchart.XYChart;
 
+import javax.swing.*;
+import java.io.FileOutputStream;
 import java.io.IOException;
+import java.io.ObjectOutputStream;
 import java.util.Map;
 
 public class ButtonHandler
 {
     public void handleDraw(ChoiceBox<String> signalChoice, TextField amplitudeField, TextField startingTimeField,
                                   TextField durationTimeField, TextField periodField, TextField fullfilmentField,
-                                  TextField samplingField) {
+                                  TextField samplingField) throws Exception
+    {
 
         String choiceValue = signalChoice.getValue();
         Double amplitude = Double.parseDouble(amplitudeField.getText());
@@ -75,7 +82,7 @@ public class ButtonHandler
 
     public void handleSave(ChoiceBox<String> signalChoice, TextField amplitudeField, TextField startingTimeField,
                            TextField durationTimeField, TextField periodField, TextField fullfilmentField,
-                           TextField samplingField)
+                           TextField samplingField) throws Exception
     {
 
         String choiceValue = signalChoice.getValue();
@@ -142,23 +149,23 @@ public class ButtonHandler
     private void Draw(Signal signal)
     {
         Map<Double, Double> values;
-        double[] xs, list;
+        double[] xs, ys;
         int i;
-        Draw draw = new Draw();
 
         values = signal.getValues();
         xs = new double[values.size()];
-        list = new double[values.size()];
+        ys = new double[values.size()];
 
         i=0;
         for (Map.Entry<Double,Double> entry: values.entrySet())
         {
             xs[i] = entry.getKey();
-            list[i] = entry.getValue();
+            ys[i] = entry.getValue();
             i++;
         }
 
-        draw.draw(xs, list);
+        XYChart chart = QuickChart.getChart(signal.getName(), "X", "Y", "y(x)", xs, ys);
+        new SwingWrapper(chart).displayChart().setDefaultCloseOperation(WindowConstants.HIDE_ON_CLOSE);
     }
 
     private void Save(Signal signal)
@@ -168,6 +175,14 @@ public class ButtonHandler
         try
         {
             xmlConverter.Serialize(signal.getName() + ".xml", signal);
+
+            FileOutputStream file = new FileOutputStream(signal.getName() + ".bin");
+            ObjectOutputStream out = new ObjectOutputStream(file);
+
+            out.writeObject(signal);
+
+            out.close();
+            file.close();
         }
         catch (IOException e)
         {

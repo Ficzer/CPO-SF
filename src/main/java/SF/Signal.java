@@ -3,11 +3,12 @@ package SF;
 
 import lombok.Data;
 
+import java.io.Serializable;
 import java.util.HashMap;
 import java.util.Map;
 
 @Data
-public class Signal
+public class Signal implements Serializable
 {
     private String name;
     private Double amplitude;

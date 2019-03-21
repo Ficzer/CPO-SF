@@ -7,6 +7,7 @@ import javafx.geometry.Insets;
 import javafx.scene.Scene;
 import javafx.scene.control.Button;
 import javafx.scene.control.ChoiceBox;
+import javafx.scene.control.Label;
 import javafx.scene.control.TextField;
 import javafx.scene.layout.GridPane;
 import javafx.scene.layout.StackPane;
@@ -21,6 +22,8 @@ public class WindowApp extends Application {
     @Override
     public void start(Stage primaryStage) {
         primaryStage.setTitle("Signal generator");
+        primaryStage.setOnCloseRequest(e -> closeProgram());
+
         Button drawButton = new Button();
         Button saveButton = new Button();
         drawButton.setText("Draw");
@@ -36,22 +39,51 @@ public class WindowApp extends Application {
         TextField startingTimeField = new TextField();
         TextField durationTimeField = new TextField();
         TextField periodField = new TextField();
-        TextField fullfilmentField = new TextField();
+        TextField FillFactorField = new TextField();
         TextField samplingField = new TextField();
         amplitudeField.setPromptText("Amplitude");
         startingTimeField.setPromptText("Starting time");
         durationTimeField.setPromptText("Duration time");
         periodField.setPromptText("Period");
-        fullfilmentField.setPromptText("Fullfilment");
+        FillFactorField.setPromptText("Fill factor");
         samplingField.setPromptText("Sampling");
+
+        Label amplitudeLabel = new Label("Amplitude");
+        Label startingTimeLabel = new Label("Starting time");
+        Label durationTimeLabel = new Label("Duration time");
+        Label periodLabel = new Label("Period");
+        Label FillFactorLabel = new Label("Fill factor");
+        Label SamplingLabel = new Label("Sampling");
+
+
+
 
         ButtonHandler buttonHandler = new ButtonHandler();
 
 
-        drawButton.setOnAction(e -> buttonHandler.handleDraw(signalChoice, amplitudeField, startingTimeField, durationTimeField
-                                                            , periodField, fullfilmentField, samplingField));
-        saveButton.setOnAction(e -> buttonHandler.handleSave(signalChoice, amplitudeField, startingTimeField, durationTimeField
-                                                            , periodField, fullfilmentField, samplingField));
+        drawButton.setOnAction(e -> {
+            try
+            {
+                buttonHandler.handleDraw(signalChoice, amplitudeField, startingTimeField, durationTimeField
+                            , periodField, FillFactorField, samplingField);
+            }
+            catch (Exception e1)
+            {
+                AlertBox.display("Wrong Format", "Format of given data is wrong or text fields are empty");
+            }
+        });
+        saveButton.setOnAction(e -> {
+            try
+            {
+                buttonHandler.handleSave(signalChoice, amplitudeField, startingTimeField, durationTimeField
+                        , periodField, FillFactorField, samplingField);
+            }
+            catch (Exception e1)
+            {
+                AlertBox.display("Wrong Format", "Format of given data is wrong or text fields are empty");
+            }
+        });
+
 
 
         GridPane grid = new GridPane();
@@ -66,14 +98,27 @@ public class WindowApp extends Application {
         GridPane.setConstraints(startingTimeField, 3,1);
         GridPane.setConstraints(durationTimeField, 3,2);
         GridPane.setConstraints(periodField, 3,3);
-        GridPane.setConstraints(fullfilmentField, 3,4);
+        GridPane.setConstraints(FillFactorField, 3,4);
         GridPane.setConstraints(samplingField, 3,5);
+        GridPane.setConstraints(amplitudeLabel, 2,0);
+        GridPane.setConstraints(startingTimeLabel, 2,1);
+        GridPane.setConstraints(durationTimeLabel, 2,2);
+        GridPane.setConstraints(periodLabel, 2,3);
+        GridPane.setConstraints(FillFactorLabel, 2,4);
+        GridPane.setConstraints(SamplingLabel, 2,5);
+
 
         grid.getChildren().addAll(signalChoice, drawButton, saveButton, amplitudeField, startingTimeField, durationTimeField,
-                                    periodField, fullfilmentField, samplingField);
+                                    periodField, FillFactorField, samplingField, amplitudeLabel, startingTimeLabel,
+                                    durationTimeLabel, periodLabel, FillFactorLabel, SamplingLabel);
 
         primaryStage.setScene(new Scene(grid, 800, 600));
         primaryStage.show();
+    }
+
+    private void closeProgram()
+    {
+
     }
 
 

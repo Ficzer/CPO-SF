@@ -13,3 +13,4 @@ buildNumber.properties
 *.xml
 .idea/workspace.xml
 .idea/workspace.xml
+*.bin
