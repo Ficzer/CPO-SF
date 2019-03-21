@@ -12,10 +12,14 @@ public class CalculationHelper
 
         for (Map.Entry<Double,Double> entry: signal.getValues().entrySet())
         {
-            result += entry.getKey();
+            result += entry.getValue();
         }
 
         result = result / (double)(signal.getValues().size() + 1);
+
+        result *= 100;
+        result = (double)Math.round(result);
+        result /= 100;
 
         return result;
     }
@@ -26,10 +30,14 @@ public class CalculationHelper
 
         for (Map.Entry<Double,Double> entry: signal.getValues().entrySet())
         {
-            result += Math.abs(entry.getKey());
+            result += Math.abs(entry.getValue());
         }
 
         result = result / (double)(signal.getValues().size() + 1);
+
+        result *= 100;
+        result = (double)Math.round(result);
+        result /= 100;
 
         return result;
     }
@@ -40,10 +48,14 @@ public class CalculationHelper
 
         for (Map.Entry<Double,Double> entry: signal.getValues().entrySet())
         {
-            result += entry.getKey() * entry.getKey();
+            result += entry.getValue() * entry.getValue();
         }
 
         result = result / (double)(signal.getValues().size() + 1);
+
+        result *= 100;
+        result = (double)Math.round(result);
+        result /= 100;
 
         return result;
     }
@@ -55,17 +67,28 @@ public class CalculationHelper
 
         for (Map.Entry<Double,Double> entry: signal.getValues().entrySet())
         {
-            result += entry.getKey() - average;
+            result += entry.getValue() - average;
         }
 
         result = result / (double)(signal.getValues().size() + 1);
+
+        result *= 100;
+        result = (double)Math.round(result);
+        result /= 100;
 
         return result;
     }
 
     public Double RootMeanSquare(Signal signal)
     {
-        return Math.sqrt(this.Strenght(signal));
+        Double result = 0.0;
+        result = Math.sqrt(this.Strenght(signal));
+
+        result *= 100;
+        result = (double)Math.round(result);
+        result /= 100;
+
+        return result;
     }
 
     public Signal addSignals(Signal signalOne, Signal signalTwo) throws WrongSamplingException

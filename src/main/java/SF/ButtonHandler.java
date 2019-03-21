@@ -146,6 +146,72 @@ public class ButtonHandler
 
     }
 
+    public void handleShowData(ChoiceBox<String> signalChoice, TextField amplitudeField, TextField startingTimeField,
+                           TextField durationTimeField, TextField periodField, TextField fullfilmentField,
+                           TextField samplingField) throws Exception
+    {
+
+        String choiceValue = signalChoice.getValue();
+        Double amplitude = Double.parseDouble(amplitudeField.getText());
+        Double startingTime = Double.parseDouble(startingTimeField.getText());
+        Double durationTime = Double.parseDouble(durationTimeField.getText());
+        Double period = Double.parseDouble(periodField.getText());
+        Double fullfilment = Double.parseDouble(fullfilmentField.getText());
+        Integer sampling = Integer.parseInt(samplingField.getText());
+
+        Generator generator = new Generator();
+        Signal signal;
+
+
+        switch (choiceValue) {
+            case "Noise":
+                signal = generator.UniformNoise(amplitude, startingTime, durationTime, sampling);
+                AlertBox.display("Data", generateData(signal));
+                break;
+
+            case "Gausian Noise":
+                signal = generator.GaussianNoise(amplitude, startingTime, durationTime, sampling);
+                AlertBox.display("Data", generateData(signal));
+                break;
+
+            case "Sinusoida":
+                signal = generator.Sinusoidal(amplitude, startingTime, durationTime, period, sampling);
+                AlertBox.display("Data", generateData(signal));
+                break;
+
+            case "Erected Sidusoida":
+                signal = generator.ErectedSinusoidal(amplitude, startingTime, durationTime, period, sampling);
+                AlertBox.display("Data", generateData(signal));
+                break;
+
+            case "Two Said Erected Sinusoida":
+                signal = generator.ErectedSinusoidalTwoParts(amplitude, startingTime, durationTime, period, sampling);
+                AlertBox.display("Data", generateData(signal));
+                break;
+
+            case "Rectangle signal":
+                signal = generator.Rectangular(amplitude, startingTime, durationTime, period, fullfilment, sampling);
+                AlertBox.display("Data", generateData(signal));
+                break;
+
+            case "Simetrical Rectangular signal":
+                signal = generator.RectangularSimetrical(amplitude, startingTime, durationTime, period, fullfilment, sampling);
+                AlertBox.display("Data", generateData(signal));
+                break;
+
+            case "Trangular signal":
+                signal = generator.Triangular(amplitude, startingTime, durationTime, period, fullfilment, sampling);
+                AlertBox.display("Data", generateData(signal));
+                break;
+
+            case "Unit Jump":
+                signal = generator.UnitJump(amplitude, startingTime, durationTime, sampling);
+                AlertBox.display("Data", generateData(signal));
+                break;
+        }
+
+    }
+
     private void Draw(Signal signal)
     {
         Map<Double, Double> values;
@@ -273,6 +339,20 @@ public class ButtonHandler
                 String.valueOf(0.8*amplitude) + " - " + String.valueOf(0.9*amplitude),
                 String.valueOf(0.9*amplitude) + " - " + String.valueOf(amplitude),
                 };
+    }
+
+    private String generateData(Signal signal)
+    {
+        CalculationHelper calculationHelper = new CalculationHelper();
+        String result = new String();
+
+        result += "Average: " + calculationHelper.Average(signal) + "\r\n";
+        result += "Absolute Avarage: " + calculationHelper.AbsoluteAvarage(signal) + "\r\n";
+        result += "Strength: " + calculationHelper.Strenght(signal) + "\r\n";
+        result += "Variance: " + calculationHelper.Variance(signal) + "\r\n";
+        result += "Root Mean Square: " + calculationHelper.RootMeanSquare(signal) + "\r\n";
+
+        return result;
     }
 
 

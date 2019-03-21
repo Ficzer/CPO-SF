@@ -33,8 +33,12 @@ public class WindowApp extends Application {
 
         Button drawButton = new Button();
         Button saveButton = new Button();
+        Button showDataButton = new Button();
+        Button advancedOptionsButton = new Button();
         drawButton.setText("Draw");
         saveButton.setText("Save");
+        showDataButton.setText("Show Data");
+        advancedOptionsButton.setText("Advanced Options");
 
         ChoiceBox<String> signalChoice = new ChoiceBox<>();
         signalChoice.getItems().addAll("Noise", "Gausian Noise", "Sinusoida", "Erected Sidusoida"
@@ -42,12 +46,12 @@ public class WindowApp extends Application {
                 , "Trangular signal", "Unit Jump");
         signalChoice.setValue("Noise");
 
-        TextField amplitudeField = new TextField();
-        TextField startingTimeField = new TextField();
-        TextField durationTimeField = new TextField();
-        TextField periodField = new TextField();
-        TextField FillFactorField = new TextField();
-        TextField samplingField = new TextField();
+        TextField amplitudeField = new TextField("1");
+        TextField startingTimeField = new TextField("0");
+        TextField durationTimeField = new TextField("10");
+        TextField periodField = new TextField("5");
+        TextField FillFactorField = new TextField("0.5");
+        TextField samplingField = new TextField("300");
         amplitudeField.setPromptText("Amplitude");
         startingTimeField.setPromptText("Starting time");
         durationTimeField.setPromptText("Duration time");
@@ -80,6 +84,7 @@ public class WindowApp extends Application {
                 e1.printStackTrace();
             }
         });
+
         saveButton.setOnAction(e -> {
             try
             {
@@ -93,6 +98,21 @@ public class WindowApp extends Application {
             }
         });
 
+        showDataButton.setOnAction(e -> {
+            try
+            {
+                buttonHandler.handleShowData(signalChoice, amplitudeField, startingTimeField, durationTimeField
+                        , periodField, FillFactorField, samplingField);
+            }
+            catch (Exception e1)
+            {
+                AlertBox.display("Wrong Format", "Format of given data is wrong or text fields are empty");
+                e1.printStackTrace();
+            }
+        });
+
+        advancedOptionsButton.setOnAction(e -> {});
+
 
 
         GridPane grid = new GridPane();
@@ -103,6 +123,8 @@ public class WindowApp extends Application {
         GridPane.setConstraints(signalChoice, 0, 0);
         GridPane.setConstraints(drawButton, 0, 2);
         GridPane.setConstraints(saveButton, 0,3);
+        GridPane.setConstraints(showDataButton, 0,4);
+        GridPane.setConstraints(advancedOptionsButton, 0, 5);
         GridPane.setConstraints(amplitudeField, 3,0);
         GridPane.setConstraints(startingTimeField, 3,1);
         GridPane.setConstraints(durationTimeField, 3,2);
@@ -117,11 +139,11 @@ public class WindowApp extends Application {
         GridPane.setConstraints(SamplingLabel, 2,5);
 
 
-        grid.getChildren().addAll(signalChoice, drawButton, saveButton, amplitudeField, startingTimeField, durationTimeField,
+        grid.getChildren().addAll(signalChoice, drawButton, saveButton, showDataButton, amplitudeField, startingTimeField, durationTimeField,
                                     periodField, FillFactorField, samplingField, amplitudeLabel, startingTimeLabel,
-                                    durationTimeLabel, periodLabel, FillFactorLabel, SamplingLabel);
+                                    durationTimeLabel, periodLabel, FillFactorLabel, SamplingLabel, advancedOptionsButton);
 
-        primaryStage.setScene(new Scene(grid, 800, 600));
+        primaryStage.setScene(new Scene(grid, 400, 300));
         primaryStage.show();
     }
 
