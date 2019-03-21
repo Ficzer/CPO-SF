@@ -143,7 +143,6 @@ public class Generator
             {
                 value = 0.0;
             }
-            System.out.println(value);
             signal.getValues().put(i, value);
             tempIterator+=durationTime/(double)sampling;
         }
@@ -220,8 +219,12 @@ public class Generator
             }
             else
             {
-                value = -amplitude/(period*(1.0-fullfilment))*(i-k*period-startingTime)+amplitude/(1-fullfilment);
+                value = (-amplitude/(period*(1.0-fullfilment))*(i-k*period-startingTime))+amplitude/(1-fullfilment);
             }
+
+            if(value > amplitude + 0.0001)
+                value = 0.0;
+
             signal.getValues().put(i, value);
             tempIterator+=durationTime/(double)sampling;
         }
@@ -241,7 +244,7 @@ public class Generator
         signal.setSampling(sampling);
 
         Double value = 0.0;
-        Double ts = durationTime - startingTime / 2.0;
+        Double ts = (durationTime - startingTime) / 2.0;
 
         for(Double i=startingTime; i<durationTime+startingTime; i+=durationTime/(double)sampling)
         {

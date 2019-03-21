@@ -1,6 +1,7 @@
 package SF;
 
 import javafx.application.Application;
+import javafx.application.Platform;
 import javafx.event.ActionEvent;
 import javafx.event.EventHandler;
 import javafx.geometry.Insets;
@@ -13,6 +14,12 @@ import javafx.scene.layout.GridPane;
 import javafx.scene.layout.StackPane;
 import javafx.scene.layout.VBox;
 import javafx.stage.Stage;
+import org.knowm.xchart.QuickChart;
+import org.knowm.xchart.SwingWrapper;
+import org.knowm.xchart.XYChart;
+
+import javax.swing.*;
+import java.util.List;
 
 public class WindowApp extends Application {
     public static void main(String[] args) {
@@ -22,12 +29,12 @@ public class WindowApp extends Application {
     @Override
     public void start(Stage primaryStage) {
         primaryStage.setTitle("Signal generator");
-        primaryStage.setOnCloseRequest(e -> closeProgram());
+        primaryStage.setOnCloseRequest(e -> closeProgram(primaryStage));
 
         Button drawButton = new Button();
         Button saveButton = new Button();
         drawButton.setText("Draw");
-        saveButton.setText("Save to XML");
+        saveButton.setText("Save");
 
         ChoiceBox<String> signalChoice = new ChoiceBox<>();
         signalChoice.getItems().addAll("Noise", "Gausian Noise", "Sinusoida", "Erected Sidusoida"
@@ -116,9 +123,10 @@ public class WindowApp extends Application {
         primaryStage.show();
     }
 
-    private void closeProgram()
+    private void closeProgram(Stage primaryStage)
     {
-
+        //new SwingWrapper((List) null).displayChart().setDefaultCloseOperation(WindowConstants.EXIT_ON_CLOSE);
+        primaryStage.close();
     }
 
 
