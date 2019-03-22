@@ -9,7 +9,7 @@ public class CalculationHelper
 {
     public Double Average(Signal signal)
     {
-        Double result = 0.0;
+        /*Double result = 0.0;
 
         for (Map.Entry<Double,Double> entry: signal.getValues().entrySet())
         {
@@ -22,12 +22,14 @@ public class CalculationHelper
         result = (double)Math.round(result);
         result /= 100;
 
-        return result;
+        return result; */
+
+        return 0.0;
     }
 
-    public Double AbsoluteAvarage(Signal signal)
+    public Double AbsoluteAverage(Signal signal)
     {
-        Double result = 0.0;
+       /* Double result = 0.0;
 
         for (Map.Entry<Double,Double> entry: signal.getValues().entrySet())
         {
@@ -40,12 +42,13 @@ public class CalculationHelper
         result = (double)Math.round(result);
         result /= 100;
 
-        return result;
+        return result; */
+       return 0.0;
     }
 
-    public Double Strenght(Signal signal)
+    public Double Strength(Signal signal)
     {
-        Double result = 0.0;
+       /* Double result = 0.0;
 
         for (Map.Entry<Double,Double> entry: signal.getValues().entrySet())
         {
@@ -58,12 +61,13 @@ public class CalculationHelper
         result = (double)Math.round(result);
         result /= 100;
 
-        return result;
+        return result; */
+       return 0.0;
     }
 
     public Double Variance(Signal signal)
     {
-        Double result = 0.0;
+       /* Double result = 0.0;
         Double average = this.Average(signal);
 
         for (Map.Entry<Double,Double> entry: signal.getValues().entrySet())
@@ -77,19 +81,21 @@ public class CalculationHelper
         result = (double)Math.round(result);
         result /= 100;
 
-        return result;
+        return result; */
+       return  0.0;
     }
 
     public Double RootMeanSquare(Signal signal)
     {
-        Double result = 0.0;
-        result = Math.sqrt(this.Strenght(signal));
+        /*Double result = 0.0;
+        result = Math.sqrt(this.Strength(signal));
 
         result *= 100;
         result = (double)Math.round(result);
         result /= 100;
 
-        return result;
+        return result; */
+        return  0.0;
     }
 
     public Signal addSignals(Signal signalOne, Signal signalTwo) throws WrongSamplingException
@@ -114,7 +120,7 @@ public class CalculationHelper
         }
 
         Signal resultSignal = new Signal();
-        resultSignal.setName(signalOne.getName() + "+" + signalTwo.getName());
+        resultSignal.setName(signalOne.getName() + "Plus" + signalTwo.getName());
         resultSignal.setSampling(signalTwo.getSampling());
         resultSignal.setValues(signalTwo.getValues());
         resultSignal.setFulfillment(signalTwo.getFulfillment());
@@ -149,7 +155,7 @@ public class CalculationHelper
         }
 
         Signal resultSignal = new Signal();
-        resultSignal.setName(signalOne.getName() + "-" + signalTwo.getName());
+        resultSignal.setName(signalOne.getName() + "Subtract" + signalTwo.getName());
         resultSignal.setSampling(signalTwo.getSampling());
         resultSignal.setValues(signalTwo.getValues());
         resultSignal.setFulfillment(signalTwo.getFulfillment());
@@ -184,7 +190,7 @@ public class CalculationHelper
         }
 
         Signal resultSignal = new Signal();
-        resultSignal.setName(signalOne.getName() + "*" + signalTwo.getName());
+        resultSignal.setName(signalOne.getName() + "Multiply" + signalTwo.getName());
         resultSignal.setSampling(signalTwo.getSampling());
         resultSignal.setValues(signalTwo.getValues());
         resultSignal.setFulfillment(signalTwo.getFulfillment());
@@ -219,7 +225,7 @@ public class CalculationHelper
         }
 
         Signal resultSignal = new Signal();
-        resultSignal.setName(signalOne.getName() + "/" + signalTwo.getName());
+        resultSignal.setName(signalOne.getName() + "Divide" + signalTwo.getName());
         resultSignal.setSampling(signalTwo.getSampling());
         resultSignal.setValues(signalTwo.getValues());
         resultSignal.setFulfillment(signalTwo.getFulfillment());

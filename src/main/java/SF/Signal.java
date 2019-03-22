@@ -19,11 +19,11 @@ public class Signal implements Serializable
     private Integer sampling;
     private Map<Double, Double> values;
     private Map<Double, Double> imaginaryValues;
+    private int[] val;
 
-    public Signal()
-    {
+    public Signal(){
 
-    }
+	}
 
     public Signal(String name)
     {
@@ -44,5 +44,9 @@ public class Signal implements Serializable
         this.values = new HashMap<Double, Double>();
         this.imaginaryValues = new HashMap<Double, Double>();
     }
+
+    public void setValue(int value, int index){
+    	val[index] = value;
+	}
 
 }

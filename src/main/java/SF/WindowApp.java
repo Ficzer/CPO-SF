@@ -1,9 +1,7 @@
 package SF;
 
 import javafx.application.Application;
-import javafx.application.Platform;
-import javafx.event.ActionEvent;
-import javafx.event.EventHandler;
+
 import javafx.geometry.Insets;
 import javafx.scene.Scene;
 import javafx.scene.control.Button;
@@ -11,15 +9,8 @@ import javafx.scene.control.ChoiceBox;
 import javafx.scene.control.Label;
 import javafx.scene.control.TextField;
 import javafx.scene.layout.GridPane;
-import javafx.scene.layout.StackPane;
-import javafx.scene.layout.VBox;
 import javafx.stage.Stage;
-import org.knowm.xchart.QuickChart;
-import org.knowm.xchart.SwingWrapper;
-import org.knowm.xchart.XYChart;
 
-import javax.swing.*;
-import java.util.List;
 
 public class WindowApp extends Application {
     public static void main(String[] args) {
@@ -36,14 +27,14 @@ public class WindowApp extends Application {
         Button showDataButton = new Button();
         Button advancedOptionsButton = new Button();
         drawButton.setText("Draw");
-        saveButton.setText("Save");
-        showDataButton.setText("Show Data");
-        advancedOptionsButton.setText("Advanced Options");
+        saveButton.setText("Save signal to file");
+        showDataButton.setText("Show details");
+        advancedOptionsButton.setText("Signal operations");
 
         ChoiceBox<String> signalChoice = new ChoiceBox<>();
-        signalChoice.getItems().addAll("Noise", "Gausian Noise", "Sinusoida", "Erected Sidusoida"
-                , "Two Said Erected Sinusoida", "Rectangle signal", "Simetrical Rectangular signal"
-                , "Trangular signal", "Unit Jump");
+        signalChoice.getItems().addAll("Noise", "Gaussian noise", "Sine Wave", "Half-wave rectified sine"
+                , "Full-wave rectified sine", "Square wave", "Symmetrical Rectangular signal"
+                , "Triangular wave", "Step function");
         signalChoice.setValue("Noise");
 
         TextField nameField = new TextField();
@@ -53,6 +44,8 @@ public class WindowApp extends Application {
         TextField periodField = new TextField("5");
         TextField FillFactorField = new TextField("0.5");
         TextField samplingField = new TextField("300");
+        TextField histogramElements = new TextField("10");
+
         nameField.setPromptText("Name");
         amplitudeField.setPromptText("Amplitude");
         startingTimeField.setPromptText("Starting time");
@@ -61,14 +54,14 @@ public class WindowApp extends Application {
         FillFactorField.setPromptText("Fill factor");
         samplingField.setPromptText("Sampling");
 
-        Label nameLabel = new Label("Name");
+        Label nameLabel = new Label("File name");
         Label amplitudeLabel = new Label("Amplitude");
-        Label startingTimeLabel = new Label("Starting time");
+        Label startingTimeLabel = new Label("Start time");
         Label durationTimeLabel = new Label("Duration time");
         Label periodLabel = new Label("Period");
         Label FillFactorLabel = new Label("Fill factor");
         Label SamplingLabel = new Label("Sampling");
-
+		Label histogramElementsLabel = new Label("Histogram intervals");
 
 
 
@@ -80,11 +73,11 @@ public class WindowApp extends Application {
             try
             {
                 buttonHandler.handleDraw(signalChoice, amplitudeField, startingTimeField, durationTimeField
-                            , periodField, FillFactorField, samplingField);
+                            , periodField, FillFactorField, samplingField, histogramElements);
             }
             catch (Exception e1)
             {
-                AlertBox.display("Wrong Format", "Format of given data is wrong or text fields are empty");
+                AlertBox.display("Wrong Format", "Format of given data is wrong or text fields are empty.");
                 e1.printStackTrace();
             }
         });
@@ -94,11 +87,12 @@ public class WindowApp extends Application {
             {
                 buttonHandler.handleSave(signalChoice, amplitudeField, startingTimeField, durationTimeField
                         , periodField, FillFactorField, samplingField, nameField);
+                AlertBox.display("Success", "File has been saved.");
             }
             catch (Exception e1)
             {
-                AlertBox.display("Wrong Format", "Format of given data is wrong or text fields are empty");
-                e1.printStackTrace();
+                AlertBox.display("Wrong Format", "Format of given data is wrong or text fields are empty.");
+               // e1.printStackTrace();
             }
         });
 
@@ -115,7 +109,7 @@ public class WindowApp extends Application {
             }
         });
 
-        advancedOptionsButton.setOnAction(e -> {advancedOptionsWindow.display();});
+        advancedOptionsButton.setOnAction(e -> {advancedOptionsWindow.display(histogramElements);});
 
 
 
@@ -136,6 +130,7 @@ public class WindowApp extends Application {
         GridPane.setConstraints(FillFactorField, 3,4);
         GridPane.setConstraints(samplingField, 3,5);
         GridPane.setConstraints(nameField, 3,6);
+        GridPane.setConstraints(histogramElements, 3, 7);
         GridPane.setConstraints(amplitudeLabel, 2,0);
         GridPane.setConstraints(startingTimeLabel, 2,1);
         GridPane.setConstraints(durationTimeLabel, 2,2);
@@ -143,12 +138,13 @@ public class WindowApp extends Application {
         GridPane.setConstraints(FillFactorLabel, 2,4);
         GridPane.setConstraints(SamplingLabel, 2,5);
         GridPane.setConstraints(nameLabel, 2,6);
+        GridPane.setConstraints(histogramElementsLabel, 2, 7);
 
 
         grid.getChildren().addAll(signalChoice, drawButton, saveButton, showDataButton, amplitudeField, startingTimeField, durationTimeField,
                                     periodField, FillFactorField, samplingField, amplitudeLabel, startingTimeLabel,
                                     durationTimeLabel, periodLabel, FillFactorLabel, SamplingLabel, advancedOptionsButton,
-                                    nameField, nameLabel);
+                                    nameField, nameLabel, histogramElementsLabel, histogramElements);
 
         primaryStage.setScene(new Scene(grid, 500, 300));
         primaryStage.show();

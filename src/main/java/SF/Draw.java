@@ -9,7 +9,7 @@ import javax.swing.*;
 public class Draw {
 
     public JFrame draw(double[] x, double[] y){
-        XYChart chart = QuickChart.getChart("Sample Chart", "X", "Y", "y(x)", x, y);
+        XYChart chart = QuickChart.getChart("Chart", "X", "Y", "y(x)", x, y);
         return new SwingWrapper(chart).displayChart();
     }
 }

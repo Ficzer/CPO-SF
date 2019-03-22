@@ -5,6 +5,8 @@ import javafx.scene.Scene;
 import javafx.scene.control.Button;
 import javafx.scene.control.ChoiceBox;
 import javafx.scene.control.Label;
+
+import javafx.scene.control.TextField;
 import javafx.scene.layout.GridPane;
 import javafx.stage.Modality;
 import javafx.stage.Stage;
@@ -13,11 +15,12 @@ import java.io.File;
 import java.io.FileInputStream;
 import java.io.FileNotFoundException;
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.List;
 
 public class AdvancedOptionsWindow
 {
-    public void display()
+    public void display(TextField histogramElements)
     {
         Stage window = new Stage();
         window.initModality(Modality.APPLICATION_MODAL);
@@ -35,8 +38,8 @@ public class AdvancedOptionsWindow
         saveButton.setText("Save result");
         Button showDataButton = new Button();
         showDataButton.setText("Show Data");
-        Button cleanButton = new Button();
-        cleanButton.setText("Clean All Data");
+       // Button cleanButton = new Button();
+       // cleanButton.setText("Clear All Data");
 
         ChoiceBox<String> fileChoiceA = new ChoiceBox<>();
         fileChoiceA.getItems().addAll(this.getFiles(new File("./signals/"), ".bin"));
@@ -48,12 +51,15 @@ public class AdvancedOptionsWindow
         operationChoice.getItems().addAll("Add", "Subtract", "Multiply", "Divide");
         operationChoice.setValue("Add");
 
-        drawButton.setOnAction(e -> advancedButtonHandler.handleDraw(fileChoiceA, fileChoiceB, operationChoice));
-        saveButton.setOnAction(e -> advancedButtonHandler.handleSave(fileChoiceA, fileChoiceB, operationChoice));
+        drawButton.setOnAction(e -> advancedButtonHandler.handleDraw(fileChoiceA, fileChoiceB, operationChoice, histogramElements));
+        saveButton.setOnAction(e -> {
+        	advancedButtonHandler.handleSave(fileChoiceA, fileChoiceB, operationChoice);
+			AlertBox.display("Success", "File has been saved.");
+		});
         showDataButton.setOnAction(e -> advancedButtonHandler.showDataHandler(fileChoiceA, fileChoiceB, operationChoice));
         List<String> files = getFiles(new File("./signals/"), ".bin");
         files.addAll(getFiles(new File("./signals/"), ".xml"));
-        cleanButton.setOnAction(e -> advancedButtonHandler.handleClean(files));
+        //cleanButton.setOnAction(e -> {advancedButtonHandler.handleClean(files);});
 
         GridPane grid = new GridPane();
         grid.setPadding(new Insets(10, 10, 10, 10));
@@ -69,11 +75,11 @@ public class AdvancedOptionsWindow
         GridPane.setConstraints(drawButton, 0, 4);
         GridPane.setConstraints(saveButton, 0, 5);
         GridPane.setConstraints(showDataButton, 0, 6);
-        GridPane.setConstraints(cleanButton, 0 , 7);
+      //  GridPane.setConstraints(cleanButton, 0 , 7);
 
 
         grid.getChildren().addAll(fileChoiceA, fileChoiceB, fileALabel, fileBLabel, operationLabel, operationChoice,
-                drawButton, saveButton, showDataButton, cleanButton);
+                drawButton, saveButton, showDataButton/*, cleanButton */);
 
         window.setScene(new Scene(grid, 220, 300));
         window.show();

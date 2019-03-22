@@ -3,20 +3,25 @@ package SF;
 import javafx.scene.control.ChoiceBox;
 import javafx.scene.control.TextField;
 import org.knowm.xchart.*;
+import org.omg.Messaging.SYNC_WITH_TRANSPORT;
 
 import javax.swing.*;
+import javax.xml.soap.Text;
 import java.io.FileOutputStream;
 import java.io.IOException;
 import java.io.ObjectOutputStream;
-import java.lang.reflect.Array;
+import java.text.DecimalFormat;
+import java.text.Format;
 import java.util.Arrays;
+import java.util.Collections;
 import java.util.Map;
+import java.util.stream.Collectors;
 
 public class ButtonHandler
 {
     public void handleDraw(ChoiceBox<String> signalChoice, TextField amplitudeField, TextField startingTimeField,
-                                  TextField durationTimeField, TextField periodField, TextField fullfilmentField,
-                                  TextField samplingField) throws Exception
+						   TextField durationTimeField, TextField periodField, TextField fullfilmentField,
+						   TextField samplingField, TextField histogramElements) throws Exception
     {
 
         String choiceValue = signalChoice.getValue();
@@ -24,57 +29,58 @@ public class ButtonHandler
         Double startingTime = Double.parseDouble(startingTimeField.getText());
         Double durationTime = Double.parseDouble(durationTimeField.getText());
         Double period = Double.parseDouble(periodField.getText());
-        Double fullfilment = Double.parseDouble(fullfilmentField.getText());
+        Double fillFactor = Double.parseDouble(fullfilmentField.getText());
         Integer sampling = Integer.parseInt(samplingField.getText());
+		Integer intervals = Integer.parseInt(histogramElements.getText());
 
-        Generator generator = new Generator();
+		Generator generator = new Generator();
         Signal signal;
 
 
         switch (choiceValue) {
             case "Noise":
                 signal = generator.UniformNoise(amplitude, startingTime, durationTime, sampling);
-                Draw(signal);
+                draw(signal, intervals);
                 break;
 
-            case "Gausian Noise":
+            case "Gaussian noise":
                 signal = generator.GaussianNoise(amplitude, startingTime, durationTime, sampling);
-                Draw(signal);
+				draw(signal, intervals);
                 break;
 
-            case "Sinusoida":
+            case "Sine Wave":
                 signal = generator.Sinusoidal(amplitude, startingTime, durationTime, period, sampling);
-                Draw(signal);
+				draw(signal, intervals);
                 break;
 
-            case "Erected Sidusoida":
+            case "Half-wave rectified sine":
                 signal = generator.ErectedSinusoidal(amplitude, startingTime, durationTime, period, sampling);
-                Draw(signal);
+				draw(signal, intervals);
                 break;
 
-            case "Two Said Erected Sinusoida":
+            case "Full-wave rectified sine":
                 signal = generator.ErectedSinusoidalTwoParts(amplitude, startingTime, durationTime, period, sampling);
-                Draw(signal);
+				draw(signal, intervals);
                 break;
 
-            case "Rectangle signal":
-                signal = generator.Rectangular(amplitude, startingTime, durationTime, period, fullfilment, sampling);
-                Draw(signal);
+            case "Square wave":
+                signal = generator.Rectangular(amplitude, startingTime, durationTime, period, fillFactor, sampling);
+				draw(signal, intervals);
                 break;
 
-            case "Simetrical Rectangular signal":
-                signal = generator.RectangularSimetrical(amplitude, startingTime, durationTime, period, fullfilment, sampling);
-                Draw(signal);
+            case "Symmetrical Rectangular signal":
+                signal = generator.RectangularSimetrical(amplitude, startingTime, durationTime, period, fillFactor, sampling);
+				draw(signal, intervals);
                 break;
 
-            case "Trangular signal":
-                signal = generator.Triangular(amplitude, startingTime, durationTime, period, fullfilment, sampling);
-                Draw(signal);
+            case "Triangular wave":
+                signal = generator.Triangular(amplitude, startingTime, durationTime, period, fillFactor, sampling);
+				draw(signal, intervals);
                 break;
 
-            case "Unit Jump":
+            case "Step function":
                 signal = generator.UnitJump(amplitude, startingTime, durationTime, sampling);
-                Draw(signal);
+				draw(signal, intervals);
                 break;
         }
 
@@ -101,55 +107,55 @@ public class ButtonHandler
             case "Noise":
                 signal = generator.UniformNoise(amplitude, startingTime, durationTime, sampling);
                 signal.setName(nameField.getText());
-                Save(signal);
+                save(signal);
                 break;
 
-            case "Gausian Noise":
+            case "Gaussian noise":
                 signal = generator.GaussianNoise(amplitude, startingTime, durationTime, sampling);
                 signal.setName(nameField.getText());
-                Save(signal);
+                save(signal);
                 break;
 
-            case "Sinusoida":
+            case "Sine Wave":
                 signal = generator.Sinusoidal(amplitude, startingTime, durationTime, period, sampling);
                 signal.setName(nameField.getText());
-                Save(signal);
+                save(signal);
                 break;
 
-            case "Erected Sidusoida":
+            case "Half-wave rectified sine":
                 signal = generator.ErectedSinusoidal(amplitude, startingTime, durationTime, period, sampling);
                 signal.setName(nameField.getText());
-                Save(signal);
+                save(signal);
                 break;
 
-            case "Two Said Erected Sinusoida":
+            case "Full-wave rectified sine":
                 signal = generator.ErectedSinusoidalTwoParts(amplitude, startingTime, durationTime, period, sampling);
                 signal.setName(nameField.getText());
-                Save(signal);
+                save(signal);
                 break;
 
-            case "Rectangle signal":
+            case "Square wave":
                 signal = generator.Rectangular(amplitude, startingTime, durationTime, period, fullfilment, sampling);
                 signal.setName(nameField.getText());
-                Save(signal);
+                save(signal);
                 break;
 
-            case "Simetrical Rectangular signal":
+            case "Symmetrical Rectangular signal":
                 signal = generator.RectangularSimetrical(amplitude, startingTime, durationTime, period, fullfilment, sampling);
                 signal.setName(nameField.getText());
-                Save(signal);
+                save(signal);
                 break;
 
-            case "Trangular signal":
+            case "Triangular wave":
                 signal = generator.Triangular(amplitude, startingTime, durationTime, period, fullfilment, sampling);
                 signal.setName(nameField.getText());
-                Save(signal);
+                save(signal);
                 break;
 
-            case "Unit Jump":
+            case "Step function":
                 signal = generator.UnitJump(amplitude, startingTime, durationTime, sampling);
                 signal.setName(nameField.getText());
-                Save(signal);
+                save(signal);
                 break;
         }
 
@@ -168,7 +174,7 @@ public class ButtonHandler
         Double fullfilment = Double.parseDouble(fullfilmentField.getText());
         Integer sampling = Integer.parseInt(samplingField.getText());
 
-        Generator generator = new Generator();
+		Generator generator = new Generator();
         Signal signal;
 
 
@@ -178,42 +184,42 @@ public class ButtonHandler
                 AlertBox.display("Data", generateData(signal));
                 break;
 
-            case "Gausian Noise":
+            case "Gaussian noise":
                 signal = generator.GaussianNoise(amplitude, startingTime, durationTime, sampling);
                 AlertBox.display("Data", generateData(signal));
                 break;
 
-            case "Sinusoida":
+            case "Sine Wave":
                 signal = generator.Sinusoidal(amplitude, startingTime, durationTime, period, sampling);
                 AlertBox.display("Data", generateData(signal));
                 break;
 
-            case "Erected Sidusoida":
+            case "Half-wave rectified sine":
                 signal = generator.ErectedSinusoidal(amplitude, startingTime, durationTime, period, sampling);
                 AlertBox.display("Data", generateData(signal));
                 break;
 
-            case "Two Said Erected Sinusoida":
+            case "Full-wave rectified sine":
                 signal = generator.ErectedSinusoidalTwoParts(amplitude, startingTime, durationTime, period, sampling);
                 AlertBox.display("Data", generateData(signal));
                 break;
 
-            case "Rectangle signal":
+            case "Square wave":
                 signal = generator.Rectangular(amplitude, startingTime, durationTime, period, fullfilment, sampling);
                 AlertBox.display("Data", generateData(signal));
                 break;
 
-            case "Simetrical Rectangular signal":
+            case "Symmetrical Rectangular signal":
                 signal = generator.RectangularSimetrical(amplitude, startingTime, durationTime, period, fullfilment, sampling);
                 AlertBox.display("Data", generateData(signal));
                 break;
 
-            case "Trangular signal":
+            case "Triangular wave":
                 signal = generator.Triangular(amplitude, startingTime, durationTime, period, fullfilment, sampling);
                 AlertBox.display("Data", generateData(signal));
                 break;
 
-            case "Unit Jump":
+            case "Step function":
                 signal = generator.UnitJump(amplitude, startingTime, durationTime, sampling);
                 AlertBox.display("Data", generateData(signal));
                 break;
@@ -221,7 +227,7 @@ public class ButtonHandler
 
     }
 
-    public void Draw(Signal signal)
+    public void draw(Signal signal, int intervals)
     {
         Map<Double, Double> values;
         double[] xs, ys;
@@ -238,23 +244,29 @@ public class ButtonHandler
             ys[i] = entry.getValue();
             i++;
         }
-        XYChart chart = QuickChart.getChart(signal.getName(), "X", "Y", "y(x)", xs, ys);
-        new SwingWrapper(chart).displayChart().setDefaultCloseOperation(WindowConstants.HIDE_ON_CLOSE);
+        CategoryChart histogram = new CategoryChartBuilder().width(1200).title("Histogram").xAxisTitle("X").yAxisTitle("Y").build();
 
-        CategoryChart histogram = new CategoryChartBuilder().width(1600).height(800).title("Histogram").xAxisTitle("X").yAxisTitle("Y").build();
+		double min = Arrays.stream(ys).min().getAsDouble();
+		double max = Arrays.stream(ys).max().getAsDouble();
 
-        Integer [] counter = countHistogram(ys, signal.getAmplitude());
-        histogram.addSeries("test", Arrays.asList(countXAxis(signal.getAmplitude())), Arrays.asList(counter));
+        Integer [] counter = countHistogram(ys, signal.getAmplitude(), intervals, min, max);
+        histogram.addSeries("test", Arrays.asList(countXAxis(intervals, signal.getAmplitude(), min, max)), Arrays.asList(counter));
         new SwingWrapper<CategoryChart>(histogram).displayChart().setDefaultCloseOperation(WindowConstants.HIDE_ON_CLOSE);
+
+		XYChart chart = QuickChart.getChart(signal.getName(), "X", "Y", "y(x)", xs, ys);
+		new SwingWrapper(chart).displayChart().setDefaultCloseOperation(WindowConstants.HIDE_ON_CLOSE);
 
     }
 
-    public void Save(Signal signal)
+    public void save(Signal signal) throws EmptyFileNameException
     {
         XMLConverter xmlConverter = new XMLConverter();
 
         try
         {
+        	if(signal.getName().equals("") || signal.getName() == null){
+        		throw new EmptyFileNameException("File name cannot be empty");
+			}
             xmlConverter.Serialize("./signals/" + signal.getName() + ".xml", signal);
 
             FileOutputStream file = new FileOutputStream("./signals/" + signal.getName() + ".bin");
@@ -271,16 +283,35 @@ public class ButtonHandler
         }
     }
 
-    private Integer[] countHistogram(double [] ys, double amplitude)
+    private Integer[] countHistogram(double [] ys, double amplitude, int elements, double min, double max)
     {
-        Integer[] result = new Integer[20];
+        Integer[] result = new Integer[elements];
         for(int i=0;i<result.length;i++)
             result[i] = 0;
-        boolean isNegative = false;
+
+		double k = (max - min)/elements;
+       // double k =  2 * (amplitude / elements);
+        double it = 0;
+        double epsilon = 0.001;
+        for(int i = 0; i<ys.length; i++){
+
+        	for(int j = 0; j<elements; j++){
+        		if(ys[i] >=  min + it && ys[i] < min + it + k + epsilon){
+					//System.out.println(ys[i] + " " + (temp + it) + " " + (temp + k + it) + " " + amplitude);
+        			result[j]++;
+				}
+
+				it += k;
+			}
+
+			it = 0;
+		}
+
+
 
         for(int i=0; i<ys.length; i++)
         {
-            if(ys[i] >= -amplitude && ys[i] < -9*amplitude/10.0)
+         /*   if(ys[i] >= -amplitude && ys[i] < -9*amplitude/10.0)
                 result[0]++;
             if(ys[i] >= -9*amplitude/10.0 && ys[i] < -8*amplitude/10.0)
                 result[1]++;
@@ -319,15 +350,26 @@ public class ButtonHandler
             if(ys[i] >= 8*amplitude/10.0 && ys[i] < 9*amplitude/10.0)
                 result[18]++;
             if(ys[i] >= 9*amplitude/10.0 && ys[i] <= 10*amplitude/10.0)
-                result[19]++;
+                result[19]++; */
             }
 
         return result;
     }
 
-    private String[] countXAxis(double amplitude)
+    private String[] countXAxis(int elements, double amplitude, double min, double max)
     {
-        return new String[] {String.valueOf(-amplitude) + " - " + String.valueOf(-0.9*amplitude),
+		double k = (max - min)/elements;
+    	double it = 0;
+    	String[] arr = new String[elements];
+		DecimalFormat format = new DecimalFormat("0.0");
+    	for(int i = 0; i<elements; i++){
+    		double start = min + it;
+    		double stop = min + it + k;
+    		arr[i] = format.format(start) + "-" + format.format(stop);
+    		it += k;
+		}
+		return arr;
+       /* return new String[] {String.valueOf(-amplitude) + " - " + String.valueOf(-0.9*amplitude),
                 String.valueOf(-0.9*amplitude) + " - " + String.valueOf(-0.8*amplitude),
                 String.valueOf(-0.8*amplitude) + " - " + String.valueOf(-0.7*amplitude),
                 String.valueOf(-0.7*amplitude) + " - " + String.valueOf(-0.6*amplitude),
@@ -347,7 +389,7 @@ public class ButtonHandler
                 String.valueOf(0.7*amplitude) + " - " + String.valueOf(0.8*amplitude),
                 String.valueOf(0.8*amplitude) + " - " + String.valueOf(0.9*amplitude),
                 String.valueOf(0.9*amplitude) + " - " + String.valueOf(amplitude),
-                };
+                }; */
     }
 
     public String generateData(Signal signal)
@@ -356,8 +398,8 @@ public class ButtonHandler
         String result = new String();
 
         result += "Average: " + calculationHelper.Average(signal) + "\r\n";
-        result += "Absolute Avarage: " + calculationHelper.AbsoluteAvarage(signal) + "\r\n";
-        result += "Strength: " + calculationHelper.Strenght(signal) + "\r\n";
+        result += "Absolute Average: " + calculationHelper.AbsoluteAverage(signal) + "\r\n";
+        result += "Mean power: " + calculationHelper.Strength(signal) + "\r\n";
         result += "Variance: " + calculationHelper.Variance(signal) + "\r\n";
         result += "Root Mean Square: " + calculationHelper.RootMeanSquare(signal) + "\r\n";
 

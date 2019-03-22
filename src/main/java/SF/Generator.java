@@ -8,7 +8,7 @@ public class Generator
 {
     public Signal UniformNoise(Double amplitude, Double startingTime, Double durationTime, int sampling)
     {
-        Signal signal = new Signal("UniformNoise");
+        Signal signal = new Signal("Noise");
 
         signal.setAmplitude(amplitude);
         signal.setStartingTime(startingTime);
@@ -54,7 +54,7 @@ public class Generator
 
     public Signal Sinusoidal(Double amplitude, Double startingTime, Double durationTime, Double period, int sampling)
     {
-        Signal signal = new Signal("Sinusoidal");
+        Signal signal = new Signal("Sine");
 
         signal.setAmplitude(amplitude);
         signal.setStartingTime(startingTime);
@@ -79,7 +79,7 @@ public class Generator
     {
         Signal signal = this.Sinusoidal(amplitude, startingTime, durationTime, period, sampling);
 
-        signal.setName("ErectedSinusoidal");
+        signal.setName("Half-waveRectifiedSine");
 
         for (Map.Entry<Double,Double> entry: signal.getValues().entrySet())
         {
@@ -98,7 +98,7 @@ public class Generator
     {
         Signal signal = this.Sinusoidal(amplitude, startingTime, durationTime, period, sampling);
 
-        signal.setName("ErectedSinusoidalTwoParts");
+        signal.setName("Full-waveRectifiedSine");
 
         for (Map.Entry<Double,Double> entry: signal.getValues().entrySet())
         {
@@ -115,7 +115,7 @@ public class Generator
 
     public Signal Rectangular(Double amplitude, Double startingTime, Double durationTime, Double period, Double fullfilment, int sampling)
     {
-        Signal signal = new Signal("Rectangular");
+        Signal signal = new Signal("SquareWave");
 
         signal.setAmplitude(amplitude);
         signal.setStartingTime(startingTime);
@@ -154,7 +154,7 @@ public class Generator
 
     public Signal RectangularSimetrical(Double amplitude, Double startingTime, Double durationTime, Double period, Double fullfilment, int sampling)
     {
-        Signal signal = new Signal("RectangularSimetrical");
+        Signal signal = new Signal("SymmetricalRectangularSignal");
 
         signal.setAmplitude(amplitude);
         signal.setStartingTime(startingTime);
@@ -236,7 +236,7 @@ public class Generator
 
     public Signal UnitJump(Double amplitude, Double startingTime, Double durationTime, int sampling)
     {
-        Signal signal = new Signal("Triangular");
+        Signal signal = new Signal("Step function");
 
         signal.setAmplitude(amplitude);
         signal.setStartingTime(startingTime);

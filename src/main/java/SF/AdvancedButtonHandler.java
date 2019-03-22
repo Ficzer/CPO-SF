@@ -1,6 +1,7 @@
 package SF;
 
 import javafx.scene.control.ChoiceBox;
+import javafx.scene.control.TextField;
 
 import java.io.FileInputStream;
 import java.io.FileNotFoundException;
@@ -13,7 +14,7 @@ import java.util.List;
 
 public class AdvancedButtonHandler
 {
-    public void handleDraw(ChoiceBox<String> signalChoiceA, ChoiceBox<String> signalChoiceB, ChoiceBox<String> operation)
+    public void handleDraw(ChoiceBox<String> signalChoiceA, ChoiceBox<String> signalChoiceB, ChoiceBox<String> operation, TextField histogramElements)
     {
         Signal signalA = null;
         Signal signalB = null;
@@ -44,7 +45,7 @@ public class AdvancedButtonHandler
             case "Add":
                 try
                 {
-                    buttonHandler.Draw(calculationHelper.addSignals(signalA, signalB));
+                    buttonHandler.draw(calculationHelper.addSignals(signalA, signalB), Integer.parseInt(histogramElements.getText()));
                 }
                 catch (WrongSamplingException e)
                 {
@@ -55,7 +56,7 @@ public class AdvancedButtonHandler
             case "Subtract":
                 try
                 {
-                    buttonHandler.Draw(calculationHelper.subtractSignals(signalA, signalB));
+                    buttonHandler.draw(calculationHelper.subtractSignals(signalA, signalB), Integer.parseInt(histogramElements.getText()));
                 }
                 catch (WrongSamplingException e)
                 {
@@ -66,7 +67,7 @@ public class AdvancedButtonHandler
             case "Multiply":
                 try
                 {
-                    buttonHandler.Draw(calculationHelper.multiplySignals(signalA, signalB));
+                    buttonHandler.draw(calculationHelper.multiplySignals(signalA, signalB),  Integer.parseInt(histogramElements.getText()));
                 }
                 catch (WrongSamplingException e)
                 {
@@ -77,7 +78,7 @@ public class AdvancedButtonHandler
             case "Divide":
                 try
                 {
-                    buttonHandler.Draw(calculationHelper.divideSignals(signalA, signalB));
+                    buttonHandler.draw(calculationHelper.divideSignals(signalA, signalB),  Integer.parseInt(histogramElements.getText()));
                 }
                 catch (WrongSamplingException e)
                 {
@@ -121,9 +122,9 @@ public class AdvancedButtonHandler
             case "Add":
                 try
                 {
-                    buttonHandler.Save(calculationHelper.addSignals(signalA, signalB));
+                    buttonHandler.save(calculationHelper.addSignals(signalA, signalB));
                 }
-                catch (WrongSamplingException e)
+                catch (WrongSamplingException  | EmptyFileNameException e)
                 {
                     AlertBox.display("Wrong sampling", "Samplings of two singals don't match");
                     e.printStackTrace();
@@ -132,9 +133,9 @@ public class AdvancedButtonHandler
             case "Subtract":
                 try
                 {
-                    buttonHandler.Save(calculationHelper.subtractSignals(signalA, signalB));
+                    buttonHandler.save(calculationHelper.subtractSignals(signalA, signalB));
                 }
-                catch (WrongSamplingException e)
+                catch (WrongSamplingException  | EmptyFileNameException e)
                 {
                     AlertBox.display("Wrong sampling", "Samplings of two singals don't match");
                     e.printStackTrace();
@@ -143,9 +144,9 @@ public class AdvancedButtonHandler
             case "Multiply":
                 try
                 {
-                    buttonHandler.Save(calculationHelper.multiplySignals(signalA, signalB));
+                    buttonHandler.save(calculationHelper.multiplySignals(signalA, signalB));
                 }
-                catch (WrongSamplingException e)
+                catch (WrongSamplingException  | EmptyFileNameException e)
                 {
                     AlertBox.display("Wrong sampling", "Samplings of two singals don't match");
                     e.printStackTrace();
@@ -154,9 +155,9 @@ public class AdvancedButtonHandler
             case "Divide":
                 try
                 {
-                    buttonHandler.Save(calculationHelper.divideSignals(signalA, signalB));
+                    buttonHandler.save(calculationHelper.divideSignals(signalA, signalB));
                 }
-                catch (WrongSamplingException e)
+                catch (WrongSamplingException  | EmptyFileNameException e)
                 {
                     AlertBox.display("Wrong sampling", "Samplings of two singals don't match");
                     e.printStackTrace();
