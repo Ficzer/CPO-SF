@@ -9,7 +9,7 @@ public class CalculationHelper
 {
     public Double Average(Signal signal)
     {
-        /*Double result = 0.0;
+        Double result = 0.0;
 
         for (Map.Entry<Double,Double> entry: signal.getValues().entrySet())
         {
@@ -22,14 +22,12 @@ public class CalculationHelper
         result = (double)Math.round(result);
         result /= 100;
 
-        return result; */
-
-        return 0.0;
+        return result;
     }
 
     public Double AbsoluteAverage(Signal signal)
     {
-       /* Double result = 0.0;
+        Double result = 0.0;
 
         for (Map.Entry<Double,Double> entry: signal.getValues().entrySet())
         {
@@ -42,13 +40,12 @@ public class CalculationHelper
         result = (double)Math.round(result);
         result /= 100;
 
-        return result; */
-       return 0.0;
+        return result;
     }
 
     public Double Strength(Signal signal)
     {
-       /* Double result = 0.0;
+        Double result = 0.0;
 
         for (Map.Entry<Double,Double> entry: signal.getValues().entrySet())
         {
@@ -61,18 +58,17 @@ public class CalculationHelper
         result = (double)Math.round(result);
         result /= 100;
 
-        return result; */
-       return 0.0;
+        return result;
     }
 
     public Double Variance(Signal signal)
     {
-       /* Double result = 0.0;
+        Double result = 0.0;
         Double average = this.Average(signal);
 
         for (Map.Entry<Double,Double> entry: signal.getValues().entrySet())
         {
-            result += entry.getValue() - average;
+            result += Math.pow(entry.getValue() - average, 2);
         }
 
         result = result / (double)(signal.getValues().size() + 1);
@@ -81,21 +77,19 @@ public class CalculationHelper
         result = (double)Math.round(result);
         result /= 100;
 
-        return result; */
-       return  0.0;
+        return result;
     }
 
     public Double RootMeanSquare(Signal signal)
     {
-        /*Double result = 0.0;
+        Double result = 0.0;
         result = Math.sqrt(this.Strength(signal));
 
         result *= 100;
         result = (double)Math.round(result);
         result /= 100;
 
-        return result; */
-        return  0.0;
+        return result;
     }
 
     public Signal addSignals(Signal signalOne, Signal signalTwo) throws WrongSamplingException

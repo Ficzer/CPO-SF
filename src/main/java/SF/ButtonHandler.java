@@ -3,10 +3,8 @@ package SF;
 import javafx.scene.control.ChoiceBox;
 import javafx.scene.control.TextField;
 import org.knowm.xchart.*;
-import org.omg.Messaging.SYNC_WITH_TRANSPORT;
 
 import javax.swing.*;
-import javax.xml.soap.Text;
 import java.io.FileOutputStream;
 import java.io.IOException;
 import java.io.ObjectOutputStream;
@@ -251,10 +249,10 @@ public class ButtonHandler
 
         Integer [] counter = countHistogram(ys, signal.getAmplitude(), intervals, min, max);
         histogram.addSeries("test", Arrays.asList(countXAxis(intervals, signal.getAmplitude(), min, max)), Arrays.asList(counter));
-        new SwingWrapper<CategoryChart>(histogram).displayChart().setDefaultCloseOperation(WindowConstants.HIDE_ON_CLOSE);
+        new SwingWrapper<CategoryChart>(histogram).displayChart().setDefaultCloseOperation(WindowConstants.DISPOSE_ON_CLOSE);
 
 		XYChart chart = QuickChart.getChart(signal.getName(), "X", "Y", "y(x)", xs, ys);
-		new SwingWrapper(chart).displayChart().setDefaultCloseOperation(WindowConstants.HIDE_ON_CLOSE);
+		new SwingWrapper(chart).displayChart().setDefaultCloseOperation(WindowConstants.DISPOSE_ON_CLOSE);
 
     }
 

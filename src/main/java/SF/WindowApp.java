@@ -146,13 +146,12 @@ public class WindowApp extends Application {
                                     durationTimeLabel, periodLabel, FillFactorLabel, SamplingLabel, advancedOptionsButton,
                                     nameField, nameLabel, histogramElementsLabel, histogramElements);
 
-        primaryStage.setScene(new Scene(grid, 500, 300));
+        primaryStage.setScene(new Scene(grid, 530, 330));
         primaryStage.show();
     }
 
     private void closeProgram(Stage primaryStage)
     {
-        //new SwingWrapper((List) null).displayChart().setDefaultCloseOperation(WindowConstants.EXIT_ON_CLOSE);
         primaryStage.close();
     }
 
