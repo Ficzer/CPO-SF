@@ -50,7 +50,7 @@
                     <artifactId>javafx-maven-plugin</artifactId>
                     <version>8.8.3</version>
                     <configuration>
-                        <mainClass>SF.WindowApp</mainClass>
+                        <mainClass>SF.GUI.WindowApp</mainClass>
                     </configuration>
                 </plugin>
                 <!-- clean lifecycle, see https://maven.apache.org/ref/current/maven-core/lifecycles.html#clean_Lifecycle -->

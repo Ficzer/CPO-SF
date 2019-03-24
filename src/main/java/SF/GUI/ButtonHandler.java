@@ -1,5 +1,6 @@
-package SF;
+package SF.GUI;
 
+import SF.*;
 import javafx.scene.control.ChoiceBox;
 import javafx.scene.control.TextField;
 import org.knowm.xchart.*;
@@ -9,11 +10,8 @@ import java.io.FileOutputStream;
 import java.io.IOException;
 import java.io.ObjectOutputStream;
 import java.text.DecimalFormat;
-import java.text.Format;
 import java.util.Arrays;
-import java.util.Collections;
 import java.util.Map;
-import java.util.stream.Collectors;
 
 public class ButtonHandler
 {

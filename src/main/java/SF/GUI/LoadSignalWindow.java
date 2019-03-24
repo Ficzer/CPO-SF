@@ -1,12 +1,9 @@
-package SF;
+package SF.GUI;
 
-import com.thoughtworks.xstream.mapper.Mapper;
-import javafx.event.ActionEvent;
-import javafx.event.EventHandler;
+import SF.Signal;
 import javafx.geometry.Insets;
 import javafx.scene.Scene;
 import javafx.scene.control.Button;
-import javafx.scene.control.ChoiceBox;
 import javafx.scene.control.Label;
 import javafx.scene.control.TextField;
 import javafx.scene.layout.GridPane;
@@ -15,7 +12,6 @@ import javafx.stage.Modality;
 import javafx.stage.Stage;
 
 import java.io.*;
-import java.util.List;
 
 public class LoadSignalWindow
 {
