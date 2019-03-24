@@ -1,5 +1,6 @@
 package SF;
 
+import com.thoughtworks.xstream.mapper.Mapper;
 import javafx.event.ActionEvent;
 import javafx.event.EventHandler;
 import javafx.geometry.Insets;
@@ -28,7 +29,6 @@ public class LoadSignalWindow
         Button openFileButton = new Button("Open file");
         Button drawButton = new Button("Draw");
         Button showDataButton = new Button("Show Data");
-        TextField fileNameField = new TextField();
         TextField intervalsField = new TextField("10");
         Label fileLabel = new Label("File");
         Label intervalLabel = new Label("Intervals");
@@ -54,16 +54,23 @@ public class LoadSignalWindow
                     {
                         e1.printStackTrace();
                     }
-                    catch (IOException e1)
+                    catch (StreamCorruptedException e1)
                     {
                         e1.printStackTrace();
+                        AlertBox.display("Wrong file", "Wrong file Format");
                     }
                     catch (ClassNotFoundException e1)
                     {
                         e1.printStackTrace();
                         AlertBox.display("Wrong file", "Wrong file Format");
                     }
-                    fileNameField.setText(signal.getName());
+                    catch (IOException e1)
+                    {
+                        e1.printStackTrace();
+                    }
+
+
+                    fileLabel.setText(signal.getName());
                 }
             });
 
@@ -78,11 +85,24 @@ public class LoadSignalWindow
                 e1.printStackTrace();
                 AlertBox.display("Wrong format", "Wrong format of intervals");
             }
+            catch (NullPointerException e1)
+            {
+                e1.printStackTrace();
+                AlertBox.display("Choose file", "Please choose file to load");
+            }
         });
 
         showDataButton.setOnAction(e ->
         {
-            AlertBox.display("Data", buttonHandler.generateData(signal));
+            try
+            {
+                AlertBox.display("Data", buttonHandler.generateData(signal));
+            }
+            catch (NullPointerException e1)
+            {
+                e1.printStackTrace();
+                AlertBox.display("Choose file", "Please choose file to load");
+            }
         });
 
 
@@ -98,14 +118,13 @@ public class LoadSignalWindow
         GridPane.setConstraints(showDataButton, 0 , 2);
         GridPane.setConstraints(fileLabel, 1, 0);
         GridPane.setConstraints(intervalLabel, 1, 1);
-        GridPane.setConstraints(fileNameField, 2, 0);
         GridPane.setConstraints(intervalsField, 2, 1);
 
 
-        grid.getChildren().addAll(openFileButton, drawButton, showDataButton, fileNameField, intervalsField,
+        grid.getChildren().addAll(openFileButton, drawButton, showDataButton, intervalsField,
                 fileLabel, intervalLabel);
 
-        window.setScene(new Scene(grid, 320, 300));
+        window.setScene(new Scene(grid, 350, 140));
         window.show();
     }
 
