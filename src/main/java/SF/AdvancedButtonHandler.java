@@ -45,7 +45,7 @@ public class AdvancedButtonHandler
             case "Add":
                 try
                 {
-                    buttonHandler.draw(calculationHelper.addSignals(signalA, signalB), Integer.parseInt(histogramElements.getText()));
+                    buttonHandler.draw(calculationHelper.addSignals(signalA, signalB), Integer.parseInt(histogramElements.getText()), false);
                 }
                 catch (WrongSamplingException e)
                 {
@@ -56,7 +56,7 @@ public class AdvancedButtonHandler
             case "Subtract":
                 try
                 {
-                    buttonHandler.draw(calculationHelper.subtractSignals(signalA, signalB), Integer.parseInt(histogramElements.getText()));
+                    buttonHandler.draw(calculationHelper.subtractSignals(signalA, signalB), Integer.parseInt(histogramElements.getText()), false);
                 }
                 catch (WrongSamplingException e)
                 {
@@ -67,7 +67,7 @@ public class AdvancedButtonHandler
             case "Multiply":
                 try
                 {
-                    buttonHandler.draw(calculationHelper.multiplySignals(signalA, signalB),  Integer.parseInt(histogramElements.getText()));
+                    buttonHandler.draw(calculationHelper.multiplySignals(signalA, signalB),  Integer.parseInt(histogramElements.getText()), false);
                 }
                 catch (WrongSamplingException e)
                 {
@@ -78,7 +78,7 @@ public class AdvancedButtonHandler
             case "Divide":
                 try
                 {
-                    buttonHandler.draw(calculationHelper.divideSignals(signalA, signalB),  Integer.parseInt(histogramElements.getText()));
+                    buttonHandler.draw(calculationHelper.divideSignals(signalA, signalB),  Integer.parseInt(histogramElements.getText()), false);
                 }
                 catch (WrongSamplingException e)
                 {

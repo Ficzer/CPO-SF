@@ -56,6 +56,8 @@ public class Generator
     {
         Signal signal = new Signal("Sine");
 
+        sampling = normalizeSampling(sampling, durationTime, period);
+
         signal.setAmplitude(amplitude);
         signal.setStartingTime(startingTime);
         signal.setDurationTime(durationTime);
@@ -124,6 +126,8 @@ public class Generator
         signal.setFulfillment(fullfilment);
         signal.setSampling(sampling);
 
+        sampling = normalizeSampling(sampling, durationTime, period);
+
         Double value, pom = 0.0;
         int k = 0;
         boolean flag = true;
@@ -173,6 +177,8 @@ public class Generator
         signal.setFulfillment(fullfilment);
         signal.setSampling(sampling);
 
+        sampling = normalizeSampling(sampling, durationTime, period);
+
         Double value, pom = 0.0;
         int k = 0;
         boolean flag = true;
@@ -221,6 +227,8 @@ public class Generator
         signal.setPeriod(period);
         signal.setFulfillment(fullfilment);
         signal.setSampling(sampling);
+
+        sampling = normalizeSampling(sampling, durationTime, period);
 
         Double value, pom = 0.0;
         int k = 0;
@@ -353,5 +361,11 @@ public class Generator
         signal.setValues(new TreeMap<Double, Double>(signal.getValues()));
 
         return signal;
+    }
+
+    private int normalizeSampling(int sampling, Double durationTime, Double period)
+    {
+        double pom = durationTime / period;
+        return (int)(sampling * pom);
     }
 }

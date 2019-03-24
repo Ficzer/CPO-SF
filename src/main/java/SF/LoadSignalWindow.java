@@ -78,7 +78,7 @@ public class LoadSignalWindow
         {
             try
             {
-                buttonHandler.draw(signal, Integer.valueOf(intervalsField.getText()));
+                buttonHandler.draw(signal, Integer.valueOf(intervalsField.getText()), false);
             }
             catch (NumberFormatException e1)
             {

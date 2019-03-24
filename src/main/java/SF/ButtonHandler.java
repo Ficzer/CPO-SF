@@ -38,47 +38,46 @@ public class ButtonHandler
         switch (choiceValue) {
             case "Noise":
                 signal = generator.UniformNoise(amplitude, startingTime, durationTime, sampling);
-                draw(signal, intervals);
+                draw(signal, intervals, false);
                 break;
 
             case "Gaussian noise":
                 signal = generator.GaussianNoise(amplitude, startingTime, durationTime, sampling);
-				draw(signal, intervals);
-                break;
+				draw(signal, intervals, false);
 
             case "Sine Wave":
                 signal = generator.Sinusoidal(amplitude, startingTime, durationTime, period, sampling);
-				draw(signal, intervals);
+				draw(signal, intervals, false);
                 break;
 
             case "Half-wave rectified sine":
                 signal = generator.ErectedSinusoidal(amplitude, startingTime, durationTime, period, sampling);
-				draw(signal, intervals);
+				draw(signal, intervals, false);
                 break;
 
             case "Full-wave rectified sine":
                 signal = generator.ErectedSinusoidalTwoParts(amplitude, startingTime, durationTime, period, sampling);
-				draw(signal, intervals);
+				draw(signal, intervals, false);
                 break;
 
             case "Square wave":
                 signal = generator.Rectangular(amplitude, startingTime, durationTime, period, fillFactor, sampling);
-				draw(signal, intervals);
+				draw(signal, intervals, false);
                 break;
 
             case "Symmetrical Rectangular signal":
                 signal = generator.RectangularSimetrical(amplitude, startingTime, durationTime, period, fillFactor, sampling);
-				draw(signal, intervals);
+				draw(signal, intervals, false);
                 break;
 
             case "Triangular wave":
                 signal = generator.Triangular(amplitude, startingTime, durationTime, period, fillFactor, sampling);
-				draw(signal, intervals);
+				draw(signal, intervals, false);
                 break;
 
             case "Step function":
                 signal = generator.UnitJump(amplitude, startingTime, durationTime, sampling);
-				draw(signal, intervals);
+				draw(signal, intervals, false);
                 break;
         }
 
@@ -104,7 +103,7 @@ public class ButtonHandler
             case "Unit Impulse":
                 signal = generator.UnitImpulse(amplitude, startingTime, durationTime, impulsePosition, sampling);
                 signal.setName(nameField.getText());
-                draw(signal, intervals);
+                draw(signal, intervals, true);
                 break;
 
             case "Impulse Noise":
@@ -117,7 +116,7 @@ public class ButtonHandler
                     e.printStackTrace();
                 }
                 signal.setName(nameField.getText());
-                draw(signal, intervals);
+                draw(signal, intervals, true);
                 break;
         }
     }
@@ -337,7 +336,7 @@ public class ButtonHandler
         }
     }
 
-    public void draw(Signal signal, int intervals)
+    public void draw(Signal signal, int intervals, boolean isDiscreet)
     {
         Map<Double, Double> values;
         double[] xs, ys;
@@ -363,8 +362,19 @@ public class ButtonHandler
         histogram.addSeries("test", Arrays.asList(countXAxis(intervals, signal.getAmplitude(), min, max)), Arrays.asList(counter));
         new SwingWrapper<CategoryChart>(histogram).displayChart().setDefaultCloseOperation(WindowConstants.DISPOSE_ON_CLOSE);
 
-		XYChart chart = QuickChart.getChart(signal.getName(), "X", "Y", "y(x)", xs, ys);
-		new SwingWrapper(chart).displayChart().setDefaultCloseOperation(WindowConstants.DISPOSE_ON_CLOSE);
+        if(isDiscreet)
+        {
+            XYChart chart = new XYChartBuilder().width(800).height(600).title("test").xAxisTitle("X").yAxisTitle("Y").build();
+            chart.getStyler().setDefaultSeriesRenderStyle(XYSeries.XYSeriesRenderStyle.Scatter);
+            chart.getStyler().setMarkerSize(5);
+            chart.addSeries("X", xs, ys);
+            new SwingWrapper(chart).displayChart().setDefaultCloseOperation(WindowConstants.DISPOSE_ON_CLOSE);
+        }
+        else
+            {
+            XYChart chart = QuickChart.getChart(signal.getName(), "X", "Y", "y(x)", xs, ys);
+            new SwingWrapper(chart).displayChart().setDefaultCloseOperation(WindowConstants.DISPOSE_ON_CLOSE);
+        }
 
     }
 
