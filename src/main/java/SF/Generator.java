@@ -124,15 +124,25 @@ public class Generator
         signal.setFulfillment(fullfilment);
         signal.setSampling(sampling);
 
-        Double value, tempIterator = 0.0;
+        Double value, pom = 0.0;
         int k = 0;
+        boolean flag = true;
 
         for(Double i=startingTime; i<durationTime+startingTime; i+=durationTime/(double)sampling)
         {
-            if(tempIterator>period)
+            pom = i - period;
+            flag = true;
+            while(flag)
             {
-                k++;
-                tempIterator = 0.0;
+                if(pom >= 0.0)
+                {
+                    k++;
+                    pom -= period;
+                }
+                else
+                {
+                    flag = false;
+                }
             }
 
             if(i >= k*period + startingTime && i < fullfilment*period + k*period + startingTime)
@@ -144,7 +154,7 @@ public class Generator
                 value = 0.0;
             }
             signal.getValues().put(i, value);
-            tempIterator+=durationTime/(double)sampling;
+            k = 0;
         }
 
         signal.setValues(new TreeMap<Double, Double>(signal.getValues()));
@@ -163,15 +173,25 @@ public class Generator
         signal.setFulfillment(fullfilment);
         signal.setSampling(sampling);
 
-        Double value, tempIterator = 0.0;
+        Double value, pom = 0.0;
         int k = 0;
+        boolean flag = true;
 
         for(Double i=startingTime; i<durationTime+startingTime; i+=durationTime/(double)sampling)
         {
-            if(tempIterator>period)
+            pom = i - period;
+            flag = true;
+            while(flag)
             {
-                k++;
-                tempIterator = 0.0;
+                if(pom >= 0.0)
+                {
+                    k++;
+                    pom -= period;
+                }
+                else
+                {
+                    flag = false;
+                }
             }
 
             if(i >= k*period + startingTime && i < fullfilment*period + k*period + startingTime)
@@ -183,7 +203,7 @@ public class Generator
                 value = -amplitude;
             }
             signal.getValues().put(i, value);
-            tempIterator+=durationTime/(double)sampling;
+            k = 0;
         }
 
         signal.setValues(new TreeMap<Double, Double>(signal.getValues()));
@@ -202,15 +222,25 @@ public class Generator
         signal.setFulfillment(fullfilment);
         signal.setSampling(sampling);
 
-        Double value, tempIterator = 0.0;
+        Double value, pom = 0.0;
         int k = 0;
+        boolean flag = true;
 
         for(Double i=startingTime; i<durationTime+startingTime; i+=durationTime/(double)sampling)
         {
-            if(tempIterator>period)
+            pom = i - period;
+            flag = true;
+            while(flag)
             {
-                k++;
-                tempIterator = 0.0;
+                if(pom >= 0.0)
+                {
+                    k++;
+                    pom -= period;
+                }
+                else
+                {
+                    flag = false;
+                }
             }
 
             if(i >= k*period + startingTime && i < fullfilment*period + k*period + startingTime)
@@ -226,7 +256,7 @@ public class Generator
                 value = 0.0;
 
             signal.getValues().put(i, value);
-            tempIterator+=durationTime/(double)sampling;
+            k = 0;
         }
 
         signal.setValues(new TreeMap<Double, Double>(signal.getValues()));
