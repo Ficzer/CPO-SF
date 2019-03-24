@@ -1,7 +1,4 @@
-package SF;
-
-import java.io.IOException;
-import java.util.*;
+package SF.GUI;
 
 
 public class App

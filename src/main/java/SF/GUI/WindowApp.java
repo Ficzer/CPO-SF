@@ -1,5 +1,6 @@
-package SF;
+package SF.GUI;
 
+import SF.GUI.*;
 import javafx.application.Application;
 
 import javafx.geometry.Insets;
