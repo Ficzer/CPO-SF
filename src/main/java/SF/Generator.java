@@ -18,7 +18,7 @@ public class Generator
         Random rng = new Random();
         Double value;
 
-        for(Double i=startingTime; i<durationTime+startingTime; i+=durationTime/(double)sampling)
+        for(Double i=startingTime; i<=durationTime+startingTime; i+=durationTime/(double)sampling)
         {
             value = 2 * (rng.nextDouble() - 0.5) * amplitude;
             signal.getValues().put(i, value);
@@ -41,7 +41,7 @@ public class Generator
         Random rng = new Random();
         Double value;
 
-        for(Double i=startingTime; i<durationTime+startingTime; i+=durationTime/(double)sampling)
+        for(Double i=startingTime; i<=durationTime+startingTime; i+=durationTime/(double)sampling)
         {
             value = rng.nextGaussian() * amplitude * 0.4;
             signal.getValues().put(i, value);
@@ -66,7 +66,7 @@ public class Generator
 
         Double value;
 
-        for(Double i=startingTime; i<durationTime+startingTime; i+=durationTime/(double)sampling)
+        for(Double i=startingTime; i<=durationTime+startingTime; i+=durationTime/(double)sampling)
         {
             value = amplitude * Math.sin(2*Math.PI/period*(i-startingTime));
             signal.getValues().put(i, value);
@@ -132,7 +132,7 @@ public class Generator
         int k = 0;
         boolean flag = true;
 
-        for(Double i=startingTime; i<durationTime+startingTime; i+=durationTime/(double)sampling)
+        for(Double i=startingTime; i<=durationTime+startingTime; i+=durationTime/(double)sampling)
         {
             pom = i - period;
             flag = true;
@@ -183,7 +183,7 @@ public class Generator
         int k = 0;
         boolean flag = true;
 
-        for(Double i=startingTime; i<durationTime+startingTime; i+=durationTime/(double)sampling)
+        for(Double i=startingTime; i<=durationTime+startingTime; i+=durationTime/(double)sampling)
         {
             pom = i - period;
             flag = true;
@@ -234,7 +234,7 @@ public class Generator
         int k = 0;
         boolean flag = true;
 
-        for(Double i=startingTime; i<durationTime+startingTime; i+=durationTime/(double)sampling)
+        for(Double i=startingTime; i<=durationTime+startingTime; i+=durationTime/(double)sampling)
         {
             pom = i - period;
             flag = true;
@@ -284,7 +284,7 @@ public class Generator
         Double value = 0.0;
         Double ts = (durationTime - startingTime) / 2.0;
 
-        for(Double i=startingTime; i<durationTime+startingTime; i+=durationTime/(double)sampling)
+        for(Double i=startingTime; i<=durationTime+startingTime; i+=durationTime/(double)sampling)
         {
             if(i < ts)
             {
@@ -318,7 +318,7 @@ public class Generator
 
         int iterator = 0;
 
-        for(Double i=startingTime; i<durationTime+startingTime; i+=durationTime/(double)sampling, iterator++)
+        for(Double i=startingTime; i<=durationTime+startingTime; i+=durationTime/(double)sampling, iterator++)
         {
             if(iterator == impuls)
                 signal.getValues().put(i, amplitude);
@@ -346,7 +346,7 @@ public class Generator
             throw new WrongProbabilityFormatException();
         }
 
-        for(Double i=startingTime; i<durationTime+startingTime; i+=durationTime/(double)sampling, iterator++)
+        for(Double i=startingTime; i<=durationTime+startingTime; i+=durationTime/(double)sampling, iterator++)
         {
             if(random.nextDouble() < probability)
             {

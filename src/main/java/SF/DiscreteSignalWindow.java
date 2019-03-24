@@ -33,9 +33,9 @@ public class DiscreteSignalWindow
         TextField amplitudeField = new TextField("1");
         TextField startingTimeField = new TextField("0");
         TextField durationTimeField = new TextField("10");
-        TextField impulsePositionField = new TextField("150");
+        TextField impulsePositionField = new TextField("15");
         TextField probabilityField = new TextField("0.5");
-        TextField samplingField = new TextField("300");
+        TextField samplingField = new TextField("30");
         TextField intervalsField = new TextField("10");
 
         Label nameLabel = new Label("File name");

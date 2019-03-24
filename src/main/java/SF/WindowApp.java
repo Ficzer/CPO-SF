@@ -47,7 +47,7 @@ public class WindowApp extends Application {
         TextField durationTimeField = new TextField("10");
         TextField periodField = new TextField("5");
         TextField FillFactorField = new TextField("0.5");
-        TextField samplingField = new TextField("300");
+        TextField samplingField = new TextField("50");
         TextField histogramElements = new TextField("10");
 
         nameField.setPromptText("Name");
