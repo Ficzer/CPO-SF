@@ -266,7 +266,7 @@ public class Generator
 
     public Signal UnitJump(Double amplitude, Double startingTime, Double durationTime, int sampling)
     {
-        Signal signal = new Signal("Step function");
+        Signal signal = new Signal("Unit jump");
 
         signal.setAmplitude(amplitude);
         signal.setStartingTime(startingTime);
@@ -293,6 +293,61 @@ public class Generator
 
             signal.getValues().put(i, value);
 
+        }
+
+        signal.setValues(new TreeMap<Double, Double>(signal.getValues()));
+
+        return signal;
+    }
+
+    public Signal UnitImpulse (Double amplitude, Double startingTime, Double durationTime, int impuls, int sampling)
+    {
+        Signal signal = new Signal("Unit impulse");
+        signal.setAmplitude(amplitude);
+        signal.setStartingTime(startingTime);
+        signal.setDurationTime(durationTime);
+        signal.setSampling(sampling);
+
+        int iterator = 0;
+
+        for(Double i=startingTime; i<durationTime+startingTime; i+=durationTime/(double)sampling, iterator++)
+        {
+            if(iterator == impuls)
+                signal.getValues().put(i, amplitude);
+            else
+                signal.getValues().put(i, 0.0);
+        }
+
+        signal.setValues(new TreeMap<Double, Double>(signal.getValues()));
+
+        return signal;
+    }
+
+    public Signal ImpulseNoise(Double amplitude, Double startingTime, Double durationTime, Double probability, int sampling) throws WrongProbabilityFormatException {
+        Signal signal = new Signal("Impulse noise");
+        signal.setAmplitude(amplitude);
+        signal.setStartingTime(startingTime);
+        signal.setDurationTime(durationTime);
+        signal.setSampling(sampling);
+
+        int iterator = 0;
+        Random random = new Random();
+
+        if(probability < 0.0 || probability > 1.0)
+        {
+            throw new WrongProbabilityFormatException();
+        }
+
+        for(Double i=startingTime; i<durationTime+startingTime; i+=durationTime/(double)sampling, iterator++)
+        {
+            if(random.nextDouble() < probability)
+            {
+                signal.getValues().put(i, amplitude);
+            }
+            else
+            {
+                signal.getValues().put(i, 0.0);
+            }
         }
 
         signal.setValues(new TreeMap<Double, Double>(signal.getValues()));

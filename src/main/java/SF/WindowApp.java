@@ -26,11 +26,13 @@ public class WindowApp extends Application {
         Button saveButton = new Button();
         Button showDataButton = new Button();
         Button advancedOptionsButton = new Button();
+        Button discreteSignalButtton = new Button();
         Button loadFromFileButton = new Button();
         drawButton.setText("Draw");
         saveButton.setText("Save signal to file");
         showDataButton.setText("Show details");
         advancedOptionsButton.setText("Signal operations");
+        discreteSignalButtton.setText("Generate discrete signal");
         loadFromFileButton.setText("Load from file");
 
         ChoiceBox<String> signalChoice = new ChoiceBox<>();
@@ -70,6 +72,7 @@ public class WindowApp extends Application {
         ButtonHandler buttonHandler = new ButtonHandler();
         AdvancedOptionsWindow advancedOptionsWindow = new AdvancedOptionsWindow();
         LoadSignalWindow loadSignalWindow = new LoadSignalWindow();
+        DiscreteSignalWindow discreteSignalWindow = new DiscreteSignalWindow();
 
 
         drawButton.setOnAction(e -> {
@@ -90,13 +93,13 @@ public class WindowApp extends Application {
             {
                 buttonHandler.handleSave(signalChoice, amplitudeField, startingTimeField, durationTimeField
                         , periodField, FillFactorField, samplingField, nameField);
-                AlertBox.display("Success", "File has been saved.");
             }
             catch (Exception e1)
             {
                 AlertBox.display("Wrong Format", "Format of given data is wrong or text fields are empty.");
-               // e1.printStackTrace();
+                e1.printStackTrace();
             }
+            AlertBox.display("Success", "File has been saved.");
         });
 
         showDataButton.setOnAction(e -> {
@@ -116,6 +119,8 @@ public class WindowApp extends Application {
 
         loadFromFileButton.setOnAction(e -> loadSignalWindow.display());
 
+        discreteSignalButtton.setOnAction(e -> discreteSignalWindow.display());
+
 
 
         GridPane grid = new GridPane();
@@ -129,28 +134,30 @@ public class WindowApp extends Application {
         GridPane.setConstraints(showDataButton, 0,4);
         GridPane.setConstraints(advancedOptionsButton, 0, 5);
         GridPane.setConstraints(loadFromFileButton, 0, 6);
-        GridPane.setConstraints(amplitudeField, 3,0);
-        GridPane.setConstraints(startingTimeField, 3,1);
-        GridPane.setConstraints(durationTimeField, 3,2);
-        GridPane.setConstraints(periodField, 3,3);
-        GridPane.setConstraints(FillFactorField, 3,4);
-        GridPane.setConstraints(samplingField, 3,5);
-        GridPane.setConstraints(nameField, 3,6);
+        GridPane.setConstraints(amplitudeField, 3,1);
+        GridPane.setConstraints(startingTimeField, 3,2);
+        GridPane.setConstraints(durationTimeField, 3,3);
+        GridPane.setConstraints(periodField, 3,4);
+        GridPane.setConstraints(FillFactorField, 3,5);
+        GridPane.setConstraints(samplingField, 3,6);
+        GridPane.setConstraints(nameField, 3,0);
         GridPane.setConstraints(histogramElements, 3, 7);
-        GridPane.setConstraints(amplitudeLabel, 2,0);
-        GridPane.setConstraints(startingTimeLabel, 2,1);
-        GridPane.setConstraints(durationTimeLabel, 2,2);
-        GridPane.setConstraints(periodLabel, 2,3);
-        GridPane.setConstraints(FillFactorLabel, 2,4);
-        GridPane.setConstraints(SamplingLabel, 2,5);
-        GridPane.setConstraints(nameLabel, 2,6);
+        GridPane.setConstraints(amplitudeLabel, 2,1);
+        GridPane.setConstraints(startingTimeLabel, 2,2);
+        GridPane.setConstraints(durationTimeLabel, 2,3);
+        GridPane.setConstraints(periodLabel, 2,4);
+        GridPane.setConstraints(FillFactorLabel, 2,5);
+        GridPane.setConstraints(SamplingLabel, 2,6);
+        GridPane.setConstraints(nameLabel, 2,0);
         GridPane.setConstraints(histogramElementsLabel, 2, 7);
+        GridPane.setConstraints(discreteSignalButtton, 0 ,7);
 
 
         grid.getChildren().addAll(signalChoice, drawButton, saveButton, showDataButton, amplitudeField, startingTimeField, durationTimeField,
                                     periodField, FillFactorField, samplingField, amplitudeLabel, startingTimeLabel,
                                     durationTimeLabel, periodLabel, FillFactorLabel, SamplingLabel, advancedOptionsButton,
-                                    nameField, nameLabel, histogramElementsLabel, histogramElements, loadFromFileButton);
+                                    nameField, nameLabel, histogramElementsLabel, histogramElements, loadFromFileButton,
+                                    discreteSignalButtton);
 
         primaryStage.setScene(new Scene(grid, 530, 330));
         primaryStage.show();

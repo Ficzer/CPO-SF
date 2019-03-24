@@ -84,6 +84,44 @@ public class ButtonHandler
 
     }
 
+    public void handleDiscreteDraw(ChoiceBox<String> signalChoice, TextField amplitudeField, TextField startingTimeField,
+                                   TextField durationTimeField, TextField impulsePositionField, TextField probabilityField,
+                                   TextField samplingField, TextField nameField, TextField intervalsField)
+    {
+        String choiceValue = signalChoice.getValue();
+        Double amplitude = Double.parseDouble(amplitudeField.getText());
+        Double startingTime = Double.parseDouble(startingTimeField.getText());
+        Double durationTime = Double.parseDouble(durationTimeField.getText());
+        Integer impulsePosition = Integer.parseInt(impulsePositionField.getText());
+        Double probability = Double.parseDouble(probabilityField.getText());
+        Integer sampling = Integer.parseInt(samplingField.getText());
+        Integer intervals = Integer.parseInt(intervalsField.getText());
+
+        Generator generator = new Generator();
+        Signal signal = null;
+
+        switch (choiceValue) {
+            case "Unit Impulse":
+                signal = generator.UnitImpulse(amplitude, startingTime, durationTime, impulsePosition, sampling);
+                signal.setName(nameField.getText());
+                draw(signal, intervals);
+                break;
+
+            case "Impulse Noise":
+                try
+                {
+                    signal = generator.ImpulseNoise(amplitude, startingTime, durationTime, probability, sampling);
+                } catch (WrongProbabilityFormatException e)
+                {
+                    AlertBox.display("Wrong Format", "Wrong probability format. /r/n Please use value between 0 and 1");
+                    e.printStackTrace();
+                }
+                signal.setName(nameField.getText());
+                draw(signal, intervals);
+                break;
+        }
+    }
+
     public void handleSave(ChoiceBox<String> signalChoice, TextField amplitudeField, TextField startingTimeField,
                            TextField durationTimeField, TextField periodField, TextField fullfilmentField,
                            TextField samplingField, TextField nameField) throws Exception
@@ -159,6 +197,43 @@ public class ButtonHandler
 
     }
 
+    public void handleDiscreteSave(ChoiceBox<String> signalChoice, TextField amplitudeField, TextField startingTimeField,
+                                   TextField durationTimeField, TextField impulsePositionField, TextField probabilityField,
+                                   TextField samplingField, TextField nameField, TextField intervalsField) throws Exception {
+        String choiceValue = signalChoice.getValue();
+        Double amplitude = Double.parseDouble(amplitudeField.getText());
+        Double startingTime = Double.parseDouble(startingTimeField.getText());
+        Double durationTime = Double.parseDouble(durationTimeField.getText());
+        Integer impulsePosition = Integer.parseInt(impulsePositionField.getText());
+        Double probability = Double.parseDouble(probabilityField.getText());
+        Integer sampling = Integer.parseInt(samplingField.getText());
+        Integer intervals = Integer.parseInt(intervalsField.getText());
+
+        Generator generator = new Generator();
+        Signal signal = null;
+
+        switch (choiceValue) {
+            case "Unit Impulse":
+                signal = generator.UnitImpulse(amplitude, startingTime, durationTime, impulsePosition, sampling);
+                signal.setName(nameField.getText());
+                save(signal);
+                break;
+
+            case "Impulse Noise":
+                try
+                {
+                    signal = generator.ImpulseNoise(amplitude, startingTime, durationTime, probability, sampling);
+                } catch (WrongProbabilityFormatException e)
+                {
+                    AlertBox.display("Wrong Format", "Wrong probability format. /r/n Please use value between 0 and 1");
+                    e.printStackTrace();
+                }
+                signal.setName(nameField.getText());
+                save(signal);
+                break;
+        }
+    }
+
     public void handleShowData(ChoiceBox<String> signalChoice, TextField amplitudeField, TextField startingTimeField,
                            TextField durationTimeField, TextField periodField, TextField fullfilmentField,
                            TextField samplingField) throws Exception
@@ -223,6 +298,43 @@ public class ButtonHandler
                 break;
         }
 
+    }
+
+    public void handleDiscreteShowData(ChoiceBox<String> signalChoice, TextField amplitudeField, TextField startingTimeField,
+                                   TextField durationTimeField, TextField impulsePositionField, TextField probabilityField,
+                                   TextField samplingField, TextField nameField, TextField intervalsField) throws Exception {
+        String choiceValue = signalChoice.getValue();
+        Double amplitude = Double.parseDouble(amplitudeField.getText());
+        Double startingTime = Double.parseDouble(startingTimeField.getText());
+        Double durationTime = Double.parseDouble(durationTimeField.getText());
+        Integer impulsePosition = Integer.parseInt(impulsePositionField.getText());
+        Double probability = Double.parseDouble(probabilityField.getText());
+        Integer sampling = Integer.parseInt(samplingField.getText());
+        Integer intervals = Integer.parseInt(intervalsField.getText());
+
+        Generator generator = new Generator();
+        Signal signal = null;
+
+        switch (choiceValue) {
+            case "Unit Impulse":
+                signal = generator.UnitImpulse(amplitude, startingTime, durationTime, impulsePosition, sampling);
+                signal.setName(nameField.getText());
+                AlertBox.display("Data", generateData(signal));
+                break;
+
+            case "Impulse Noise":
+                try
+                {
+                    signal = generator.ImpulseNoise(amplitude, startingTime, durationTime, probability, sampling);
+                } catch (WrongProbabilityFormatException e)
+                {
+                    AlertBox.display("Wrong Format", "Wrong probability format. /r/n Please use value between 0 and 1");
+                    e.printStackTrace();
+                }
+                signal.setName(nameField.getText());
+                AlertBox.display("Data", generateData(signal));
+                break;
+        }
     }
 
     public void draw(Signal signal, int intervals)
