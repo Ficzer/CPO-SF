@@ -49,4 +49,19 @@ public class Signal implements Serializable
     	val[index] = value;
 	}
 
+	public void copy(Signal signal)
+    {
+        this.name = signal.getName();
+        this.amplitude = signal.getAmplitude();
+        this.period = signal.getPeriod();
+        this.startingTime = signal.getStartingTime();
+        this.durationTime = signal.getDurationTime();
+        this.fulfillment = signal.getFulfillment();
+        this.sampling = signal.getSampling();
+        this.values = signal.getValues();
+        this.imaginaryValues = signal.getImaginaryValues();
+        this.val = signal.getVal();
+    }
+
+
 }
