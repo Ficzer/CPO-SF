@@ -1,7 +1,5 @@
-package SF.GUI;
+package SF;
 
-import SF.*;
-import SF.GUI.AlertBox;
 import javafx.scene.control.ChoiceBox;
 import javafx.scene.control.TextField;
 import org.knowm.xchart.*;
@@ -11,8 +9,11 @@ import java.io.FileOutputStream;
 import java.io.IOException;
 import java.io.ObjectOutputStream;
 import java.text.DecimalFormat;
+import java.text.Format;
 import java.util.Arrays;
+import java.util.Collections;
 import java.util.Map;
+import java.util.stream.Collectors;
 
 public class ButtonHandler
 {
@@ -43,7 +44,6 @@ public class ButtonHandler
             case "Gaussian noise":
                 signal = generator.GaussianNoise(amplitude, startingTime, durationTime, sampling);
 				draw(signal, intervals, false);
-				break;
 
             case "Sine Wave":
                 signal = generator.Sinusoidal(amplitude, startingTime, durationTime, period, sampling);
