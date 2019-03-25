@@ -1,4 +1,4 @@
-package SF;
+package SF.GUI;
 
 import javafx.geometry.Insets;
 import javafx.scene.Scene;
@@ -7,11 +7,8 @@ import javafx.scene.control.ChoiceBox;
 import javafx.scene.control.Label;
 import javafx.scene.control.TextField;
 import javafx.scene.layout.GridPane;
-import javafx.stage.FileChooser;
 import javafx.stage.Modality;
 import javafx.stage.Stage;
-
-import java.io.*;
 
 public class DiscreteSignalWindow
 {

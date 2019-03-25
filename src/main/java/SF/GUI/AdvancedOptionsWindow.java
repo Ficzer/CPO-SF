@@ -1,4 +1,4 @@
-package SF;
+package SF.GUI;
 
 import javafx.geometry.Insets;
 import javafx.scene.Scene;
@@ -12,10 +12,7 @@ import javafx.stage.Modality;
 import javafx.stage.Stage;
 
 import java.io.File;
-import java.io.FileInputStream;
-import java.io.FileNotFoundException;
 import java.util.ArrayList;
-import java.util.Arrays;
 import java.util.List;
 
 public class AdvancedOptionsWindow
