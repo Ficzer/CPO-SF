@@ -4,6 +4,7 @@ import SF.*;
 import javafx.scene.control.ChoiceBox;
 import javafx.scene.control.TextField;
 
+import javax.lang.model.type.ArrayType;
 import java.io.FileInputStream;
 import java.io.IOException;
 import java.io.ObjectInputStream;
@@ -70,7 +71,7 @@ public class AdvancedButtonHandler
                 }
                 catch (WrongSamplingException e)
                 {
-                    AlertBox.display("Wrong sampling", "Samplings of two singals don't match");
+                    AlertBox.display("Wrong sampling", "Samplings of two signals don't match");
                     e.printStackTrace();
                 }
                 break;
@@ -81,9 +82,12 @@ public class AdvancedButtonHandler
                 }
                 catch (WrongSamplingException e)
                 {
-                    AlertBox.display("Wrong sampling", "Samplings of two singals don't match");
+                    AlertBox.display("Wrong sampling", "Samplings of two signals don't match");
                     e.printStackTrace();
                 }
+                catch(ArithmeticException e){
+                	AlertBox.display("Error", "Cannot divide by 0!");
+				}
                 break;
 
         }
