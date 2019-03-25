@@ -55,9 +55,7 @@ public class Generator
     public Signal Sinusoidal(Double amplitude, Double startingTime, Double durationTime, Double period, int sampling)
     {
         Signal signal = new Signal("Sine");
-
-        sampling = normalizeSampling(sampling, durationTime, period);
-
+		sampling = normalizeSampling(sampling, durationTime, period);
         signal.setAmplitude(amplitude);
         signal.setStartingTime(startingTime);
         signal.setDurationTime(durationTime);
@@ -79,6 +77,7 @@ public class Generator
 
     public Signal ErectedSinusoidal(Double amplitude, Double startingTime, Double durationTime, Double period, int sampling)
     {
+		sampling = normalizeSampling(sampling, durationTime, period);
         Signal signal = this.Sinusoidal(amplitude, startingTime, durationTime, period, sampling);
 
         signal.setName("Half-waveRectifiedSine");
@@ -98,6 +97,7 @@ public class Generator
 
     public Signal ErectedSinusoidalTwoParts(Double amplitude, Double startingTime, Double durationTime, Double period, int sampling)
     {
+		sampling = normalizeSampling(sampling, durationTime, period);
         Signal signal = this.Sinusoidal(amplitude, startingTime, durationTime, period, sampling);
 
         signal.setName("Full-waveRectifiedSine");
@@ -117,6 +117,7 @@ public class Generator
 
     public Signal Rectangular(Double amplitude, Double startingTime, Double durationTime, Double period, Double fullfilment, int sampling)
     {
+		sampling = normalizeSampling(sampling, durationTime, period);
         Signal signal = new Signal("SquareWave");
 
         signal.setAmplitude(amplitude);
@@ -125,9 +126,6 @@ public class Generator
         signal.setPeriod(period);
         signal.setFulfillment(fullfilment);
         signal.setSampling(sampling);
-
-        sampling = normalizeSampling(sampling, durationTime, period);
-
         Double value, pom = 0.0;
         int k = 0;
         boolean flag = true;
@@ -168,6 +166,7 @@ public class Generator
 
     public Signal RectangularSimetrical(Double amplitude, Double startingTime, Double durationTime, Double period, Double fullfilment, int sampling)
     {
+		sampling = normalizeSampling(sampling, durationTime, period);
         Signal signal = new Signal("SymmetricalRectangularSignal");
 
         signal.setAmplitude(amplitude);
@@ -176,9 +175,6 @@ public class Generator
         signal.setPeriod(period);
         signal.setFulfillment(fullfilment);
         signal.setSampling(sampling);
-
-        sampling = normalizeSampling(sampling, durationTime, period);
-
         Double value, pom = 0.0;
         int k = 0;
         boolean flag = true;
@@ -219,6 +215,7 @@ public class Generator
 
     public Signal Triangular(Double amplitude, Double startingTime, Double durationTime, Double period, Double fullfilment, int sampling)
     {
+		sampling = normalizeSampling(sampling, durationTime, period);
         Signal signal = new Signal("Triangular");
 
         signal.setAmplitude(amplitude);
@@ -227,9 +224,6 @@ public class Generator
         signal.setPeriod(period);
         signal.setFulfillment(fullfilment);
         signal.setSampling(sampling);
-
-        sampling = normalizeSampling(sampling, durationTime, period);
-
         Double value, pom = 0.0;
         int k = 0;
         boolean flag = true;

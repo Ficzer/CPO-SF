@@ -44,6 +44,7 @@ public class ButtonHandler
             case "Gaussian noise":
                 signal = generator.GaussianNoise(amplitude, startingTime, durationTime, sampling);
 				draw(signal, intervals, false);
+				break;
 
             case "Sine Wave":
                 signal = generator.Sinusoidal(amplitude, startingTime, durationTime, period, sampling);
@@ -359,12 +360,12 @@ public class ButtonHandler
 		double max = Arrays.stream(ys).max().getAsDouble();
 
         Integer [] counter = countHistogram(ys, signal.getAmplitude(), intervals, min, max);
-        histogram.addSeries("test", Arrays.asList(countXAxis(intervals, signal.getAmplitude(), min, max)), Arrays.asList(counter));
+        histogram.addSeries("amount", Arrays.asList(countXAxis(intervals, signal.getAmplitude(), min, max)), Arrays.asList(counter));
         new SwingWrapper<CategoryChart>(histogram).displayChart().setDefaultCloseOperation(WindowConstants.DISPOSE_ON_CLOSE);
 
         if(isDiscreet)
         {
-            XYChart chart = new XYChartBuilder().width(800).height(600).title("test").xAxisTitle("X").yAxisTitle("Y").build();
+            XYChart chart = new XYChartBuilder().width(800).height(600).title("").xAxisTitle("X").yAxisTitle("Y").build();
             chart.getStyler().setDefaultSeriesRenderStyle(XYSeries.XYSeriesRenderStyle.Scatter);
             chart.getStyler().setMarkerSize(5);
             chart.addSeries("X", xs, ys);
@@ -410,14 +411,12 @@ public class ButtonHandler
             result[i] = 0;
 
 		double k = (max - min)/elements;
-       // double k =  2 * (amplitude / elements);
         double it = 0;
         double epsilon = 0.001;
         for(int i = 0; i<ys.length; i++){
 
         	for(int j = 0; j<elements; j++){
         		if(ys[i] >=  min + it && ys[i] < min + it + k + epsilon){
-					//System.out.println(ys[i] + " " + (temp + it) + " " + (temp + k + it) + " " + amplitude);
         			result[j]++;
 				}
 
@@ -426,52 +425,6 @@ public class ButtonHandler
 
 			it = 0;
 		}
-
-
-
-        for(int i=0; i<ys.length; i++)
-        {
-         /*   if(ys[i] >= -amplitude && ys[i] < -9*amplitude/10.0)
-                result[0]++;
-            if(ys[i] >= -9*amplitude/10.0 && ys[i] < -8*amplitude/10.0)
-                result[1]++;
-            if(ys[i] >= -8*amplitude/10.0 && ys[i] < -7*amplitude/10.0)
-                result[2]++;
-            if(ys[i] >= -7*amplitude/10.0 && ys[i] < -6*amplitude/10.0)
-                result[3]++;
-            if(ys[i] >= -6*amplitude/10.0 && ys[i] < -5*amplitude/10.0)
-                result[4]++;
-            if(ys[i] >= -5*amplitude/10.0 && ys[i] < -4*amplitude/10.0)
-                result[5]++;
-            if(ys[i] >= -4*amplitude/10.0 && ys[i] < -3*amplitude/10.0)
-                result[6]++;
-            if(ys[i] >= -3*amplitude/10.0 && ys[i] < -2*amplitude/10.0)
-                result[7]++;
-            if(ys[i] >= -2*amplitude/10.0 && ys[i] < -1*amplitude/10.0)
-                result[8]++;
-            if(ys[i] >= -1*amplitude/10.0 && ys[i] < 0*amplitude/10.0)
-                result[9]++;
-            if(ys[i] >= 0.0 && ys[i] < amplitude/10.0)
-                result[10]++;
-            if(ys[i] >= amplitude/10.0 && ys[i] < 2*amplitude/10.0)
-                result[11]++;
-            if(ys[i] >= 2*amplitude/10.0 && ys[i] < 3*amplitude/10.0)
-                result[12]++;
-            if(ys[i] >= 3*amplitude/10.0 && ys[i] < 4*amplitude/10.0)
-                result[13]++;
-            if(ys[i] >= 4*amplitude/10.0 && ys[i] < 5*amplitude/10.0)
-                result[14]++;
-            if(ys[i] >= 5*amplitude/10.0 && ys[i] < 6*amplitude/10.0)
-                result[15]++;
-            if(ys[i] >= 6*amplitude/10.0 && ys[i] < 7*amplitude/10.0)
-                result[16]++;
-            if(ys[i] >= 7*amplitude/10.0 && ys[i] < 8*amplitude/10.0)
-                result[17]++;
-            if(ys[i] >= 8*amplitude/10.0 && ys[i] < 9*amplitude/10.0)
-                result[18]++;
-            if(ys[i] >= 9*amplitude/10.0 && ys[i] <= 10*amplitude/10.0)
-                result[19]++; */
-            }
 
         return result;
     }

@@ -93,13 +93,13 @@ public class WindowApp extends Application {
             {
                 buttonHandler.handleSave(signalChoice, amplitudeField, startingTimeField, durationTimeField
                         , periodField, FillFactorField, samplingField, nameField);
+
+				AlertBox.display("Success", "File has been saved.");
             }
             catch (Exception e1)
             {
                 AlertBox.display("Wrong Format", "Format of given data is wrong or text fields are empty.");
-                e1.printStackTrace();
             }
-            AlertBox.display("Success", "File has been saved.");
         });
 
         showDataButton.setOnAction(e -> {
