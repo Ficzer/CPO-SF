@@ -28,6 +28,14 @@ public class WindowApp extends Application {
         Button advancedOptionsButton = new Button();
         Button discreteSignalButtton = new Button();
         Button loadFromFileButton = new Button();
+
+        drawButton.setMinWidth(150);
+		saveButton.setMinWidth(150);
+		showDataButton.setMinWidth(150);
+		advancedOptionsButton.setMinWidth(150);
+		discreteSignalButtton.setMinWidth(150);
+		loadFromFileButton.setMinWidth(150);
+
         drawButton.setText("Draw");
         saveButton.setText("Save signal to file");
         showDataButton.setText("Show details");
@@ -159,7 +167,7 @@ public class WindowApp extends Application {
                                     nameField, nameLabel, histogramElementsLabel, histogramElements, loadFromFileButton,
                                     discreteSignalButtton);
 
-        primaryStage.setScene(new Scene(grid, 530, 330));
+        primaryStage.setScene(new Scene(grid, 530, 350));
         primaryStage.show();
     }
 

@@ -26,6 +26,10 @@ public class DiscreteSignalWindow
         saveButton.setText("Save signal to file");
         showDataButton.setText("Show details");
 
+        drawButton.setMinWidth(110);
+        saveButton.setMinWidth(110);
+        showDataButton.setMinWidth(110);
+
         TextField nameField = new TextField();
         TextField amplitudeField = new TextField("1");
         TextField startingTimeField = new TextField("0");
@@ -47,6 +51,7 @@ public class DiscreteSignalWindow
         ChoiceBox<String> signalChoice = new ChoiceBox<>();
         signalChoice.getItems().addAll("Unit Impulse", "Impulse Noise");
         signalChoice.setValue("Unit Impulse");
+        signalChoice.setMinWidth(110);
 
         drawButton.setOnAction(e -> {
             try
@@ -66,13 +71,13 @@ public class DiscreteSignalWindow
             {
                 buttonHandler.handleDiscreteSave(signalChoice, amplitudeField, startingTimeField,
                         durationTimeField, impulsePositionField, probabilityField, samplingField, nameField, intervalsField);
+				AlertBox.display("Success", "File has been saved.");
             }
             catch (Exception e1)
             {
                 AlertBox.display("Wrong Format", "Format of given data is wrong or text fields are empty.");
                 e1.printStackTrace();
             }
-            AlertBox.display("Success", "File has been saved.");
         });
 
         showDataButton.setOnAction(e -> {

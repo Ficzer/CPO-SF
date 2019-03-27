@@ -11,11 +11,24 @@ public class CalculationHelper {
 	public Double Average(Signal signal) {
 		Double result = 0.0;
 
-		for (Map.Entry<Double, Double> entry : signal.getValues().entrySet()) {
-			result += entry.getValue();
+		double k = 0;
+		int size = signal.getValues().size();
+		if (signal.getPeriod() != null) {
+			k = signal.getDurationTime() / signal.getPeriod();
+			size = (int)k * signal.getSampling();
+
 		}
 
-		result = result / (double) (signal.getValues().size() + 1);
+
+		int i = 0;
+		for (Map.Entry<Double, Double> entry : signal.getValues().entrySet()) {
+			if (i <= size) {
+				result += entry.getValue();
+			}
+			i++;
+		}
+
+		result = result / (double) (size + 1);
 
 		result *= 100;
 		result = (double) Math.round(result);
@@ -27,11 +40,22 @@ public class CalculationHelper {
 	public Double AbsoluteAverage(Signal signal) {
 		Double result = 0.0;
 
+		double k = 0;
+		int size = signal.getValues().size();
+		if (signal.getPeriod() != null) {
+			k = signal.getDurationTime() / signal.getPeriod();
+			size = (int)k * signal.getSampling();
+
+		}
+		int i = 0;
 		for (Map.Entry<Double, Double> entry : signal.getValues().entrySet()) {
-			result += Math.abs(entry.getValue());
+			if (i < size) {
+				result += Math.abs(entry.getValue());
+			}
+			i++;
 		}
 
-		result = result / (double) (signal.getValues().size() + 1);
+		result = result / (double) (size + 1);
 
 		result *= 100;
 		result = (double) Math.round(result);
@@ -43,11 +67,22 @@ public class CalculationHelper {
 	public Double Strength(Signal signal) {
 		Double result = 0.0;
 
+		double k = 0;
+		int size = signal.getValues().size();
+		if (signal.getPeriod() != null) {
+			k = signal.getDurationTime() / signal.getPeriod();
+			size = (int)k * signal.getSampling();
+
+		}
+		int i = 0;
 		for (Map.Entry<Double, Double> entry : signal.getValues().entrySet()) {
-			result += entry.getValue() * entry.getValue();
+			if (i < size) {
+				result += entry.getValue() * entry.getValue();
+			}
+			i++;
 		}
 
-		result = result / (double) (signal.getValues().size() + 1);
+		result = result / (double) (size + 1);
 
 		result *= 100;
 		result = (double) Math.round(result);
@@ -60,11 +95,22 @@ public class CalculationHelper {
 		Double result = 0.0;
 		Double average = this.Average(signal);
 
+		double k = 0;
+		int size = signal.getValues().size();
+		if (signal.getPeriod() != null) {
+			k = signal.getDurationTime() / signal.getPeriod();
+			size = (int)k * signal.getSampling();
+
+		}
+		int i = 0;
 		for (Map.Entry<Double, Double> entry : signal.getValues().entrySet()) {
-			result += Math.pow(entry.getValue() - average, 2);
+			if (i < size) {
+				result += Math.pow(entry.getValue() - average, 2);
+			}
+			i++;
 		}
 
-		result = result / (double) (signal.getValues().size() + 1);
+		result = result / (double) (size + 1);
 
 		result *= 100;
 		result = (double) Math.round(result);
@@ -84,12 +130,13 @@ public class CalculationHelper {
 		return result;
 	}
 
+
 	public Signal addSignals(Signal signalOne, Signal signalTwo) throws WrongSamplingException {
 		if (!signalOne.getSampling().equals(signalTwo.getSampling())) {
 			throw new WrongSamplingException("Sampling of two signals does't match");
 		}
 
-		List<Double> tempList = new ArrayList<Double>();
+		List<Double> tempList = new ArrayList<>();
 
 		for (Map.Entry<Double, Double> entry : signalOne.getValues().entrySet()) {
 			tempList.add(entry.getValue());
@@ -98,6 +145,7 @@ public class CalculationHelper {
 		int i = 0;
 		for (Map.Entry<Double, Double> entry : signalTwo.getValues().entrySet()) {
 			entry.setValue(entry.getValue() + tempList.get(i));
+			System.out.println(entry.getValue() +  " " + entry.getValue() + tempList.get(i));
 			i++;
 		}
 
@@ -111,7 +159,7 @@ public class CalculationHelper {
 		resultSignal.setDurationTime(signalTwo.getDurationTime());
 
 		resultSignal.setAmplitude(calculateAmplitude(resultSignal));
-
+System.out.println(resultSignal);
 		return resultSignal;
 	}
 

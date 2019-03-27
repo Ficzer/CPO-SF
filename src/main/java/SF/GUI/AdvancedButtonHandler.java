@@ -45,29 +45,29 @@ public class AdvancedButtonHandler
             case "Add":
                 try
                 {
-                    buttonHandler.draw(calculationHelper.addSignals(signalA, signalB), Integer.parseInt(histogramElements.getText()), false);
+                    buttonHandler.draw(calculationHelper.addSignals(signalA, signalB), Integer.parseInt(histogramElements.getText()), false, true);
                 }
                 catch (WrongSamplingException e)
                 {
-                    AlertBox.display("Wrong sampling", "Samplings of two singals don't match");
+                    AlertBox.display("Wrong sampling", "Samplings of two signals don't match");
                     e.printStackTrace();
                 }
                 break;
             case "Subtract":
                 try
                 {
-                    buttonHandler.draw(calculationHelper.subtractSignals(signalA, signalB), Integer.parseInt(histogramElements.getText()), false);
+                    buttonHandler.draw(calculationHelper.subtractSignals(signalA, signalB), Integer.parseInt(histogramElements.getText()), false, true);
                 }
                 catch (WrongSamplingException e)
                 {
-                    AlertBox.display("Wrong sampling", "Samplings of two singals don't match");
+                    AlertBox.display("Wrong sampling", "Samplings of two signals don't match");
                     e.printStackTrace();
                 }
                 break;
             case "Multiply":
                 try
                 {
-                    buttonHandler.draw(calculationHelper.multiplySignals(signalA, signalB),  Integer.parseInt(histogramElements.getText()), false);
+                    buttonHandler.draw(calculationHelper.multiplySignals(signalA, signalB),  Integer.parseInt(histogramElements.getText()), false, true);
                 }
                 catch (WrongSamplingException e)
                 {
@@ -78,7 +78,7 @@ public class AdvancedButtonHandler
             case "Divide":
                 try
                 {
-                    buttonHandler.draw(calculationHelper.divideSignals(signalA, signalB),  Integer.parseInt(histogramElements.getText()), false);
+                    buttonHandler.draw(calculationHelper.divideSignals(signalA, signalB),  Integer.parseInt(histogramElements.getText()), false, true);
                 }
                 catch (WrongSamplingException e)
                 {
@@ -129,7 +129,7 @@ public class AdvancedButtonHandler
                 }
                 catch (WrongSamplingException  | EmptyFileNameException e)
                 {
-                    AlertBox.display("Wrong sampling", "Samplings of two singals don't match");
+                    AlertBox.display("Wrong sampling", "Samplings of two signals don't match");
                     e.printStackTrace();
                 }
                 break;
@@ -140,7 +140,7 @@ public class AdvancedButtonHandler
                 }
                 catch (WrongSamplingException  | EmptyFileNameException e)
                 {
-                    AlertBox.display("Wrong sampling", "Samplings of two singals don't match");
+                    AlertBox.display("Wrong sampling", "Samplings of two signals don't match");
                     e.printStackTrace();
                 }
                 break;
@@ -151,7 +151,7 @@ public class AdvancedButtonHandler
                 }
                 catch (WrongSamplingException  | EmptyFileNameException e)
                 {
-                    AlertBox.display("Wrong sampling", "Samplings of two singals don't match");
+                    AlertBox.display("Wrong sampling", "Samplings of two signals don't match");
                     e.printStackTrace();
                 }
                 break;
@@ -162,7 +162,7 @@ public class AdvancedButtonHandler
                 }
                 catch (WrongSamplingException  | EmptyFileNameException e)
                 {
-                    AlertBox.display("Wrong sampling", "Samplings of two singals don't match");
+                    AlertBox.display("Wrong sampling", "Samplings of two signals don't match");
                     e.printStackTrace();
                 }
                 break;
@@ -196,6 +196,10 @@ public class AdvancedButtonHandler
             e.printStackTrace();
         }
 
+        if(signalA == null || signalB == null){
+        	throw new NullPointerException();
+		}
+
         switch (operation.getValue())
         {
             case "Add":
@@ -205,8 +209,7 @@ public class AdvancedButtonHandler
                 }
                 catch (WrongSamplingException e)
                 {
-                    AlertBox.display("Wrong sampling", "Samplings of two singals don't match");
-                    e.printStackTrace();
+                    AlertBox.display("Wrong sampling", "Samplings of two signals don't match");
                 }
                 break;
             case "Subtract":
@@ -216,8 +219,7 @@ public class AdvancedButtonHandler
                 }
                 catch (WrongSamplingException e)
                 {
-                    AlertBox.display("Wrong sampling", "Samplings of two singals don't match");
-                    e.printStackTrace();
+                    AlertBox.display("Wrong sampling", "Samplings of two signals don't match");
                 }
                 break;
             case "Multiply":
@@ -227,8 +229,7 @@ public class AdvancedButtonHandler
                 }
                 catch (WrongSamplingException e)
                 {
-                    AlertBox.display("Wrong sampling", "Samplings of two singals don't match");
-                    e.printStackTrace();
+                    AlertBox.display("Wrong sampling", "Samplings of two signals don't match");
                 }
                 break;
             case "Divide":
@@ -238,8 +239,7 @@ public class AdvancedButtonHandler
                 }
                 catch (WrongSamplingException e)
                 {
-                    AlertBox.display("Wrong sampling", "Samplings of two singals don't match");
-                    e.printStackTrace();
+                    AlertBox.display("Wrong sampling", "Samplings of two signals don't match");
                 }
                 break;
 

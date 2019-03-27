@@ -27,7 +27,12 @@ public class LoadSignalWindow
         Button showDataButton = new Button("Show Data");
         TextField intervalsField = new TextField("10");
         Label fileLabel = new Label("File");
-        Label intervalLabel = new Label("Intervals");
+        Label intervalLabel = new Label(" Histogram Intervals");
+
+        openFileButton.setMinWidth(100);
+        drawButton.setMinWidth(100);
+        showDataButton.setMinWidth(100);
+        intervalsField.setMaxWidth(100);
 
         AdvancedButtonHandler advancedButtonHandler = new AdvancedButtonHandler();
         ButtonHandler buttonHandler = new ButtonHandler();
@@ -74,17 +79,17 @@ public class LoadSignalWindow
         {
             try
             {
-                buttonHandler.draw(signal, Integer.valueOf(intervalsField.getText()), false);
+                buttonHandler.draw(signal, Integer.valueOf(intervalsField.getText()), false, true);
             }
             catch (NumberFormatException e1)
             {
                 e1.printStackTrace();
-                AlertBox.display("Wrong format", "Wrong format of intervals");
+                AlertBox.display("Wrong format", "Wrong format of intervals.");
             }
             catch (NullPointerException e1)
             {
                 e1.printStackTrace();
-                AlertBox.display("Choose file", "Please choose file to load");
+                AlertBox.display("Choose file", "Please choose file to load.");
             }
         });
 
@@ -97,7 +102,7 @@ public class LoadSignalWindow
             catch (NullPointerException e1)
             {
                 e1.printStackTrace();
-                AlertBox.display("Choose file", "Please choose file to load");
+                AlertBox.display("Choose file", "Please choose file to load.");
             }
         });
 
@@ -113,14 +118,14 @@ public class LoadSignalWindow
         GridPane.setConstraints(drawButton, 0, 1);
         GridPane.setConstraints(showDataButton, 0 , 2);
         GridPane.setConstraints(fileLabel, 1, 0);
-        GridPane.setConstraints(intervalLabel, 1, 1);
-        GridPane.setConstraints(intervalsField, 2, 1);
+        GridPane.setConstraints(intervalLabel, 1, 3);
+        GridPane.setConstraints(intervalsField, 0, 3);
 
 
         grid.getChildren().addAll(openFileButton, drawButton, showDataButton, intervalsField,
                 fileLabel, intervalLabel);
 
-        window.setScene(new Scene(grid, 350, 140));
+        window.setScene(new Scene(grid, 300, 160));
         window.show();
     }
 

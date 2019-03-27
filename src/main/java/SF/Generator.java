@@ -52,7 +52,7 @@ public class Generator
         return signal;
     }
 
-    public Signal Sinusoidal(Double amplitude, Double startingTime, Double durationTime, Double period, int sampling)
+    public Signal Sinusoidal(Double amplitude, Double startingTime, Double durationTime, Double period, int sampling, boolean perWinodow)
     {
         Signal signal = new Signal("Sine");
 
@@ -61,8 +61,12 @@ public class Generator
         signal.setDurationTime(durationTime);
         signal.setPeriod(period);
         signal.setSampling(sampling);
-		sampling = normalizeSampling(sampling, durationTime, period);
         Double value;
+
+		if(!perWinodow)
+			sampling = normalizeSampling(sampling, durationTime, period);
+
+		System.out.println(sampling);
 
         for(Double i=startingTime; i<=durationTime+startingTime; i+=durationTime/(double)sampling)
         {
@@ -75,10 +79,11 @@ public class Generator
         return signal;
     }
 
-    public Signal ErectedSinusoidal(Double amplitude, Double startingTime, Double durationTime, Double period, int sampling)
+    public Signal ErectedSinusoidal(Double amplitude, Double startingTime, Double durationTime, Double period, int sampling, boolean perWinodow)
     {
-		//sampling = normalizeSampling(sampling, durationTime, period);
-        Signal signal = this.Sinusoidal(amplitude, startingTime, durationTime, period, sampling);
+		if(!perWinodow)
+			sampling = normalizeSampling(sampling, durationTime, period);
+        Signal signal = this.Sinusoidal(amplitude, startingTime, durationTime, period, sampling, perWinodow);
 
         signal.setName("Half-waveRectifiedSine");
 
@@ -95,10 +100,12 @@ public class Generator
         return signal;
     }
 
-    public Signal ErectedSinusoidalTwoParts(Double amplitude, Double startingTime, Double durationTime, Double period, int sampling)
+    public Signal ErectedSinusoidalTwoParts(Double amplitude, Double startingTime, Double durationTime, Double period, int sampling, boolean perWinodow)
     {
-		//sampling = normalizeSampling(sampling, durationTime, period);
-        Signal signal = this.Sinusoidal(amplitude, startingTime, durationTime, period, sampling);
+		if(!perWinodow)
+			sampling = normalizeSampling(sampling, durationTime, period);
+
+        Signal signal = this.Sinusoidal(amplitude, startingTime, durationTime, period, sampling, perWinodow);
 
         signal.setName("Full-waveRectifiedSine");
 
@@ -115,10 +122,11 @@ public class Generator
         return signal;
     }
 
-    public Signal Rectangular(Double amplitude, Double startingTime, Double durationTime, Double period, Double fullfilment, int sampling)
+    public Signal Rectangular(Double amplitude, Double startingTime, Double durationTime, Double period, Double fullfilment, int sampling, boolean perWinodow)
     {
-		//sampling = normalizeSampling(sampling, durationTime, period);
         Signal signal = new Signal("SquareWave");
+		if(!perWinodow)
+			sampling = normalizeSampling(sampling, durationTime, period);
 
         signal.setAmplitude(amplitude);
         signal.setStartingTime(startingTime);
@@ -164,9 +172,10 @@ public class Generator
         return signal;
     }
 
-    public Signal RectangularSimetrical(Double amplitude, Double startingTime, Double durationTime, Double period, Double fullfilment, int sampling)
+    public Signal RectangularSimetrical(Double amplitude, Double startingTime, Double durationTime, Double period, Double fullfilment, int sampling, boolean perWinodow)
     {
-		//sampling = normalizeSampling(sampling, durationTime, period);
+		if(!perWinodow)
+			sampling = normalizeSampling(sampling, durationTime, period);
         Signal signal = new Signal("SymmetricalRectangularSignal");
 
         signal.setAmplitude(amplitude);
@@ -176,7 +185,6 @@ public class Generator
         signal.setFulfillment(fullfilment);
         signal.setSampling(sampling);
 
-		sampling = normalizeSampling(sampling, durationTime, period);
         Double value, pom = 0.0;
         int k = 0;
         boolean flag = true;
@@ -215,8 +223,11 @@ public class Generator
         return signal;
     }
 
-    public Signal Triangular(Double amplitude, Double startingTime, Double durationTime, Double period, Double fullfilment, int sampling)
+    public Signal Triangular(Double amplitude, Double startingTime, Double durationTime, Double period, Double fullfilment, int sampling, boolean perWinodow)
     {
+
+		if(!perWinodow)
+			sampling = normalizeSampling(sampling, durationTime, period);
 
         Signal signal = new Signal("Triangular");
 
@@ -229,7 +240,6 @@ public class Generator
         Double value, pom = 0.0;
         int k = 0;
         boolean flag = true;
-		sampling = normalizeSampling(sampling, durationTime, period);
         for(Double i=startingTime; i<=durationTime+startingTime; i+=durationTime/(double)sampling)
         {
             pom = i - period;
