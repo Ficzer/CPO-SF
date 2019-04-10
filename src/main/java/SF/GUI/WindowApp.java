@@ -28,6 +28,7 @@ public class WindowApp extends Application {
         Button advancedOptionsButton = new Button();
         Button discreteSignalButtton = new Button();
         Button loadFromFileButton = new Button();
+        Button converterACButton = new Button();
 
         drawButton.setMinWidth(150);
 		saveButton.setMinWidth(150);
