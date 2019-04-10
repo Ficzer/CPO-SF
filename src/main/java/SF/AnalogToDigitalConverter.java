@@ -13,14 +13,17 @@ public class AnalogToDigitalConverter
         List<Double> valuesList = new ArrayList<>(values.values());
         List<Double> timeList = new ArrayList<>(values.keySet());
 
-        if(signal.getSampling() % newSampling < 0.000001)
+        int oldSampling = signal.getSampling();
+
+        if(oldSampling % newSampling > 0.000001)
         {
             throw new IllegalArgumentException("Sampling frequency of base signal should be multiplication of probing frequency");
         }
 
-        int k = signal.getSampling() / newSampling;
+        int pom = newSampling * (int)(signal.getDurationTime() / signal.getPeriod());
+        int k = oldSampling / pom;
 
-        for(int i=0; i< (((values.size() * 1.0) * newSampling / signal.getSampling()) + 1) - 1; i++)
+        for(int i=0; i< (((values.size() * 1.0) * pom / oldSampling) + 1) - 1; i++)
         {
             newValues.put(timeList.get(i * k), valuesList.get(i * k));
         }

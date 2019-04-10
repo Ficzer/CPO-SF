@@ -4,7 +4,6 @@ import SF.*;
 import javafx.scene.control.ChoiceBox;
 import javafx.scene.control.TextField;
 import org.knowm.xchart.*;
-import org.omg.Messaging.SYNC_WITH_TRANSPORT;
 
 import javax.swing.*;
 import java.io.FileOutputStream;
@@ -377,6 +376,39 @@ public class ButtonHandler {
 			XYChart chart = QuickChart.getChart(signal.getName(), "X", "Y", "y(x)", xs, ys);
 			new SwingWrapper(chart).displayChart().setDefaultCloseOperation(WindowConstants.DISPOSE_ON_CLOSE);
 		}
+
+	}
+
+	public void draw(Signal signal1, Signal signal2) {
+		Map<Double, Double> values, values2;
+		double[] xs, ys, xss, yss;
+		int i = 0;
+		values = signal1.getValues();
+		values2 = signal2.getValues();
+
+		xs = new double[values.size()];
+		ys = new double[values.size()];
+		xss = new double[values.size()];
+		yss = new double[values.size()];
+
+		i = 0;
+		for (Map.Entry<Double, Double> entry : values.entrySet()) {
+			xs[i] = entry.getKey();
+			ys[i] = entry.getValue();
+			i++;
+		}
+
+		i = 0;
+		for (Map.Entry<Double, Double> entry : values2.entrySet()) {
+			xss[i] = entry.getKey();
+			yss[i] = entry.getValue();
+			i++;
+		}
+
+		XYChart chart = QuickChart.getChart(signal1.getName(), "X", "Y", "y(x)", xs, ys);
+		chart.addSeries(signal2.getName(), xss, yss);
+		new SwingWrapper(chart).displayChart().setDefaultCloseOperation(WindowConstants.DISPOSE_ON_CLOSE);
+
 
 	}
 

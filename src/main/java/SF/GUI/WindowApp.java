@@ -29,6 +29,7 @@ public class WindowApp extends Application {
         Button discreteSignalButtton = new Button();
         Button loadFromFileButton = new Button();
         Button converterACButton = new Button();
+        Button converterCAButton = new Button();
 
         drawButton.setMinWidth(150);
 		saveButton.setMinWidth(150);
@@ -36,6 +37,8 @@ public class WindowApp extends Application {
 		advancedOptionsButton.setMinWidth(150);
 		discreteSignalButtton.setMinWidth(150);
 		loadFromFileButton.setMinWidth(150);
+		converterACButton.setMinWidth(150);
+		converterCAButton.setMinWidth(150);
 
         drawButton.setText("Draw");
         saveButton.setText("Save signal to file");
@@ -43,6 +46,8 @@ public class WindowApp extends Application {
         advancedOptionsButton.setText("Signal operations");
         discreteSignalButtton.setText("Generate discrete signal");
         loadFromFileButton.setText("Load from file");
+        converterACButton.setText("A/C Converter");
+        converterCAButton.setText("C/A Converter");
 
         ChoiceBox<String> signalChoice = new ChoiceBox<>();
         signalChoice.getItems().addAll("Noise", "Gaussian noise", "Sine Wave", "Half-wave rectified sine"
@@ -82,6 +87,7 @@ public class WindowApp extends Application {
         AdvancedOptionsWindow advancedOptionsWindow = new AdvancedOptionsWindow();
         LoadSignalWindow loadSignalWindow = new LoadSignalWindow();
         DiscreteSignalWindow discreteSignalWindow = new DiscreteSignalWindow();
+        ACConverterWindow acConverterWindow = new ACConverterWindow();
 
 
         drawButton.setOnAction(e -> {
@@ -130,6 +136,8 @@ public class WindowApp extends Application {
 
         discreteSignalButtton.setOnAction(e -> discreteSignalWindow.display());
 
+        converterACButton.setOnAction(e -> {acConverterWindow.display();});
+
 
 
         GridPane grid = new GridPane();
@@ -143,6 +151,7 @@ public class WindowApp extends Application {
         GridPane.setConstraints(showDataButton, 0,4);
         GridPane.setConstraints(advancedOptionsButton, 0, 5);
         GridPane.setConstraints(loadFromFileButton, 0, 6);
+        GridPane.setConstraints(converterACButton, 0, 7);
         GridPane.setConstraints(amplitudeField, 3,1);
         GridPane.setConstraints(startingTimeField, 3,2);
         GridPane.setConstraints(durationTimeField, 3,3);
@@ -166,7 +175,7 @@ public class WindowApp extends Application {
                                     periodField, FillFactorField, samplingField, amplitudeLabel, startingTimeLabel,
                                     durationTimeLabel, periodLabel, FillFactorLabel, SamplingLabel, advancedOptionsButton,
                                     nameField, nameLabel, histogramElementsLabel, histogramElements, loadFromFileButton,
-                                    discreteSignalButtton);
+                                    discreteSignalButtton, converterACButton);
 
         primaryStage.setScene(new Scene(grid, 530, 350));
         primaryStage.show();
