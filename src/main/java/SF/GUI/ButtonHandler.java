@@ -133,55 +133,55 @@ public class ButtonHandler {
 
 		switch (choiceValue) {
 			case "Noise":
-				signal = generator.UniformNoise(amplitude, startingTime, durationTime, 100);
+				signal = generator.UniformNoise(amplitude, startingTime, durationTime, sampling);
 				signal.setName(nameField.getText());
 				save(signal);
 				break;
 
 			case "Gaussian noise":
-				signal = generator.GaussianNoise(amplitude, startingTime, durationTime, 100);
+				signal = generator.GaussianNoise(amplitude, startingTime, durationTime, sampling);
 				signal.setName(nameField.getText());
 				save(signal);
 				break;
 
 			case "Sine Wave":
-				signal = generator.Sinusoidal(amplitude, startingTime, durationTime, period, 100, true);
+				signal = generator.Sinusoidal(amplitude, startingTime, durationTime, period, sampling, false);
 				signal.setName(nameField.getText());
 				save(signal);
 				break;
 
 			case "Half-wave rectified sine":
-				signal = generator.ErectedSinusoidal(amplitude, startingTime, durationTime, period, 100, true);
+				signal = generator.ErectedSinusoidal(amplitude, startingTime, durationTime, period, sampling, false);
 				signal.setName(nameField.getText());
 				save(signal);
 				break;
 
 			case "Full-wave rectified sine":
-				signal = generator.ErectedSinusoidalTwoParts(amplitude, startingTime, durationTime, period, 100, true);
+				signal = generator.ErectedSinusoidalTwoParts(amplitude, startingTime, durationTime, period, sampling, false);
 				signal.setName(nameField.getText());
 				save(signal);
 				break;
 
 			case "Square wave":
-				signal = generator.Rectangular(amplitude, startingTime, durationTime, period, fullfilment, 100, true);
+				signal = generator.Rectangular(amplitude, startingTime, durationTime, period, fullfilment, sampling, false);
 				signal.setName(nameField.getText());
 				save(signal);
 				break;
 
 			case "Symmetrical Rectangular signal":
-				signal = generator.RectangularSimetrical(amplitude, startingTime, durationTime, period, fullfilment, 100, true);
+				signal = generator.RectangularSimetrical(amplitude, startingTime, durationTime, period, fullfilment, sampling, false);
 				signal.setName(nameField.getText());
 				save(signal);
 				break;
 
 			case "Triangular wave":
-				signal = generator.Triangular(amplitude, startingTime, durationTime, period, fullfilment, 100, true);
+				signal = generator.Triangular(amplitude, startingTime, durationTime, period, fullfilment, sampling, false);
 				signal.setName(nameField.getText());
 				save(signal);
 				break;
 
 			case "Step function":
-				signal = generator.UnitJump(amplitude, startingTime, durationTime, 100);
+				signal = generator.UnitJump(amplitude, startingTime, durationTime, sampling);
 				signal.setName(nameField.getText());
 				save(signal);
 				break;
@@ -388,8 +388,8 @@ public class ButtonHandler {
 
 		xs = new double[values.size()];
 		ys = new double[values.size()];
-		xss = new double[values.size()];
-		yss = new double[values.size()];
+		xss = new double[values2.size()];
+		yss = new double[values2.size()];
 
 		i = 0;
 		for (Map.Entry<Double, Double> entry : values.entrySet()) {

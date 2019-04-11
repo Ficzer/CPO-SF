@@ -88,6 +88,7 @@ public class WindowApp extends Application {
         LoadSignalWindow loadSignalWindow = new LoadSignalWindow();
         DiscreteSignalWindow discreteSignalWindow = new DiscreteSignalWindow();
         ACConverterWindow acConverterWindow = new ACConverterWindow();
+        CAConverterWindow caConverterWindow = new CAConverterWindow();
 
 
         drawButton.setOnAction(e -> {
@@ -138,6 +139,8 @@ public class WindowApp extends Application {
 
         converterACButton.setOnAction(e -> {acConverterWindow.display();});
 
+        converterCAButton.setOnAction(e -> {caConverterWindow.display();});
+
 
 
         GridPane grid = new GridPane();
@@ -152,6 +155,7 @@ public class WindowApp extends Application {
         GridPane.setConstraints(advancedOptionsButton, 0, 5);
         GridPane.setConstraints(loadFromFileButton, 0, 6);
         GridPane.setConstraints(converterACButton, 0, 7);
+        GridPane.setConstraints(converterCAButton, 0, 8);
         GridPane.setConstraints(amplitudeField, 3,1);
         GridPane.setConstraints(startingTimeField, 3,2);
         GridPane.setConstraints(durationTimeField, 3,3);
@@ -175,7 +179,7 @@ public class WindowApp extends Application {
                                     periodField, FillFactorField, samplingField, amplitudeLabel, startingTimeLabel,
                                     durationTimeLabel, periodLabel, FillFactorLabel, SamplingLabel, advancedOptionsButton,
                                     nameField, nameLabel, histogramElementsLabel, histogramElements, loadFromFileButton,
-                                    discreteSignalButtton, converterACButton);
+                                    discreteSignalButtton, converterACButton, converterCAButton);
 
         primaryStage.setScene(new Scene(grid, 530, 350));
         primaryStage.show();

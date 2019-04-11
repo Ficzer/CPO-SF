@@ -1,6 +1,7 @@
 package SF.GUI;
 
 import SF.AnalogToDigitalConverter;
+import SF.DigitalToAnalogConverter;
 import SF.EmptyFileNameException;
 import SF.Signal;
 import javafx.geometry.Insets;
@@ -15,8 +16,9 @@ import javafx.stage.Stage;
 
 import java.io.*;
 
-public class ACConverterWindow
+public class CAConverterWindow
 {
+
     private Signal originalSignal = new Signal();
     private Signal newSignal = null;
 
@@ -24,21 +26,21 @@ public class ACConverterWindow
     {
         Stage window = new Stage();
         window.initModality(Modality.APPLICATION_MODAL);
-        window.setTitle("Convert to Digital Signal");
+        window.setTitle("Convert to Analog Signal");
 
         final FileChooser fileChooser = new FileChooser();
         Button openFileButton = new Button("Open file");
         Button drawButton = new Button("Draw");
         Button showDataButton = new Button("Show Data");
-        Button samplingButton = new Button("Sampling");
-        Button quantizeButton = new Button("Quantize");
+        Button interpolateButton = new Button("Interpolate");
+        Button sincButton = new Button("Sinc");
         Button saveButton = new Button("Save new signal");
 
-        TextField samplingField = new TextField("10");
-        TextField bitsField = new TextField("4");
+        TextField samplingField = new TextField("100");
+        TextField probesField = new TextField("4");
         Label fileLabel = new Label("File");
         Label samplingLabel = new Label(" New sampling");
-        Label bitsLabel = new Label(" Bits");
+        Label probesLabel = new Label(" Max probes");
 
 
         openFileButton.setMinWidth(100);
@@ -47,7 +49,7 @@ public class ACConverterWindow
 
         AdvancedButtonHandler advancedButtonHandler = new AdvancedButtonHandler();
         ButtonHandler buttonHandler = new ButtonHandler();
-        AnalogToDigitalConverter analogToDigitalConverter = new AnalogToDigitalConverter();
+        DigitalToAnalogConverter digitalToAnalogConverter = new DigitalToAnalogConverter();
 
         openFileButton.setOnAction(e ->
         {
@@ -126,17 +128,17 @@ public class ACConverterWindow
             }
         });
 
-        samplingButton.setOnAction(e ->
+        interpolateButton.setOnAction(e ->
         {
             try
             {
-                newSignal = analogToDigitalConverter.sample(originalSignal, Integer.parseInt(samplingField.getText()));
-                AlertBox.display("Success", "The signal has been sampled");
+                newSignal = digitalToAnalogConverter.interpolate(originalSignal, Integer.parseInt(samplingField.getText()));
+                AlertBox.display("Success", "The signal has been interpolated");
             }
             catch (NumberFormatException e1)
             {
                 e1.printStackTrace();
-                AlertBox.display("Wrong format", "Wrong format of intervals.");
+                AlertBox.display("Wrong format", "Wrong format of numbers.");
             }
             catch (NullPointerException e1)
             {
@@ -150,25 +152,19 @@ public class ACConverterWindow
             }
         });
 
-        quantizeButton.setOnAction(e ->
+        sincButton.setOnAction(e ->
         {
             try
             {
-                if(newSignal == null)
-                {
-                    newSignal = analogToDigitalConverter.quantize(originalSignal, Integer.parseInt(bitsField.getText()));
-                }
-                else
-                {
-                    newSignal = analogToDigitalConverter.quantize(newSignal, Integer.parseInt(bitsField.getText()));
+                newSignal = digitalToAnalogConverter.reconstructWithSinc(originalSignal,
+                        Integer.parseInt(samplingField.getText()), Integer.parseInt(probesField.getText()));
 
-                }
-                AlertBox.display("Success", "The signal has been quantized");
+                AlertBox.display("Success", "The signal has been sinced");
             }
             catch (NumberFormatException e1)
             {
                 e1.printStackTrace();
-                AlertBox.display("Wrong format", "Wrong format of intervals.");
+                AlertBox.display("Wrong format", "Wrong format of numbers.");
             }
             catch (NullPointerException e1)
             {
@@ -207,19 +203,19 @@ public class ACConverterWindow
         GridPane.setConstraints(openFileButton, 0,0);
         GridPane.setConstraints(drawButton, 0, 1);
         GridPane.setConstraints(showDataButton, 0 , 2);
-        GridPane.setConstraints(samplingButton, 0, 3);
-        GridPane.setConstraints(quantizeButton, 0, 4);
+        GridPane.setConstraints(interpolateButton, 0, 3);
+        GridPane.setConstraints(sincButton, 0, 4);
         GridPane.setConstraints(saveButton, 0, 5);
         GridPane.setConstraints(fileLabel, 1, 0);
-        GridPane.setConstraints(samplingLabel, 1, 7);
-        GridPane.setConstraints(samplingField, 0, 7);
-        GridPane.setConstraints(bitsLabel, 1, 8);
-        GridPane.setConstraints(bitsField, 0, 8);
+        GridPane.setConstraints(samplingLabel, 1, 6);
+        GridPane.setConstraints(samplingField, 0, 6);
+        GridPane.setConstraints(probesLabel, 1, 7);
+        GridPane.setConstraints(probesField, 0, 7);
 
 
         grid.getChildren().addAll(openFileButton, drawButton, showDataButton,
-                fileLabel, samplingButton, quantizeButton, samplingField,
-                samplingLabel, bitsField, bitsLabel, saveButton);
+                fileLabel, interpolateButton, sincButton, samplingField,
+                samplingLabel, probesField, probesLabel, saveButton);
 
         window.setScene(new Scene(grid, 300, 400));
         window.show();

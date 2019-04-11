@@ -20,15 +20,17 @@ public class AnalogToDigitalConverter
             throw new IllegalArgumentException("Sampling frequency of base signal should be multiplication of probing frequency");
         }
 
-        int pom = newSampling * (int)(signal.getDurationTime() / signal.getPeriod());
-        int k = oldSampling / pom;
+    //    int oldSamplingPerWindow = oldSampling * (int)(signal.getDurationTime() / signal.getPeriod());
 
-        for(int i=0; i< (((values.size() * 1.0) * pom / oldSampling) + 1) - 1; i++)
+  //      int pom = newSampling * (int)(signal.getDurationTime() / signal.getPeriod());
+        int k = oldSampling / newSampling;
+
+        for(int i=0; i< values.size() / k ; i++)
         {
             newValues.put(timeList.get(i * k), valuesList.get(i * k));
         }
 
-        newValues.put(timeList.get(timeList.size()-1), valuesList.get(valuesList.size()-1));
+        //newValues.put(timeList.get(timeList.size()-1), valuesList.get(valuesList.size()-1));
 
         newSignal.setName(signal.getName() + "(Digital)");
         newSignal.setStartingTime(signal.getStartingTime());

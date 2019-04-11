@@ -15,11 +15,13 @@ public class DigitalToAnalogConverter
 
         Double oldTimeStep = signal.getPeriod() / signal.getSampling();
         Double newTimeStep = signal.getPeriod() / newSampling;
-        Double time = 0.0;
+        Double time = signal.getStartingTime();
 
-        for(int i=0; i<newSampling; i++)
+        int samplingPerWindow = newSampling * (int)(signal.getDurationTime() / signal.getPeriod());
+
+        for(int i=0; i<samplingPerWindow; i++)
         {
-            int j = (int) (time / oldTimeStep); // where is between old samplings
+            int j = (int) ((time - signal.getStartingTime()) / oldTimeStep); // where is between old samplings
             if(j == valuesList.size()-1)
             {
                 --j;
@@ -56,9 +58,10 @@ public class DigitalToAnalogConverter
         Double newTimeStep = signal.getPeriod() / newSampling;
         Double time = 0.0;
 
+        int samplingPerWindow = newSampling * (int)(signal.getDurationTime() / signal.getPeriod());
         maxProbes = Math.min(maxProbes, signal.getSampling());
 
-        for(int i=0; i<newSampling; i++)
+        for(int i=0; i<samplingPerWindow; i++)
         {
             Double sum = 0.0;
             int k = (int) (Math.max(time / oldTimeStep - maxProbes, signal.getStartingTime() / oldTimeStep));
