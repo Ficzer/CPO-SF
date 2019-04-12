@@ -75,7 +75,7 @@ public class AnalogToDigitalConverter
 
         for(int i=0; i<valuesList.size(); i++)
         {
-            newValues.put(timeList.get(i), minValue + Math.floor((valuesList.get(i) - minValue) / span) * span);
+            newValues.put(timeList.get(i), minValue + Math.floor((valuesList.get(i) - minValue) / span + 0.0000001) * span);
         }
 
         newSignal.setName(signal.getName() + "(Quantized)");

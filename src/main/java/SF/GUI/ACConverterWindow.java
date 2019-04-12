@@ -27,6 +27,7 @@ public class ACConverterWindow
         window.setTitle("Convert to Digital Signal");
 
         final FileChooser fileChooser = new FileChooser();
+        fileChooser.setInitialDirectory(new File("./signals"));
         Button openFileButton = new Button("Open file");
         Button drawButton = new Button("Draw");
         Button showDataButton = new Button("Show Data");
