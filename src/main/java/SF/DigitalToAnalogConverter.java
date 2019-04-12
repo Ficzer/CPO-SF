@@ -61,9 +61,6 @@ public class DigitalToAnalogConverter
         for(int i=0; i<newSampling; i++)
         {
             Double sum = 0.0;
-            /*int k = (int) (Math.max(time / oldTimeStep - maxProbes, signal.getStartingTime() / oldTimeStep));
-            k = (int) (Math.max(k, (time / oldTimeStep) - maxProbes / 2));
-            k = (int) (Math.min(k, ((signal.getStartingTime() + signal.getDurationTime()) / oldTimeStep) - maxProbes));*/
 
             int k = (int)(time/oldTimeStep);
             k = k - maxProbes + 1;
@@ -85,7 +82,6 @@ public class DigitalToAnalogConverter
             {
                 sum += valuesList.get(k) * sinc(time / oldTimeStep - k);
                 k++;
-                double a = sinc(time / oldTimeStep - k);
             }
 
             newValues.put(time, sum);

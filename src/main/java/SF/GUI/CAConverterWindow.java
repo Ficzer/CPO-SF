@@ -33,7 +33,7 @@ public class CAConverterWindow
         fileChooser.setInitialDirectory(new File("./signals"));
         Button openFileButton = new Button("Open file");
         Button drawButton = new Button("Draw");
-        Button showDataButton = new Button("Show Data");
+        Button showDataButton = new Button("Show Errors Data");
         Button interpolateButton = new Button("Interpolate");
         Button sincButton = new Button("Sinc");
         Button saveButton = new Button("Save new signal");
@@ -132,12 +132,17 @@ public class CAConverterWindow
         {
             try
             {
-                AlertBox.display("Data", buttonHandler.generateData(newSignal));
+                AlertBox.display("Data", buttonHandler.generateErrorsData(newSignal, originalAnalogSignal));
             }
             catch (NullPointerException e1)
             {
                 e1.printStackTrace();
-                AlertBox.display("Choose file", "Please choose file to load.");
+                AlertBox.display("Choose file", "Please choose file to load or generate new signal.");
+            }
+            catch (IllegalArgumentException e1)
+            {
+                e1.printStackTrace();
+                AlertBox.display("Wrong sampling", "Original analog signal sampling and new sampling don't match");
             }
         });
 

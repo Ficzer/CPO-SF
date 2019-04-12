@@ -44,37 +44,37 @@ public class ButtonHandler {
 
 			case "Sine Wave":
 				signal = generator.Sinusoidal(amplitude, startingTime, durationTime, period, sampling, true);
-				draw(signal, intervals, false, false);
+				draw(signal, intervals, false, true);
 				break;
 
 			case "Half-wave rectified sine":
 				signal = generator.ErectedSinusoidal(amplitude, startingTime, durationTime, period, sampling, true);
-				draw(signal, intervals, false, false);
+				draw(signal, intervals, false, true);
 				break;
 
 			case "Full-wave rectified sine":
 				signal = generator.ErectedSinusoidalTwoParts(amplitude, startingTime, durationTime, period, sampling, true);
-				draw(signal, intervals, false, false);
+				draw(signal, intervals, false, true);
 				break;
 
 			case "Square wave":
 				signal = generator.Rectangular(amplitude, startingTime, durationTime, period, fillFactor, sampling, true);
-				draw(signal, intervals, false, false);
+				draw(signal, intervals, false, true);
 				break;
 
 			case "Symmetrical Rectangular signal":
 				signal = generator.RectangularSimetrical(amplitude, startingTime, durationTime, period, fillFactor, sampling, true);
-				draw(signal, intervals, false, false);
+				draw(signal, intervals, false, true);
 				break;
 
 			case "Triangular wave":
 				signal = generator.Triangular(amplitude, startingTime, durationTime, period, fillFactor, sampling, true);
-				draw(signal, intervals, false, false);
+				draw(signal, intervals, false, true);
 				break;
 
 			case "Step function":
 				signal = generator.UnitJump(amplitude, startingTime, durationTime, sampling);
-				draw(signal, intervals, false, false);
+				draw(signal, intervals, false, true);
 				break;
 		}
 
@@ -525,6 +525,38 @@ public class ButtonHandler {
 		return result;
 	}
 
+	public String generateErrorsData(Signal signal, Signal originalSignal)
+	{
+		ErrorCalculator errorCalculator = new ErrorCalculator();
+		String result = new String();
+
+		Double mse, snr, psnr, md;
+		mse = errorCalculator.calculateMSE(signal, originalSignal);
+		snr = errorCalculator.calculateSNR(signal, originalSignal);
+		psnr = errorCalculator.calculatePSNR(signal, originalSignal);
+		md = errorCalculator.calculateMD(signal, originalSignal);
+
+		mse = roundError(mse);
+		snr = roundError(snr);
+		psnr = roundError(psnr);
+		md = roundError(md);
+
+		result += "MSE: " + mse + "\r\n";
+		result += "SNR: " + snr + "\r\n";
+		result += "PSNR: " + psnr + "\r\n";
+		result += "MD: " + md + "\r\n";
+
+		return result;
+	}
+
+	private Double roundError(Double result)
+	{
+		result *= 1000;
+		result = (double) Math.round(result);
+		result /= 1000;
+
+		return result;
+	}
 
 
 }

@@ -19,6 +19,7 @@ import java.io.*;
 public class ACConverterWindow
 {
     private Signal originalSignal = new Signal();
+    private Signal sampledSignal = null;
     private Signal newSignal = null;
 
     public void display()
@@ -31,7 +32,7 @@ public class ACConverterWindow
         fileChooser.setInitialDirectory(new File("./signals"));
         Button openFileButton = new Button("Open file");
         Button drawButton = new Button("Draw");
-        Button showDataButton = new Button("Show Data");
+        Button showDataButton = new Button("Show Errors Data");
         Button samplingButton = new Button("Sampling");
         Button quantizeButton = new Button("Quantize");
         Button saveButton = new Button("Save new signal");
@@ -119,12 +120,17 @@ public class ACConverterWindow
         {
             try
             {
-                AlertBox.display("Data", buttonHandler.generateData(newSignal));
+                AlertBox.display("Errors data", buttonHandler.generateErrorsData(newSignal, sampledSignal));
             }
             catch (NullPointerException e1)
             {
                 e1.printStackTrace();
-                AlertBox.display("Choose file", "Please choose file to load.");
+                AlertBox.display("Choose file", "Please choose file to load or generate new signal.");
+            }
+            catch (IllegalArgumentException e1)
+            {
+                e1.printStackTrace();
+                AlertBox.display("Wrong sampling", "Original signal sampling and new sampling don't match");
             }
         });
 
@@ -133,6 +139,7 @@ public class ACConverterWindow
             try
             {
                 newSignal = analogToDigitalConverter.sample(originalSignal, Integer.parseInt(samplingField.getText()));
+                sampledSignal = newSignal;
                 AlertBox.display("Success", "The signal has been sampled");
             }
             catch (NumberFormatException e1)
