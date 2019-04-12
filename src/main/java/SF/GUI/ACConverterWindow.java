@@ -15,6 +15,7 @@ import javafx.stage.Stage;
 
 import java.io.*;
 
+
 public class ACConverterWindow
 {
     private Signal originalSignal = new Signal();
@@ -35,7 +36,7 @@ public class ACConverterWindow
         Button quantizeButton = new Button("Quantize");
         Button saveButton = new Button("Save new signal");
 
-        TextField samplingField = new TextField("10");
+        TextField samplingField = new TextField("50");
         TextField bitsField = new TextField("4");
         Label fileLabel = new Label("File");
         Label samplingLabel = new Label(" New sampling");

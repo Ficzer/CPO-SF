@@ -19,6 +19,7 @@ import java.io.*;
 public class CAConverterWindow
 {
 
+    private Signal originalAnalogSignal  = new Signal();
     private Signal originalSignal = new Signal();
     private Signal newSignal = null;
 
@@ -65,6 +66,17 @@ public class CAConverterWindow
                     fileInputStream = new FileInputStream(file);
                     ObjectInputStream in = new ObjectInputStream(fileInputStream);
                     originalSignal.copy((Signal)in.readObject());
+                    String analogName =  originalSignal.getName();
+
+                    int index = analogName.indexOf("(");
+                    if(index != -1)
+                    {
+                        analogName = analogName.substring(0, index);
+                    }
+
+                    fileInputStream = new FileInputStream(new File("./signals/" + analogName + ".bin"));
+                    in = new ObjectInputStream(fileInputStream);
+                    originalAnalogSignal.copy((Signal)in.readObject());
                 }
                 catch (FileNotFoundException e1)
                 {
@@ -96,7 +108,7 @@ public class CAConverterWindow
             {
                 if(newSignal != null)
                 {
-                    buttonHandler.draw(originalSignal, newSignal);
+                    buttonHandler.draw(newSignal, originalSignal, originalAnalogSignal);
                 }
                 else
                 {

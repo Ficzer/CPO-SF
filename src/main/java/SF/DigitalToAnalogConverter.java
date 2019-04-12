@@ -13,13 +13,11 @@ public class DigitalToAnalogConverter
         List<Double> valuesList = new ArrayList<>(values.values());
         List<Double> timeList = new ArrayList<>(values.keySet());
 
-        Double oldTimeStep = signal.getPeriod() / signal.getSampling();
-        Double newTimeStep = signal.getPeriod() / newSampling;
+        Double oldTimeStep = signal.getDurationTime() / signal.getSampling();
+        Double newTimeStep = signal.getDurationTime() / newSampling;
         Double time = signal.getStartingTime();
 
-        int samplingPerWindow = newSampling * (int)(signal.getDurationTime() / signal.getPeriod());
-
-        for(int i=0; i<samplingPerWindow; i++)
+        for(int i=0; i<newSampling; i++)
         {
             int j = (int) ((time - signal.getStartingTime()) / oldTimeStep); // where is between old samplings
             if(j == valuesList.size()-1)
@@ -54,25 +52,40 @@ public class DigitalToAnalogConverter
         List<Double> valuesList = new ArrayList<>(values.values());
         List<Double> timeList = new ArrayList<>(values.keySet());
 
-        Double oldTimeStep = signal.getPeriod() / signal.getSampling();
-        Double newTimeStep = signal.getPeriod() / newSampling;
+        Double oldTimeStep = signal.getDurationTime() / signal.getSampling();
+        Double newTimeStep = signal.getDurationTime() / newSampling;
         Double time = 0.0;
 
-        int samplingPerWindow = newSampling * (int)(signal.getDurationTime() / signal.getPeriod());
         maxProbes = Math.min(maxProbes, signal.getSampling());
 
-        for(int i=0; i<samplingPerWindow; i++)
+        for(int i=0; i<newSampling; i++)
         {
             Double sum = 0.0;
-            int k = (int) (Math.max(time / oldTimeStep - maxProbes, signal.getStartingTime() / oldTimeStep));
+            /*int k = (int) (Math.max(time / oldTimeStep - maxProbes, signal.getStartingTime() / oldTimeStep));
             k = (int) (Math.max(k, (time / oldTimeStep) - maxProbes / 2));
-            k = (int) (Math.min(k, ((signal.getStartingTime() + signal.getDurationTime()) / oldTimeStep) - maxProbes));
-            int maxK = k + maxProbes;
+            k = (int) (Math.min(k, ((signal.getStartingTime() + signal.getDurationTime()) / oldTimeStep) - maxProbes));*/
+
+            int k = (int)(time/oldTimeStep);
+            k = k - maxProbes + 1;
+            int n = k;
+
+            if(k < 0)
+            {
+                k = 0;
+            }
+
+            int maxK = n + 2 * maxProbes - 1;
+
+            if(maxK >= valuesList.size())
+            {
+                maxK = valuesList.size() - 1;
+            }
 
             while(k < maxK)
             {
                 sum += valuesList.get(k) * sinc(time / oldTimeStep - k);
                 k++;
+                double a = sinc(time / oldTimeStep - k);
             }
 
             newValues.put(time, sum);

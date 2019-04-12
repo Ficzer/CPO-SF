@@ -43,32 +43,32 @@ public class ButtonHandler {
 				break;
 
 			case "Sine Wave":
-				signal = generator.Sinusoidal(amplitude, startingTime, durationTime, period, sampling, false);
+				signal = generator.Sinusoidal(amplitude, startingTime, durationTime, period, sampling, true);
 				draw(signal, intervals, false, false);
 				break;
 
 			case "Half-wave rectified sine":
-				signal = generator.ErectedSinusoidal(amplitude, startingTime, durationTime, period, sampling, false);
+				signal = generator.ErectedSinusoidal(amplitude, startingTime, durationTime, period, sampling, true);
 				draw(signal, intervals, false, false);
 				break;
 
 			case "Full-wave rectified sine":
-				signal = generator.ErectedSinusoidalTwoParts(amplitude, startingTime, durationTime, period, sampling, false);
+				signal = generator.ErectedSinusoidalTwoParts(amplitude, startingTime, durationTime, period, sampling, true);
 				draw(signal, intervals, false, false);
 				break;
 
 			case "Square wave":
-				signal = generator.Rectangular(amplitude, startingTime, durationTime, period, fillFactor, sampling, false);
+				signal = generator.Rectangular(amplitude, startingTime, durationTime, period, fillFactor, sampling, true);
 				draw(signal, intervals, false, false);
 				break;
 
 			case "Symmetrical Rectangular signal":
-				signal = generator.RectangularSimetrical(amplitude, startingTime, durationTime, period, fillFactor, sampling, false);
+				signal = generator.RectangularSimetrical(amplitude, startingTime, durationTime, period, fillFactor, sampling, true);
 				draw(signal, intervals, false, false);
 				break;
 
 			case "Triangular wave":
-				signal = generator.Triangular(amplitude, startingTime, durationTime, period, fillFactor, sampling, false);
+				signal = generator.Triangular(amplitude, startingTime, durationTime, period, fillFactor, sampling, true);
 				draw(signal, intervals, false, false);
 				break;
 
@@ -145,37 +145,37 @@ public class ButtonHandler {
 				break;
 
 			case "Sine Wave":
-				signal = generator.Sinusoidal(amplitude, startingTime, durationTime, period, sampling, false);
+				signal = generator.Sinusoidal(amplitude, startingTime, durationTime, period, sampling, true);
 				signal.setName(nameField.getText());
 				save(signal);
 				break;
 
 			case "Half-wave rectified sine":
-				signal = generator.ErectedSinusoidal(amplitude, startingTime, durationTime, period, sampling, false);
+				signal = generator.ErectedSinusoidal(amplitude, startingTime, durationTime, period, sampling, true);
 				signal.setName(nameField.getText());
 				save(signal);
 				break;
 
 			case "Full-wave rectified sine":
-				signal = generator.ErectedSinusoidalTwoParts(amplitude, startingTime, durationTime, period, sampling, false);
+				signal = generator.ErectedSinusoidalTwoParts(amplitude, startingTime, durationTime, period, sampling, true);
 				signal.setName(nameField.getText());
 				save(signal);
 				break;
 
 			case "Square wave":
-				signal = generator.Rectangular(amplitude, startingTime, durationTime, period, fullfilment, sampling, false);
+				signal = generator.Rectangular(amplitude, startingTime, durationTime, period, fullfilment, sampling, true);
 				signal.setName(nameField.getText());
 				save(signal);
 				break;
 
 			case "Symmetrical Rectangular signal":
-				signal = generator.RectangularSimetrical(amplitude, startingTime, durationTime, period, fullfilment, sampling, false);
+				signal = generator.RectangularSimetrical(amplitude, startingTime, durationTime, period, fullfilment, sampling, true);
 				signal.setName(nameField.getText());
 				save(signal);
 				break;
 
 			case "Triangular wave":
-				signal = generator.Triangular(amplitude, startingTime, durationTime, period, fullfilment, sampling, false);
+				signal = generator.Triangular(amplitude, startingTime, durationTime, period, fullfilment, sampling, true);
 				signal.setName(nameField.getText());
 				save(signal);
 				break;
@@ -252,32 +252,32 @@ public class ButtonHandler {
 				break;
 
 			case "Sine Wave":
-				signal = generator.Sinusoidal(amplitude, startingTime, durationTime, period, sampling, false);
+				signal = generator.Sinusoidal(amplitude, startingTime, durationTime, period, sampling, true);
 				AlertBox.display("Data", generateData(signal));
 				break;
 
 			case "Half-wave rectified sine":
-				signal = generator.ErectedSinusoidal(amplitude, startingTime, durationTime, period, sampling, false);
+				signal = generator.ErectedSinusoidal(amplitude, startingTime, durationTime, period, sampling, true);
 				AlertBox.display("Data", generateData(signal));
 				break;
 
 			case "Full-wave rectified sine":
-				signal = generator.ErectedSinusoidalTwoParts(amplitude, startingTime, durationTime, period, sampling, false);
+				signal = generator.ErectedSinusoidalTwoParts(amplitude, startingTime, durationTime, period, sampling, true);
 				AlertBox.display("Data", generateData(signal));
 				break;
 
 			case "Square wave":
-				signal = generator.Rectangular(amplitude, startingTime, durationTime, period, fullfilment, sampling, false);
+				signal = generator.Rectangular(amplitude, startingTime, durationTime, period, fullfilment, sampling, true);
 				AlertBox.display("Data", generateData(signal));
 				break;
 
 			case "Symmetrical Rectangular signal":
-				signal = generator.RectangularSimetrical(amplitude, startingTime, durationTime, period, fullfilment, sampling, false);
+				signal = generator.RectangularSimetrical(amplitude, startingTime, durationTime, period, fullfilment, sampling, true);
 				AlertBox.display("Data", generateData(signal));
 				break;
 
 			case "Triangular wave":
-				signal = generator.Triangular(amplitude, startingTime, durationTime, period, fullfilment, sampling, false);
+				signal = generator.Triangular(amplitude, startingTime, durationTime, period, fullfilment, sampling, true);
 				AlertBox.display("Data", generateData(signal));
 				break;
 
@@ -379,12 +379,12 @@ public class ButtonHandler {
 
 	}
 
-	public void draw(Signal signal1, Signal signal2) {
+	public void draw(Signal signal, Signal scateredSignal) {
 		Map<Double, Double> values, values2;
 		double[] xs, ys, xss, yss;
 		int i = 0;
-		values = signal1.getValues();
-		values2 = signal2.getValues();
+		values = signal.getValues();
+		values2 = scateredSignal.getValues();
 
 		xs = new double[values.size()];
 		ys = new double[values.size()];
@@ -405,10 +405,52 @@ public class ButtonHandler {
 			i++;
 		}
 
-		XYChart chart = QuickChart.getChart(signal1.getName(), "X", "Y", "y(x)", xs, ys);
-		chart.addSeries(signal2.getName(), xss, yss);
+		XYChart chart = QuickChart.getChart(signal.getName(), "X", "Y", signal.getName(), xs, ys);
+		chart.addSeries(scateredSignal.getName(), xss, yss).setXYSeriesRenderStyle(XYSeries.XYSeriesRenderStyle.Scatter);
 		new SwingWrapper(chart).displayChart().setDefaultCloseOperation(WindowConstants.DISPOSE_ON_CLOSE);
 
+	}
+
+	public void draw(Signal signal, Signal scateredSignal, Signal analogOriginalSignal) {
+		Map<Double, Double> values, values2, values3;
+		double[] xs, ys, xss, yss, xsss, ysss;
+		int i = 0;
+		values = signal.getValues();
+		values2 = scateredSignal.getValues();
+		values3 = analogOriginalSignal.getValues();
+
+		xs = new double[values.size()];
+		ys = new double[values.size()];
+		xss = new double[values2.size()];
+		yss = new double[values2.size()];
+		xsss = new double[values3.size()];
+		ysss = new double[values3.size()];
+
+		i = 0;
+		for (Map.Entry<Double, Double> entry : values.entrySet()) {
+			xs[i] = entry.getKey();
+			ys[i] = entry.getValue();
+			i++;
+		}
+
+		i = 0;
+		for (Map.Entry<Double, Double> entry : values2.entrySet()) {
+			xss[i] = entry.getKey();
+			yss[i] = entry.getValue();
+			i++;
+		}
+
+		i = 0;
+		for (Map.Entry<Double, Double> entry : values3.entrySet()) {
+			xsss[i] = entry.getKey();
+			ysss[i] = entry.getValue();
+			i++;
+		}
+
+		XYChart chart = QuickChart.getChart(analogOriginalSignal.getName(), "X", "Y", analogOriginalSignal.getName(), xsss, ysss);
+		chart.addSeries(signal.getName(), xs, ys);
+		chart.addSeries(scateredSignal.getName(), xss, yss).setXYSeriesRenderStyle(XYSeries.XYSeriesRenderStyle.Scatter);
+		new SwingWrapper(chart).displayChart().setDefaultCloseOperation(WindowConstants.DISPOSE_ON_CLOSE);
 
 	}
 
@@ -482,6 +524,7 @@ public class ButtonHandler {
 
 		return result;
 	}
+
 
 
 }
