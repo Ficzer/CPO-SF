@@ -70,7 +70,7 @@ public class WindowApp extends Application {
         durationTimeField.setPromptText("Duration time");
         periodField.setPromptText("Period");
         FillFactorField.setPromptText("Fill factor");
-        samplingField.setPromptText("Sampling");
+        samplingField.setPromptText("Sampling per Window");
 
         Label nameLabel = new Label("File name");
         Label amplitudeLabel = new Label("Amplitude");
@@ -80,6 +80,7 @@ public class WindowApp extends Application {
         Label FillFactorLabel = new Label("Fill factor");
         Label SamplingLabel = new Label("Sampling");
 		Label histogramElementsLabel = new Label("Histogram intervals");
+        Label frequencyLabel = new Label();
 
 
 
@@ -102,6 +103,7 @@ public class WindowApp extends Application {
                 AlertBox.display("Wrong Format", "Format of given data is wrong or text fields are empty.");
                 e1.printStackTrace();
             }
+            frequencyLabel.setText(String.valueOf(Integer.parseInt(samplingField.getText())/Integer.parseInt(durationTimeField.getText())) + " Hz");
         });
 
         saveButton.setOnAction(e -> {
@@ -116,6 +118,7 @@ public class WindowApp extends Application {
             {
                 AlertBox.display("Wrong Format", "Format of given data is wrong or text fields are empty.");
             }
+            frequencyLabel.setText(String.valueOf(Integer.parseInt(samplingField.getText())/Integer.parseInt(durationTimeField.getText())) + " Hz");
         });
 
         showDataButton.setOnAction(e -> {
@@ -129,6 +132,8 @@ public class WindowApp extends Application {
                 AlertBox.display("Wrong Format", "Format of given data is wrong or text fields are empty");
                 e1.printStackTrace();
             }
+            frequencyLabel.setText(String.valueOf(Integer.parseInt(samplingField.getText())/Integer.parseInt(durationTimeField.getText())) + " Hz");
+
         });
 
         advancedOptionsButton.setOnAction(e -> {advancedOptionsWindow.display(histogramElements);});
@@ -162,6 +167,7 @@ public class WindowApp extends Application {
         GridPane.setConstraints(periodField, 3,4);
         GridPane.setConstraints(FillFactorField, 3,5);
         GridPane.setConstraints(samplingField, 3,6);
+        GridPane.setConstraints(frequencyLabel, 3, 8);
         GridPane.setConstraints(nameField, 3,0);
         GridPane.setConstraints(histogramElements, 3, 7);
         GridPane.setConstraints(amplitudeLabel, 2,1);
@@ -179,7 +185,7 @@ public class WindowApp extends Application {
                                     periodField, FillFactorField, samplingField, amplitudeLabel, startingTimeLabel,
                                     durationTimeLabel, periodLabel, FillFactorLabel, SamplingLabel, advancedOptionsButton,
                                     nameField, nameLabel, histogramElementsLabel, histogramElements, loadFromFileButton,
-                                    discreteSignalButtton, converterACButton, converterCAButton);
+                                    discreteSignalButtton, converterACButton, converterCAButton, frequencyLabel);
 
         primaryStage.setScene(new Scene(grid, 530, 350));
         primaryStage.show();

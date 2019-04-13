@@ -530,21 +530,24 @@ public class ButtonHandler {
 		ErrorCalculator errorCalculator = new ErrorCalculator();
 		String result = new String();
 
-		Double mse, snr, psnr, md;
+		Double mse, snr, psnr, md, enob;
 		mse = errorCalculator.calculateMSE(signal, originalSignal);
 		snr = errorCalculator.calculateSNR(signal, originalSignal);
 		psnr = errorCalculator.calculatePSNR(signal, originalSignal);
 		md = errorCalculator.calculateMD(signal, originalSignal);
+		enob = errorCalculator.calculateENOB(snr);
 
 		mse = roundError(mse);
 		snr = roundError(snr);
 		psnr = roundError(psnr);
 		md = roundError(md);
+		enob = roundError(enob);
 
 		result += "MSE: " + mse + "\r\n";
 		result += "SNR: " + snr + "\r\n";
 		result += "PSNR: " + psnr + "\r\n";
 		result += "MD: " + md + "\r\n";
+		result += "ENOB: " + enob + "\r\n";
 
 		return result;
 	}

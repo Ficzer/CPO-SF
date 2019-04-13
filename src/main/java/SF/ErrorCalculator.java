@@ -112,4 +112,9 @@ public class ErrorCalculator
         return diff;
 
     }
+
+    public Double calculateENOB(Double snr)
+    {
+        return (snr - 1.76)/6.02;
+    }
 }

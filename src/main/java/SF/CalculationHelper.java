@@ -145,7 +145,6 @@ public class CalculationHelper {
 		int i = 0;
 		for (Map.Entry<Double, Double> entry : signalTwo.getValues().entrySet()) {
 			entry.setValue(entry.getValue() + tempList.get(i));
-			System.out.println(entry.getValue() +  " " + entry.getValue() + tempList.get(i));
 			i++;
 		}
 
@@ -159,7 +158,7 @@ public class CalculationHelper {
 		resultSignal.setDurationTime(signalTwo.getDurationTime());
 
 		resultSignal.setAmplitude(calculateAmplitude(resultSignal));
-System.out.println(resultSignal);
+
 		return resultSignal;
 	}
 
