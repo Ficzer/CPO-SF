@@ -18,3 +18,5 @@ buildNumber.properties
 testSin.xml
 src/main/java/SF/ButtonHandler.java
 src/main/java/SF/ButtonHandler.java
+.idea/misc.xml
+.idea/workspace.xml

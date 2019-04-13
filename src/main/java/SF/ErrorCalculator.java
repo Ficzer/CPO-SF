@@ -53,8 +53,8 @@ public class ErrorCalculator
 
         for(int i=0; i<len; i++)
         {
-            squaredSum =+ valuesList.get(i) * valuesList.get(i);
-            noiseSquaredSum =+ Math.pow(Math.abs(valuesList.get(i) - originalValuesList.get(i)), 2.0);
+            squaredSum = squaredSum + valuesList.get(i) * valuesList.get(i);
+            noiseSquaredSum = noiseSquaredSum + Math.pow(Math.abs(valuesList.get(i) - originalValuesList.get(i)), 2.0);
         }
 
         Double result = 10.0 * Math.log10(squaredSum/noiseSquaredSum);
