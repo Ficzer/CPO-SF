@@ -1,4 +1,6 @@
-package SF;
+package SF.Converters;
+
+import SF.Signal;
 
 import java.util.ArrayList;
 import java.util.List;

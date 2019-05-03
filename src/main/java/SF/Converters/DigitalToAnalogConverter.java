@@ -1,4 +1,6 @@
-package SF;
+package SF.Converters;
+
+import SF.Signal;
 
 import java.util.*;
 
@@ -78,7 +80,7 @@ public class DigitalToAnalogConverter
                 maxK = valuesList.size() - 1;
             }
 
-            while(k < maxK)
+            while(k <= maxK)
             {
                 sum += valuesList.get(k) * sinc(time / oldTimeStep - k);
                 k++;
