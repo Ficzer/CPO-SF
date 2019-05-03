@@ -1,6 +1,7 @@
 package SF.GUI;
 
 import SF.*;
+import SF.Converters.ErrorCalculator;
 import javafx.scene.control.ChoiceBox;
 import javafx.scene.control.TextField;
 import org.knowm.xchart.*;

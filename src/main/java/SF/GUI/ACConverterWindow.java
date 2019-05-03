@@ -1,6 +1,6 @@
 package SF.GUI;
 
-import SF.AnalogToDigitalConverter;
+import SF.Converters.AnalogToDigitalConverter;
 import SF.EmptyFileNameException;
 import SF.Signal;
 import javafx.geometry.Insets;
