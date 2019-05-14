@@ -2,10 +2,7 @@ package SF.Filter;
 
 import SF.Signal;
 
-import java.util.ArrayList;
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
+import java.util.*;
 
 public class Filter
 {
@@ -14,7 +11,7 @@ public class Filter
     private int M;
     private Double frequency;
 
-    Filter(WindowFunction windowFunction, FilterFunction filterFunction, int M, Double frequency)
+    public Filter(WindowFunction windowFunction, FilterFunction filterFunction, int M, Double frequency)
     {
         this.windowFunction = windowFunction;
         this.filterFunction = filterFunction;
@@ -30,6 +27,8 @@ public class Filter
         final int K = filterFunction.getK(signal.getSampling() / signal.getDurationTime(), frequency);
 
         double[] newValues = new double[M];
+
+        System.out.println(M);
 
         for(int i=0; i<M; i++)
         {
@@ -47,14 +46,16 @@ public class Filter
         }
 
         Map<Double, Double> newValuesMap = new HashMap<>();
+        Double hDurationTime = signal.getStartingTime() + 1.0 / signal.getSampling() / signal.getDurationTime() * M;
 
         for(int i=0; i<newValues.length; i++)
         {
-            newValuesMap.put(i * signal.getSampling() / signal.getDurationTime(), newValues[i]);
+            newValuesMap.put(i * hDurationTime / signal.getSampling(), newValues[i]);
         }
 
         Signal h = new Signal("h", signal.getAmplitude(), 0.0, signal.getStartingTime(),
-                signal.getStartingTime() + 1.0 / signal.getSampling() / signal.getDurationTime() * M, 0.0, signal.getSampling());
+                hDurationTime, 0.0, signal.getSampling());
+        h.setValues(new TreeMap<>(newValuesMap));
 
         List<Signal> res = new ArrayList<>();
         res.add(h);
@@ -67,7 +68,7 @@ public class Filter
 
         // Shrinking
 
-        ArrayList<Double> oldConvolutionValues = (ArrayList<Double>) convolutionedSignal.getValues().values();
+        ArrayList<Double> oldConvolutionValues = new ArrayList<>(convolutionedSignal.getValues().values());
         Map<Double, Double> newConvolutionValues = new HashMap<>();
         Double samplingFrequency = convolutionedSignal.getSampling() / convolutionedSignal.getDurationTime();
         Double newDurationTime = convolutionedSignal.getDurationTime() - (M-1) / samplingFrequency;
@@ -79,6 +80,7 @@ public class Filter
 
         Signal filteredSignal = new Signal(convolutionedSignal.getName() + "(filterd)", convolutionedSignal.getAmplitude(),
             0.0, convolutionedSignal.getStartingTime(), newDurationTime, 0.0, convolutionedSignal.getSampling());
+        filteredSignal.setValues(new TreeMap<>(newConvolutionValues));
 
         res.add(filteredSignal);
 

@@ -2,6 +2,7 @@ package SF.GUI;
 
 import SF.*;
 import SF.Converters.ErrorCalculator;
+import SF.Filter.*;
 import javafx.scene.control.ChoiceBox;
 import javafx.scene.control.TextField;
 import org.knowm.xchart.*;
@@ -12,6 +13,7 @@ import java.io.IOException;
 import java.io.ObjectOutputStream;
 import java.text.DecimalFormat;
 import java.util.Arrays;
+import java.util.List;
 import java.util.Map;
 
 public class ButtonHandler {
@@ -551,6 +553,50 @@ public class ButtonHandler {
 		result += "ENOB: " + enob + "\r\n";
 
 		return result;
+	}
+
+	public List<Signal> applyFilter(ChoiceBox<String> windowFunctionChoice, ChoiceBox<String> filterFunctionChoice, TextField mField,
+									TextField frequencyField, Signal signal)
+	{
+		String choosenWindowFunction = windowFunctionChoice.getValue();
+		String choosenFilterFunction = filterFunctionChoice.getValue();
+		WindowFunction windowFunction = new BlackmanWindow();
+		FilterFunction filterFunction = new LowPassFilterFunction();
+
+		switch (choosenWindowFunction)
+		{
+			case "Blackman":
+				windowFunction = new BlackmanWindow();
+				break;
+			case "Hamming":
+				windowFunction = new HammingWindow();
+				break;
+			case "Hanning":
+				windowFunction = new HanningWindow();
+				break;
+			case "Ractangular":
+				windowFunction = new RectangularWindow();
+				break;
+		}
+
+		switch (choosenFilterFunction)
+		{
+			case "Low pass":
+				filterFunction = new LowPassFilterFunction();
+				break;
+			case "Band pass":
+				filterFunction = new BandPassFilterFunction();
+				break;
+			case "High pass":
+				filterFunction = new HighPassFilterFunction();
+				break;
+		}
+
+		Integer M = Integer.parseInt(mField.getText());
+		Double frequency = Double.parseDouble(frequencyField.getText());
+
+		Filter filter = new Filter(windowFunction, filterFunction, M, frequency);
+		return filter.apply(signal);
 	}
 
 	private Double roundError(Double result)

@@ -6,18 +6,18 @@ import java.util.*;
 
 public class SignalMixer
 {
-    public Signal convolution(Signal signal1, Signal signal2)
+    public Signal convolution(final Signal signal1, final Signal signal2)
     {
         Double samplingFrequency1 = signal1.getSampling()/signal1.getDurationTime();
         Double samplingFrequency2 = signal2.getSampling()/signal2.getDurationTime();
 
-        if (samplingFrequency1 - samplingFrequency2 > 0.000001)
+        /*if (samplingFrequency1 - samplingFrequency2 > 0.000001)
         {
             throw new IllegalArgumentException("Signals should have same sampling frequency");
-        }
+        }*/
 
-        ArrayList<Double> values1 = (ArrayList<Double>) signal1.getValues().values();
-        ArrayList<Double> values2 = (ArrayList<Double>) signal2.getValues().values();
+        ArrayList<Double> values1 = new ArrayList<>(signal1.getValues().values());
+        ArrayList<Double> values2 = new ArrayList<>(signal2.getValues().values());
         Map<Double, Double> newValues = new HashMap<>();
         int newSize = values1.size() + values2.size() - 1;
         Double newDurationTime = signal1.getStartingTime() + 1.0 / samplingFrequency1 * newSize;
@@ -35,10 +35,12 @@ public class SignalMixer
             newValues.put(i * samplingFrequency1 / newDurationTime, tempVal);
         }
 
-        signal1.setValues(new TreeMap<>(newValues));
-        signal1.setDurationTime(newDurationTime);
+        Signal newSignal = new Signal(signal1.getName(), signal1.getAmplitude(), signal1.getPeriod(),
+                signal1.getStartingTime(), newDurationTime, signal1.getFulfillment(), signal1.getSampling());
 
-        return signal1;
+        newSignal.setValues(new TreeMap<>(newValues));
+
+        return newSignal;
     }
 
 
