@@ -9,7 +9,8 @@ public class LowPassFilterFunction implements FilterFunction
     }
 
     @Override
-    public int getK(Double samplingFrequency, Double frequency) {
-        return (int) (samplingFrequency / frequency);
+    public int getK(Double samplingFrequency, Double frequency)
+    {
+        return (int) (samplingFrequency / frequency); //200 25
     }
 }

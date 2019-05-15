@@ -36,10 +36,10 @@ public class FilterWindow
         Button drawButton = new Button("Filter");
         Button saveButton = new Button("Save new signal");
 
-        TextField mField = new TextField("10");
+        TextField mField = new TextField("40");
         TextField frequencyField = new TextField("50.0");
         Label fileLabel = new Label("File");
-        Label mLabel = new Label(" Filter row");
+        Label mLabel = new Label(" Filter order");
         Label frequencyLabel = new Label(" Filter frequency");
 
         ChoiceBox<String> windowFunctionChoice = new ChoiceBox<>();
@@ -101,6 +101,8 @@ public class FilterWindow
 
                 buttonHandler.draw(resList.get(1), 10, false, true);
                 buttonHandler.draw(resList.get(0), 10, false, true);
+
+                filteredSignal = resList.get(1);
 
             }
             catch (NumberFormatException e1)

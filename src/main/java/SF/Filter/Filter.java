@@ -1,5 +1,6 @@
 package SF.Filter;
 
+import SF.GUI.ButtonHandler;
 import SF.Signal;
 
 import java.util.*;
@@ -28,8 +29,6 @@ public class Filter
 
         double[] newValues = new double[M];
 
-        System.out.println(M);
-
         for(int i=0; i<M; i++)
         {
             if(i == (M-1)/2)
@@ -46,15 +45,15 @@ public class Filter
         }
 
         Map<Double, Double> newValuesMap = new HashMap<>();
-        Double hDurationTime = signal.getStartingTime() + 1.0 / signal.getSampling() / signal.getDurationTime() * M;
+        Double hDurationTime = signal.getStartingTime() + signal.getDurationTime() / signal.getSampling() * M;
 
         for(int i=0; i<newValues.length; i++)
         {
-            newValuesMap.put(i * hDurationTime / signal.getSampling(), newValues[i]);
+            newValuesMap.put(i * signal.getDurationTime() / signal.getSampling(), newValues[i]);
         }
 
         Signal h = new Signal("h", signal.getAmplitude(), 0.0, signal.getStartingTime(),
-                hDurationTime, 0.0, signal.getSampling());
+                hDurationTime, 0.0, M);
         h.setValues(new TreeMap<>(newValuesMap));
 
         List<Signal> res = new ArrayList<>();
@@ -75,10 +74,10 @@ public class Filter
 
         for(int i=0; i<oldConvolutionValues.size() - M + 1; i++)
         {
-            newConvolutionValues.put(i * samplingFrequency / newDurationTime, oldConvolutionValues.get(i + (M - 1) / 2));
+            newConvolutionValues.put(i / samplingFrequency, oldConvolutionValues.get(i + (M - 1) / 2));
         }
 
-        Signal filteredSignal = new Signal(convolutionedSignal.getName() + "(filterd)", convolutionedSignal.getAmplitude(),
+        Signal filteredSignal = new Signal(signal.getName() + "(filtered)", convolutionedSignal.getAmplitude(),
             0.0, convolutionedSignal.getStartingTime(), newDurationTime, 0.0, convolutionedSignal.getSampling());
         filteredSignal.setValues(new TreeMap<>(newConvolutionValues));
 
