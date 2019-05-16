@@ -108,7 +108,7 @@ public class FilterWindow
             catch (NumberFormatException e1)
             {
                 e1.printStackTrace();
-                AlertBox.display("Wrong format", "Wrong format of intervals.");
+                AlertBox.display("Wrong format", "Wrong format of numbers.");
             }
             catch (NullPointerException e1)
             {

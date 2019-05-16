@@ -31,6 +31,7 @@ public class WindowApp extends Application {
         Button converterACButton = new Button();
         Button converterCAButton = new Button();
         Button filterButton = new Button();
+        Button radarButton = new Button();
 
         drawButton.setMinWidth(150);
 		saveButton.setMinWidth(150);
@@ -41,6 +42,7 @@ public class WindowApp extends Application {
 		converterACButton.setMinWidth(150);
 		converterCAButton.setMinWidth(150);
 		filterButton.setMinWidth(150);
+		radarButton.setMinWidth(150);
 
         drawButton.setText("Draw");
         saveButton.setText("Save signal to file");
@@ -51,6 +53,7 @@ public class WindowApp extends Application {
         converterACButton.setText("A/C Converter");
         converterCAButton.setText("C/A Converter");
         filterButton.setText("Filter");
+        radarButton.setText("Radar");
 
         ChoiceBox<String> signalChoice = new ChoiceBox<>();
         signalChoice.getItems().addAll("Noise", "Gaussian noise", "Sine Wave", "Half-wave rectified sine"
@@ -94,6 +97,7 @@ public class WindowApp extends Application {
         ACConverterWindow acConverterWindow = new ACConverterWindow();
         CAConverterWindow caConverterWindow = new CAConverterWindow();
         FilterWindow filterWindow = new FilterWindow();
+        RadarWindow radarWindow = new RadarWindow();
 
 
         drawButton.setOnAction(e -> {
@@ -152,6 +156,8 @@ public class WindowApp extends Application {
 
         filterButton.setOnAction(e -> filterWindow.display());
 
+        radarButton.setOnAction(e -> {radarWindow.display();});
+
 
 
         GridPane grid = new GridPane();
@@ -168,6 +174,7 @@ public class WindowApp extends Application {
         GridPane.setConstraints(converterACButton, 0, 7);
         GridPane.setConstraints(converterCAButton, 0, 8);
         GridPane.setConstraints(filterButton, 0, 9);
+        GridPane.setConstraints(radarButton,0, 10);
         GridPane.setConstraints(amplitudeField, 3,1);
         GridPane.setConstraints(startingTimeField, 3,2);
         GridPane.setConstraints(durationTimeField, 3,3);
@@ -192,9 +199,10 @@ public class WindowApp extends Application {
                                     periodField, FillFactorField, samplingField, amplitudeLabel, startingTimeLabel,
                                     durationTimeLabel, periodLabel, FillFactorLabel, SamplingLabel, advancedOptionsButton,
                                     nameField, nameLabel, histogramElementsLabel, histogramElements, loadFromFileButton,
-                                    discreteSignalButtton, converterACButton, converterCAButton, frequencyLabel, filterButton);
+                                    discreteSignalButtton, converterACButton, converterCAButton, frequencyLabel, filterButton,
+                                    radarButton);
 
-        primaryStage.setScene(new Scene(grid, 530, 400));
+        primaryStage.setScene(new Scene(grid, 540, 440));
         primaryStage.show();
     }
 

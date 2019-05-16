@@ -16,8 +16,8 @@ public class SignalMixer
             throw new IllegalArgumentException("Signals should have same sampling frequency");
         }
 
-        ArrayList<Double> values1 = new ArrayList<>(signal2.getValues().values());
-        ArrayList<Double> values2 = new ArrayList<>(signal1.getValues().values());
+        ArrayList<Double> values1 = new ArrayList<>(signal1.getValues().values());
+        ArrayList<Double> values2 = new ArrayList<>(signal2.getValues().values());
         Map<Double, Double> newValues = new HashMap<>();
         int newSize = values1.size() + values2.size() - 1;
         Double newDurationTime = signal1.getStartingTime() + 1.0 / samplingFrequency1 * newSize;
