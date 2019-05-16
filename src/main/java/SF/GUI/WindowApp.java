@@ -111,7 +111,7 @@ public class WindowApp extends Application {
                 AlertBox.display("Wrong Format", "Format of given data is wrong or text fields are empty.");
                 e1.printStackTrace();
             }
-            frequencyLabel.setText(String.valueOf(Integer.parseInt(samplingField.getText())/Integer.parseInt(durationTimeField.getText())) + " Hz");
+            frequencyLabel.setText(String.valueOf(Integer.parseInt(samplingField.getText())/Double.parseDouble(durationTimeField.getText())) + " Hz");
         });
 
         saveButton.setOnAction(e -> {
@@ -126,7 +126,7 @@ public class WindowApp extends Application {
             {
                 AlertBox.display("Wrong Format", "Format of given data is wrong or text fields are empty.");
             }
-            frequencyLabel.setText(String.valueOf(Integer.parseInt(samplingField.getText())/Integer.parseInt(durationTimeField.getText())) + " Hz");
+            frequencyLabel.setText(String.valueOf(Integer.parseInt(samplingField.getText())/Double.parseDouble(durationTimeField.getText())) + " Hz");
         });
 
         showDataButton.setOnAction(e -> {
@@ -140,7 +140,7 @@ public class WindowApp extends Application {
                 AlertBox.display("Wrong Format", "Format of given data is wrong or text fields are empty");
                 e1.printStackTrace();
             }
-            frequencyLabel.setText(String.valueOf(Integer.parseInt(samplingField.getText())/Integer.parseInt(durationTimeField.getText())) + " Hz");
+            frequencyLabel.setText(String.valueOf(Integer.parseInt(samplingField.getText())/Double.parseDouble(durationTimeField.getText())) + " Hz");
 
         });
 
