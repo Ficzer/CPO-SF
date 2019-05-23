@@ -25,6 +25,7 @@ public class RadarSimulator implements Runnable
     private Label objectCalculatedDistanceLabel;
     private Label objectActualDistanceLabel;
     private Double signalFrequency;
+    private Signal correlation;
 
     public RadarSimulator(Double objectSpeed, Double signalSpeed, Signal probingSignal, Double startingObjectDistance,
                           Label objectActualDistanceLabel, Label objectCalculatedDistanceLabel, int simulationTimeStep)
@@ -50,7 +51,7 @@ public class RadarSimulator implements Runnable
                 Double time = realObjectDistance / signalSpeed;
                 int n = (int)(probingSignal.getSampling() * 2 * time / probingSignal.getDurationTime());
                 Signal delayedSignal = getDelayedSignal(probingSignal, n);
-                Signal correlation = signalMixer.correlation(probingSignal, delayedSignal);
+                correlation = signalMixer.correlation(probingSignal, delayedSignal);
                 Double calculatedTime = ((double)findMax(correlation, probingSignal.getSampling()) - probingSignal.getSampling()+1)/signalFrequency;
                 calculatedObjectDistance = calculatedTime / 2  * signalSpeed;
 
@@ -75,6 +76,16 @@ public class RadarSimulator implements Runnable
     public void stopSimulation()
     {
         isRunning = false;
+    }
+
+    public void restartSimulation()
+    {
+        isRunning = true;
+    }
+
+    public Signal getCorrelation()
+    {
+        return correlation;
     }
 
     public Thread getThread()

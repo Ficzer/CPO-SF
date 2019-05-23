@@ -33,6 +33,8 @@ public class RadarWindow
         Button openFileButton = new Button("Open file");
         Button startSimulationButton = new Button("Start simulation");
         Button stopSimulationButton = new Button("Stop simulation");
+        Button resetSimulationButton = new Button("Reset simulation");
+        Button showCorrelationButton = new Button("Show correlation");
 
         TextField objectSpeedField = new TextField("1.0");
         TextField signalSpeedField = new TextField("1000.0");
@@ -51,6 +53,10 @@ public class RadarWindow
         openFileButton.setMinWidth(100);
         startSimulationButton.setMinWidth(100);
         stopSimulationButton.setMinWidth(100);
+        showCorrelationButton.setMinWidth(100);
+        resetSimulationButton.setMinWidth(100);
+
+        ButtonHandler buttonHandler = new ButtonHandler();
 
         openFileButton.setOnAction(e ->
         {
@@ -93,13 +99,16 @@ public class RadarWindow
         {
             try
             {
-                radarSimulator = new RadarSimulator(Double.parseDouble(objectSpeedField.getText()),
+                if(radarSimulator == null)
+                    radarSimulator = new RadarSimulator(Double.parseDouble(objectSpeedField.getText()),
                         Double.parseDouble(signalSpeedField.getText()),
                         probingSignal,
                         Double.parseDouble(startingObjectDistanceField.getText()),
                         objectActualDistanceLabel,
                         objectCalculatedDistanceLabel,
                         Integer.parseInt(simulationTimeStepField.getText()));
+                else
+                    radarSimulator.restartSimulation();
             }
             catch (NumberFormatException e1)
             {
@@ -117,9 +126,22 @@ public class RadarWindow
 
         });
 
+        resetSimulationButton.setOnAction(e ->
+        {
+            radarSimulator.stopSimulation();
+            radarSimulator = null;
+            objectActualDistanceLabel.setText("0.0");
+            objectCalculatedDistanceLabel.setText("0.0");
+        });
+
         stopSimulationButton.setOnAction(e ->
         {
             radarSimulator.stopSimulation();
+        });
+
+        showCorrelationButton.setOnAction(e ->
+        {
+            buttonHandler.draw(radarSimulator.getCorrelation(), 10, false, true);
         });
 
         GridPane grid = new GridPane();
@@ -130,28 +152,31 @@ public class RadarWindow
         GridPane.setConstraints(openFileButton, 0,0);
         GridPane.setConstraints(startSimulationButton, 0, 1);
         GridPane.setConstraints(stopSimulationButton, 0, 2);
+        GridPane.setConstraints(resetSimulationButton, 0, 3);
+        GridPane.setConstraints(showCorrelationButton, 0, 4);
         GridPane.setConstraints(fileLabel, 1, 0);
-        GridPane.setConstraints(simulationTimeStepField, 0, 6);
-        GridPane.setConstraints(simulationTimeStepLabel, 1, 6);
-        GridPane.setConstraints(objectSpeedLabel, 1, 7);
-        GridPane.setConstraints(objectSpeedField, 0, 7);
-        GridPane.setConstraints(signalSpeedLabel, 1, 8);
-        GridPane.setConstraints(signalSpeedField, 0, 8);
-        GridPane.setConstraints(startingObjectDistanceField, 0, 9);
-        GridPane.setConstraints(startingObjectDistanceLabel, 1, 9);
-        GridPane.setConstraints(objectActualDistanceLabel, 1, 10);
-        GridPane.setConstraints(objectCalculatedDistanceLabel, 1, 11);
-        GridPane.setConstraints(objectActualDistanceLabel2, 0, 10);
-        GridPane.setConstraints(objectCalculatedDistanceLabel2, 0 , 11);
+        GridPane.setConstraints(simulationTimeStepField, 0, 7);
+        GridPane.setConstraints(simulationTimeStepLabel, 1, 7);
+        GridPane.setConstraints(objectSpeedLabel, 1, 8);
+        GridPane.setConstraints(objectSpeedField, 0, 8);
+        GridPane.setConstraints(signalSpeedLabel, 1, 9);
+        GridPane.setConstraints(signalSpeedField, 0, 9);
+        GridPane.setConstraints(startingObjectDistanceField, 0, 10);
+        GridPane.setConstraints(startingObjectDistanceLabel, 1, 10);
+        GridPane.setConstraints(objectActualDistanceLabel, 1, 11);
+        GridPane.setConstraints(objectCalculatedDistanceLabel, 1, 12);
+        GridPane.setConstraints(objectActualDistanceLabel2, 0, 11);
+        GridPane.setConstraints(objectCalculatedDistanceLabel2, 0 , 12);
 
 
         grid.getChildren().addAll(openFileButton, startSimulationButton, stopSimulationButton,
                 fileLabel, objectSpeedField, objectSpeedLabel, signalSpeedField,
                 signalSpeedLabel, objectActualDistanceLabel, objectCalculatedDistanceLabel,
                 startingObjectDistanceField, startingObjectDistanceLabel, objectActualDistanceLabel2,
-                objectCalculatedDistanceLabel2, simulationTimeStepField, simulationTimeStepLabel);
+                objectCalculatedDistanceLabel2, simulationTimeStepField, simulationTimeStepLabel,
+                resetSimulationButton, showCorrelationButton);
 
-        window.setScene(new Scene(grid, 350, 400));
+        window.setScene(new Scene(grid, 350, 450));
         window.show();
     }
 }
