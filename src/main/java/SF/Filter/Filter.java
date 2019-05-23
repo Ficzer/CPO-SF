@@ -1,6 +1,5 @@
 package SF.Filter;
 
-import SF.GUI.ButtonHandler;
 import SF.Signal;
 
 import java.util.*;
@@ -26,6 +25,7 @@ public class Filter
         // Calculating h
 
         final int K = filterFunction.getK(signal.getSampling() / signal.getDurationTime(), frequency);
+        //double K = KInt;
 
         double[] newValues = new double[M];
 

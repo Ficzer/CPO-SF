@@ -36,15 +36,15 @@ public class FilterWindow
         Button drawButton = new Button("Filter");
         Button saveButton = new Button("Save new signal");
 
-        TextField mField = new TextField("40");
-        TextField frequencyField = new TextField("50.0");
+        TextField mField = new TextField("63");
+        TextField frequencyField = new TextField("100.0");
         Label fileLabel = new Label("File");
         Label mLabel = new Label(" Filter order");
         Label frequencyLabel = new Label(" Filter frequency");
 
         ChoiceBox<String> windowFunctionChoice = new ChoiceBox<>();
         windowFunctionChoice.getItems().addAll("Blackman", "Hamming", "Hanning", "Ractangular");
-        windowFunctionChoice.setValue("Blackman");
+        windowFunctionChoice.setValue("Rectangular");
 
         ChoiceBox<String> filterFunctionChoice = new ChoiceBox<>();
         filterFunctionChoice.getItems().addAll("Low pass", "Band pass", "High pass");

@@ -10,6 +10,7 @@ public class BandPassFilterFunction implements FilterFunction
 
     @Override
     public int getK(Double samplingFrequency, Double frequency) {
-        return (int) ((4 * samplingFrequency) / (samplingFrequency - 4 * frequency));
+        return (int) (samplingFrequency / frequency);
+        //return (int) ((4 * samplingFrequency) / (samplingFrequency - 4 * frequency));
     }
 }
