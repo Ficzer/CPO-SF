@@ -43,7 +43,7 @@ public class FilterWindow
         Label frequencyLabel = new Label(" Filter frequency");
 
         ChoiceBox<String> windowFunctionChoice = new ChoiceBox<>();
-        windowFunctionChoice.getItems().addAll("Blackman", "Hamming", "Hanning", "Ractangular");
+        windowFunctionChoice.getItems().addAll("Blackman", "Hamming", "Hanning", "Rectangular");
         windowFunctionChoice.setValue("Rectangular");
 
         ChoiceBox<String> filterFunctionChoice = new ChoiceBox<>();

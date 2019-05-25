@@ -9,8 +9,8 @@ public class HighPassFilterFunction implements FilterFunction
     }
 
     @Override
-    public int getK(Double samplingFrequency, Double frequency) {
-        return (int) (samplingFrequency / frequency);
-        //return (int) (samplingFrequency / (samplingFrequency / 2.0 - frequency));
+    public Double getK(Double samplingFrequency, Double frequency) {
+        //return (int) (samplingFrequency / frequency);
+        return (samplingFrequency / (samplingFrequency / 2.0 - frequency));
     }
 }

@@ -24,8 +24,10 @@ public class Filter
     {
         // Calculating h
 
-        final int K = filterFunction.getK(signal.getSampling() / signal.getDurationTime(), frequency);
+        final Double K = filterFunction.getK(signal.getSampling() / signal.getDurationTime(), frequency);
         //double K = KInt;
+
+        System.out.println(K);
 
         double[] newValues = new double[M];
 
@@ -37,8 +39,10 @@ public class Filter
             }
             else
             {
-                newValues[i] = Math.sin((2.0 * Math.PI * (i - (M - 1) / 2)) / K) / (Math.PI * (i - (M - 1) / 2));
+                newValues[i] = Math.sin((2.0 * Math.PI * (i - (M - 1) / 2.0)) / K) / (Math.PI * (i - (M - 1) / 2.0));
             }
+
+            System.out.println(Math.sin((2.0 * Math.PI * (i - (M - 1) / 2.0)) / K) / (Math.PI * (i - (M - 1) / 2.0)));
 
             newValues[i] *= windowFunction.getValue(i, M);
             newValues[i] *= filterFunction.getValue(i - (M - 1) / 2);

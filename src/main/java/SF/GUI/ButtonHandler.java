@@ -574,7 +574,7 @@ public class ButtonHandler {
 			case "Hanning":
 				windowFunction = new HanningWindow();
 				break;
-			case "Ractangular":
+			case "Rectangular":
 				windowFunction = new RectangularWindow();
 				break;
 		}
