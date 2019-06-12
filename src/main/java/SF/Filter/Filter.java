@@ -42,8 +42,6 @@ public class Filter
                 newValues[i] = Math.sin((2.0 * Math.PI * (i - (M - 1) / 2.0)) / K) / (Math.PI * (i - (M - 1) / 2.0));
             }
 
-            System.out.println(Math.sin((2.0 * Math.PI * (i - (M - 1) / 2.0)) / K) / (Math.PI * (i - (M - 1) / 2.0)));
-
             newValues[i] *= windowFunction.getValue(i, M);
             newValues[i] *= filterFunction.getValue(i - (M - 1) / 2);
         }
