@@ -12,6 +12,7 @@ public class DiscreteFourierTransform implements Transform {
         List<Double> values = new ArrayList<>(signal.getValues().values());
         List<Double> timeValues = new ArrayList<>(signal.getValues().keySet());
         int N = signal.getValues().size();
+        Double frequency = signal.getDurationTime() / signal.getSampling() * 1.0;
 
         Map<Double, Double> realValues = new HashMap<>();
         Map<Double, Double> complexValues = new HashMap<>();
@@ -32,15 +33,15 @@ public class DiscreteFourierTransform implements Transform {
             transformedValueReal /= N;
             transformedValueComplex /= N;
 
-            realValues.put(timeValues.get(m), transformedValueReal);
-            complexValues.put(timeValues.get(m), transformedValueComplex);
+            realValues.put(frequency * m, transformedValueReal);
+            complexValues.put(frequency * m, transformedValueComplex);
         }
 
         Signal newSignal = new Signal();
         newSignal.setName(signal.getName() + "(Transformed)");
         newSignal.setAmplitude(signal.getAmplitude());
-        newSignal.setStartingTime(signal.getStartingTime());
-        newSignal.setDurationTime(signal.getDurationTime());
+        newSignal.setStartingTime(0.0);
+        newSignal.setDurationTime(frequency);
         newSignal.setSampling(newSignal.getSampling());
         newSignal.setValues(new TreeMap<>(realValues));
         newSignal.setImaginaryValues(new TreeMap<>(complexValues));
@@ -74,11 +75,13 @@ public class DiscreteFourierTransform implements Transform {
             realValues.put(timeValues.get(m), transformedValueReal);
         }
 
+        Double frequency = signal.getDurationTime() / signal.getSampling() * N;
+
         Signal newSignal = new Signal();
         newSignal.setName(signal.getName() + "(Detransformed)");
         newSignal.setAmplitude(signal.getAmplitude());
         newSignal.setStartingTime(signal.getStartingTime());
-        newSignal.setDurationTime(signal.getDurationTime());
+        newSignal.setDurationTime(1.0 / frequency * N);
         newSignal.setSampling(newSignal.getSampling());
         newSignal.setValues(new TreeMap<>(realValues));
 

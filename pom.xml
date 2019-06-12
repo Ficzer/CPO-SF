@@ -21,6 +21,13 @@
             <version>1.18.6</version>
             <scope>provided</scope>
         </dependency>
+        <!-- https://mvnrepository.com/artifact/org.apache.commons/commons-math3 -->
+        <dependency>
+            <groupId>org.apache.commons</groupId>
+            <artifactId>commons-math3</artifactId>
+            <version>3.6.1</version>
+        </dependency>
+
         <!-- https://mvnrepository.com/artifact/org.knowm.xchart/xchart -->
         <dependency>
             <groupId>org.knowm.xchart</groupId>
