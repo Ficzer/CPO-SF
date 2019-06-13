@@ -39,9 +39,11 @@ public class TransformWindow {
         chartChoice.getItems().addAll("W1 charts", "W2 charts");
         chartChoice.setValue("W1 charts");
 
-
-
         Label fileLabel = new Label("File");
+        Label transformLabel = new Label("Transform");
+        Label chartModeLabel = new Label("Chart Mode");
+        Label timeLabel = new Label("Generation time");
+        Label elapsedTimeLabel = new Label();
 
 
         openFileButton.setMinWidth(100);
@@ -85,6 +87,8 @@ public class TransformWindow {
         generateSignalButton.setOnAction(e -> {
             Transform transform;
 
+            long startingTime = System.nanoTime();
+
             switch (transformChoice.getValue())
             {
                 case "Fourier Transform":
@@ -104,6 +108,9 @@ public class TransformWindow {
                     signalToTransform = transform.transform(signalToTransform);
                     break;
             }
+
+            elapsedTimeLabel.setText(String.valueOf((System.nanoTime() - startingTime)/ 1000000) + " ms");
+
         });
 
         drawSignal.setOnAction(e -> {
@@ -153,14 +160,18 @@ public class TransformWindow {
 
         GridPane.setConstraints(openFileButton, 0, 0);
         GridPane.setConstraints(fileLabel, 1, 0);
-        GridPane.setConstraints(transformChoice, 0, 1);
-        GridPane.setConstraints(chartChoice, 0 ,2);
+        GridPane.setConstraints(transformChoice, 1, 1);
+        GridPane.setConstraints(chartChoice, 1 ,2);
         GridPane.setConstraints(generateSignalButton, 0, 3);
         GridPane.setConstraints(drawSignal, 0, 4);
         GridPane.setConstraints(saveSignal, 0 ,5);
+        GridPane.setConstraints(transformLabel, 0, 1);
+        GridPane.setConstraints(chartModeLabel, 0 ,2);
+        GridPane.setConstraints(timeLabel, 0 , 6);
+        GridPane.setConstraints(elapsedTimeLabel, 1, 6);
 
         grid.getChildren().addAll(openFileButton, fileLabel, generateSignalButton, drawSignal, saveSignal,
-                transformChoice, chartChoice);
+                transformChoice, chartChoice, transformLabel, chartModeLabel, timeLabel, elapsedTimeLabel);
 
         window.setScene(new Scene(grid, 350, 450));
         window.show();
