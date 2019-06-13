@@ -66,7 +66,6 @@ public class Generator
 		if(!perWinodow)
 			sampling = normalizeSampling(sampling, durationTime, period);
 
-		System.out.println(sampling);
 
         for(Double i=startingTime; i<=durationTime+startingTime; i+=durationTime/(double)sampling)
         {
@@ -364,6 +363,27 @@ public class Generator
             {
                 signal.getValues().put(i, 0.0);
             }
+        }
+
+        signal.setValues(new TreeMap<Double, Double>(signal.getValues()));
+
+        return signal;
+    }
+
+    public Signal S3Signal(Double startingTime, Double durationTime, int sampling)
+    {
+        Signal signal = new Signal("S3 signal");
+        signal.setAmplitude(6.0);
+        signal.setStartingTime(startingTime);
+        signal.setDurationTime(durationTime);
+        signal.setSampling(sampling);
+
+        Double value;
+
+        for(Double i=startingTime; i<=durationTime+startingTime; i+=durationTime/(double)sampling)
+        {
+            value =  5.0 * Math.sin((2.0 * Math.PI / 2.0) * i ) + Math.sin((2.0 * Math.PI / 0.25) * i);
+            signal.getValues().put(i, value);
         }
 
         signal.setValues(new TreeMap<Double, Double>(signal.getValues()));

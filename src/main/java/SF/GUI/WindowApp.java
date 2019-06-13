@@ -32,6 +32,7 @@ public class WindowApp extends Application {
         Button converterCAButton = new Button();
         Button filterButton = new Button();
         Button radarButton = new Button();
+        Button transformButton = new Button();
 
         drawButton.setMinWidth(150);
 		saveButton.setMinWidth(150);
@@ -43,6 +44,7 @@ public class WindowApp extends Application {
 		converterCAButton.setMinWidth(150);
 		filterButton.setMinWidth(150);
 		radarButton.setMinWidth(150);
+		transformButton.setMinWidth(150);
 
         drawButton.setText("Draw");
         saveButton.setText("Save signal to file");
@@ -54,11 +56,12 @@ public class WindowApp extends Application {
         converterCAButton.setText("C/A Converter");
         filterButton.setText("Filter");
         radarButton.setText("Radar");
+        transformButton.setText("Transforms");
 
         ChoiceBox<String> signalChoice = new ChoiceBox<>();
         signalChoice.getItems().addAll("Noise", "Gaussian noise", "Sine Wave", "Half-wave rectified sine"
                 , "Full-wave rectified sine", "Square wave", "Symmetrical Rectangular signal"
-                , "Triangular wave", "Step function");
+                , "Triangular wave", "Step function", "S3 Signal");
         signalChoice.setValue("Noise");
 
         TextField nameField = new TextField();
@@ -98,6 +101,7 @@ public class WindowApp extends Application {
         CAConverterWindow caConverterWindow = new CAConverterWindow();
         FilterWindow filterWindow = new FilterWindow();
         RadarWindow radarWindow = new RadarWindow();
+        TransformWindow transformWindow = new TransformWindow();
 
 
         drawButton.setOnAction(e -> {
@@ -158,6 +162,8 @@ public class WindowApp extends Application {
 
         radarButton.setOnAction(e -> {radarWindow.display();});
 
+        transformButton.setOnAction(e -> {transformWindow.display();});
+
 
 
         GridPane grid = new GridPane();
@@ -175,6 +181,7 @@ public class WindowApp extends Application {
         GridPane.setConstraints(converterCAButton, 0, 8);
         GridPane.setConstraints(filterButton, 0, 9);
         GridPane.setConstraints(radarButton,0, 10);
+        GridPane.setConstraints(transformButton, 0, 11);
         GridPane.setConstraints(amplitudeField, 3,1);
         GridPane.setConstraints(startingTimeField, 3,2);
         GridPane.setConstraints(durationTimeField, 3,3);
@@ -200,9 +207,9 @@ public class WindowApp extends Application {
                                     durationTimeLabel, periodLabel, FillFactorLabel, SamplingLabel, advancedOptionsButton,
                                     nameField, nameLabel, histogramElementsLabel, histogramElements, loadFromFileButton,
                                     discreteSignalButtton, converterACButton, converterCAButton, frequencyLabel, filterButton,
-                                    radarButton);
+                                    radarButton, transformButton);
 
-        primaryStage.setScene(new Scene(grid, 540, 440));
+        primaryStage.setScene(new Scene(grid, 540, 460));
         primaryStage.show();
     }
 

@@ -68,12 +68,17 @@ public class DecimationInFrequencyFFT implements Transform {
 
         int length = signal.getValues().size();
         List<Double> timeValues = new ArrayList<>(signal.getValues().keySet());
+        List<Double> valuesList = new ArrayList<>(signal.getValues().values());
         Map<Double, Double> realValues = new HashMap<>();
         Map<Double, Double> complexValues = new HashMap<>();
+        Double frequency = signal.getDurationTime() / signal.getSampling();
 
         double[] oldValues = new double[length];
 
-        System.arraycopy(signal.getValues().values(), 0, oldValues, 0, length);
+        for(int i=0; i<length; i++)
+        {
+            oldValues[i] = valuesList.get(i);
+        }
 
         int bits = (int) Math.ceil((Math.log(length) / Math.log(2)));
 
@@ -91,11 +96,9 @@ public class DecimationInFrequencyFFT implements Transform {
         values = FFT(values);
 
         for (int i = 0; i < length; i++) {
-            realValues.put(timeValues.get(i), values[i].getReal() / (length * 1.0));
-            complexValues.put(timeValues.get(i), values[i].getImaginary() / (length * 1.0));
+            realValues.put(frequency / signal.getSampling() * i, values[i].getReal() / (length * 1.0));
+            complexValues.put(frequency / signal.getSampling() * i, values[i].getImaginary() / (length * 1.0));
         }
-
-        Double frequency = signal.getDurationTime() / signal.getSampling();
 
         Signal newSignal = new Signal();
         newSignal.setName(signal.getName() + "(Transformed)");

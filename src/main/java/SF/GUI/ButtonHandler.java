@@ -79,6 +79,10 @@ public class ButtonHandler {
 				signal = generator.UnitJump(amplitude, startingTime, durationTime, sampling);
 				draw(signal, intervals, false, true);
 				break;
+			case "S3 Signal":
+				signal = generator.S3Signal(startingTime, durationTime, sampling);
+				draw(signal, intervals, false, true);
+				break;
 		}
 
 	}
@@ -188,6 +192,11 @@ public class ButtonHandler {
 				signal.setName(nameField.getText());
 				save(signal);
 				break;
+			case "S3 Signal":
+				signal = generator.S3Signal(startingTime, durationTime, sampling);
+				signal.setName(nameField.getText());
+				save(signal);
+				break;
 		}
 
 	}
@@ -286,6 +295,10 @@ public class ButtonHandler {
 
 			case "Step function":
 				signal = generator.UnitJump(amplitude, startingTime, durationTime, sampling);
+				AlertBox.display("Data", generateData(signal));
+				break;
+			case "S3 Signal":
+				signal = generator.S3Signal(startingTime, durationTime, sampling);
 				AlertBox.display("Data", generateData(signal));
 				break;
 		}

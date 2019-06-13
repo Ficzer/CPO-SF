@@ -33,8 +33,8 @@ public class DiscreteFourierTransform implements Transform {
             transformedValueReal /= N;
             transformedValueComplex /= N;
 
-            realValues.put(frequency * m, transformedValueReal);
-            complexValues.put(frequency * m, transformedValueComplex);
+            realValues.put(frequency / signal.getSampling() * m, transformedValueReal);
+            complexValues.put(frequency / signal.getSampling() * m, transformedValueComplex);
         }
 
         Signal newSignal = new Signal();
