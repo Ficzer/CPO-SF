@@ -15,7 +15,11 @@ public class FastCosineTransform implements Transform {
         int N = values.size();
         int halfN = N / 2;
 
-        List<Double> real = new ArrayList<>(N);
+        List<Double> real = new ArrayList<>();
+
+        for (int i = 0; i < N; i++) {
+            real.add(0.0);
+        }
 
         for (int i = 0; i < halfN; i++) {
             real.set(i, values.get(i * 2));
@@ -41,11 +45,15 @@ public class FastCosineTransform implements Transform {
         List<Double> imaginaryValues = new ArrayList<>(signal.getValues().keySet());
         timeValues = new ArrayList<>(signal.getValues().keySet());
 
-        List<Double> retValues = new ArrayList<>(N);
+        List<Double> retValues = new ArrayList<>();
+
+        for (int i = 0; i < N; i++) {
+            retValues.add(0.0);
+        }
 
         for(int i=0; i<N; i++)
         {
-            Double temp = i * Math.PI / (N/2);
+            Double temp = i * Math.PI / ((double)N/2.0);
             retValues.set(i, values.get(i) * Math.cos(temp) + imaginaryValues.get(i) * Math.sin(temp));
         }
 

@@ -2,10 +2,7 @@ package SF.GUI;
 
 import SF.EmptyFileNameException;
 import SF.Signal;
-import SF.Transforms.CosineTransform;
-import SF.Transforms.DecimationInFrequencyFFT;
-import SF.Transforms.DiscreteFourierTransform;
-import SF.Transforms.Transform;
+import SF.Transforms.*;
 import javafx.geometry.Insets;
 import javafx.scene.Scene;
 import javafx.scene.control.Button;
@@ -36,7 +33,7 @@ public class TransformWindow {
         Button saveSignal = new Button("Save signal");
 
         ChoiceBox<String> transformChoice = new ChoiceBox<>();
-        transformChoice.getItems().addAll("Fourier Transform", "Fast Fourier Transform", "Cosine Transform");
+        transformChoice.getItems().addAll("Fourier Transform", "Fast Fourier Transform", "Cosine Transform", "Fast Cosine Transform");
         transformChoice.setValue("Fourier Transform");
         ChoiceBox<String> chartChoice = new ChoiceBox<>();
         chartChoice.getItems().addAll("W1 charts", "W2 charts");
@@ -100,6 +97,10 @@ public class TransformWindow {
                     break;
                 case "Cosine Transform":
                     transform = new CosineTransform();
+                    signalToTransform = transform.transform(signalToTransform);
+                    break;
+                case "Fast Cosine Transform":
+                    transform = new FastCosineTransform();
                     signalToTransform = transform.transform(signalToTransform);
                     break;
             }

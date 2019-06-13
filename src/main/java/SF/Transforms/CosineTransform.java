@@ -19,12 +19,13 @@ public class CosineTransform implements Transform {
             for(int n=0; n<N; n++)
             {
                 tempVal += values.get(n) * Math.cos(Math.PI * (2 * n + 1) * m / (2 * N));
+
             }
 
             if(m == 0)
-                tempVal = tempVal * Math.sqrt(1/N);
+                tempVal = tempVal * Math.sqrt(1.0/(double)N);
             else
-                tempVal = tempVal * Math.sqrt(2/N);
+                tempVal = tempVal * Math.sqrt(2.0/(double)N);
 
             newValues.put(timeValues.get(m), tempVal);
         }
