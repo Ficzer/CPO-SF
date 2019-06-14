@@ -11,11 +11,12 @@ public class DiscreteFourierTransform implements Transform {
 
         List<Double> values = new ArrayList<>(signal.getValues().values());
         List<Double> timeValues = new ArrayList<>(signal.getValues().keySet());
-        int N = signal.getValues().size();
+        int N = signal.getValues().size() - 1;
         Double frequency = signal.getDurationTime() / signal.getSampling() * 1.0;
 
         Map<Double, Double> realValues = new HashMap<>();
         Map<Double, Double> complexValues = new HashMap<>();
+
 
         Double transformedValueReal;
         Double transformedValueComplex;
@@ -33,8 +34,8 @@ public class DiscreteFourierTransform implements Transform {
             transformedValueReal /= N;
             transformedValueComplex /= N;
 
-            realValues.put(frequency / signal.getSampling() * m, transformedValueReal);
-            complexValues.put(frequency / signal.getSampling() * m, transformedValueComplex);
+            realValues.put(1 / frequency / signal.getSampling() * m, transformedValueReal);
+            complexValues.put(1 / frequency / signal.getSampling() * m, transformedValueComplex);
         }
 
         Signal newSignal = new Signal();

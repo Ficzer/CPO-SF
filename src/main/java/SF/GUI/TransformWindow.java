@@ -109,7 +109,7 @@ public class TransformWindow {
                     break;
             }
 
-            elapsedTimeLabel.setText(String.valueOf((System.nanoTime() - startingTime)/ 1000000) + " ms");
+            elapsedTimeLabel.setText(String.valueOf((System.nanoTime() - startingTime)/ 1000) + " us");
 
         });
 

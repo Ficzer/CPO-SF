@@ -8,7 +8,7 @@ public class FastCosineTransform implements Transform {
     @Override
     public Signal transform(Signal signal) {
 
-        Transform fttTransorm = new DecimationInFrequencyFFT();
+        Transform fftTransform = new DecimationInFrequencyFFT();
         List<Double> values = new ArrayList<>(signal.getValues().values());
         List<Double> timeValues = new ArrayList<>(signal.getValues().keySet());
         Map<Double, Double> newValues = new HashMap<>();
@@ -39,7 +39,7 @@ public class FastCosineTransform implements Transform {
         signal.setValues(new TreeMap<>(valuesToTransForm));
 
         // FTT Transform
-        signal = fttTransorm.transform(signal);
+        signal = fftTransform.transform(signal);
 
         values = new ArrayList<>(signal.getValues().values());
         List<Double> imaginaryValues = new ArrayList<>(signal.getValues().keySet());

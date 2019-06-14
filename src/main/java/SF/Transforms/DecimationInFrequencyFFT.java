@@ -66,7 +66,7 @@ public class DecimationInFrequencyFFT implements Transform {
     @Override
     public Signal transform(Signal signal) {
 
-        int length = signal.getValues().size();
+        int length = signal.getValues().size() - 1;
         List<Double> timeValues = new ArrayList<>(signal.getValues().keySet());
         List<Double> valuesList = new ArrayList<>(signal.getValues().values());
         Map<Double, Double> realValues = new HashMap<>();
@@ -96,8 +96,8 @@ public class DecimationInFrequencyFFT implements Transform {
         values = FFT(values);
 
         for (int i = 0; i < length; i++) {
-            realValues.put(frequency / signal.getSampling() * i, values[i].getReal() / (length * 1.0));
-            complexValues.put(frequency / signal.getSampling() * i, values[i].getImaginary() / (length * 1.0));
+            realValues.put(1.0 /frequency / signal.getSampling() * i, values[i].getReal() / (length * 1.0));
+            complexValues.put(1.0 / frequency / signal.getSampling() * i, values[i].getImaginary() / (length * 1.0));
         }
 
         Signal newSignal = new Signal();

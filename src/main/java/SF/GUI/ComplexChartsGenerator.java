@@ -79,6 +79,8 @@ public class ComplexChartsGenerator {
             else
                 yss[i] = Math.atan(imaginaryValuesList.get(i) / realValuesList.get(i)) + Math.PI;
 
+            yss[i] = Math.acos(realValuesList.get(i) / ys[i]);
+
             xs[i] = timeValues.get(i);
             xss[i] = timeValues.get(i);
         }
